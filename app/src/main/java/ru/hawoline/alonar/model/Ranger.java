@@ -1,8 +1,7 @@
 package ru.hawoline.alonar.model;
 
 public class Ranger extends Personage {
-    @Override
-    public Personage createPersonage() {
+    public static Personage createPersonage() {
         return new Ranger();
     }
 }

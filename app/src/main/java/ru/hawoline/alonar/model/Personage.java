@@ -35,9 +35,9 @@ public abstract class Personage {
         mHealth = mMaxHealth;
         mMaxMp = mIntelligence * 16;
         mDirection = DIRECTION_RIGHT;
+        mX = 0;
+        mY = 0;
     }
-
-    public abstract Personage createPersonage();
 
     public Personage attack(Personage personage) {
         personage.setHealth(personage.getHealth() - this.getDamage());

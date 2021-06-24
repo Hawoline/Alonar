@@ -2,11 +2,11 @@ package ru.hawoline.alonar.model;
 
 public class Mage extends Personage {
 
-    public Mage() {
+    private Mage() {
+        super();
     }
 
-    @Override
-    public Personage createPersonage() {
+    public static Personage createPersonage() {
         return new Mage();
     }
 }
