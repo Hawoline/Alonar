@@ -1,4 +1,4 @@
-package ru.hawoline.alonar.model;
+package ru.hawoline.alonar.model.personage;
 
 public abstract class Personage {
     private int mHealth;
@@ -17,10 +17,10 @@ public abstract class Personage {
     private int mArmor;
     private int mDirection;
 
-    private static final int DIRECTION_FORWARD = 0;
-    private static final int DIRECTION_RIGHT = 1;
-    private static final int DIRECTION_BACK = 2;
-    private static final int DIRECTION_LEFT = 3;
+    public static final int DIRECTION_FORWARD = 0;
+    public static final int DIRECTION_RIGHT = 1;
+    public static final int DIRECTION_BACK = 2;
+    public static final int DIRECTION_LEFT = 3;
 
     protected Personage() {
         mDamage = 100;
@@ -45,22 +45,28 @@ public abstract class Personage {
     }
 
     public void move(int xStep, int yStep) {
-        if (xStep > 0) {
-            mDirection = DIRECTION_RIGHT;
-        } else if (xStep < 0) {
-            mDirection = DIRECTION_LEFT;
-        }
+        if (mX + xStep >= 0) {
+            if (xStep > 0) {
+                mDirection = DIRECTION_RIGHT;
+            } else if (xStep < 0) {
+                mDirection = DIRECTION_LEFT;
+            }
 
-        if (yStep > 0) {
-            mDirection = DIRECTION_BACK;
-        } else if (yStep < 0) {
-            mDirection = DIRECTION_FORWARD;
+            if (Math.abs(xStep) < 3) {
+                mX += xStep;
+            }
+
         }
-        if (Math.abs(xStep) < 3) {
-            mX += xStep;
-        }
-        if (Math.abs(yStep) < 3) {
-            mY += yStep;
+        if (mY + yStep >= 0) {
+            if (yStep > 0) {
+                mDirection = DIRECTION_BACK;
+            } else if (yStep < 0) {
+                mDirection = DIRECTION_FORWARD;
+            }
+
+            if (Math.abs(yStep) < 3) {
+                mY += yStep;
+            }
         }
     }
 
@@ -100,10 +106,6 @@ public abstract class Personage {
         return mDamage;
     }
 
-    public void setDamage(int damage) {
-        mDamage = damage;
-    }
-
     public int getExperience() {
         return mExperience;
     }
@@ -127,6 +129,7 @@ public abstract class Personage {
 
     public void setStrength(int strength) {
         mStrength = strength;
+        mDamage = strength * 5;
     }
 
     public int getIntelligence() {

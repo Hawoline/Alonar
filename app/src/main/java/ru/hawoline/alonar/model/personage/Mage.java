@@ -1,4 +1,4 @@
-package ru.hawoline.alonar.model;
+package ru.hawoline.alonar.model.personage;
 
 public class Mage extends Personage {
 
