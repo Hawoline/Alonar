@@ -77,7 +77,24 @@
                 android:src="@drawable/frost_ring"/>
     </LinearLayout>
 
+    <LinearLayout
+            android:id="@+id/main_enemies_linearlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+    >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_target_enemy"
+        />
+
+    </LinearLayout>
+
     <GridLayout
+            android:id="@+id/main_map_gridlayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

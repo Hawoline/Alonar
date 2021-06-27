@@ -45,18 +45,6 @@ public abstract class Personage {
     }
 
     public void move(int xStep, int yStep) {
-        if (mX + xStep >= 0) {
-            if (xStep > 0) {
-                mDirection = DIRECTION_RIGHT;
-            } else if (xStep < 0) {
-                mDirection = DIRECTION_LEFT;
-            }
-
-            if (Math.abs(xStep) < 3) {
-                mX += xStep;
-            }
-
-        }
         if (mY + yStep >= 0) {
             if (yStep > 0) {
                 mDirection = DIRECTION_BACK;
@@ -67,6 +55,18 @@ public abstract class Personage {
             if (Math.abs(yStep) < 3) {
                 mY += yStep;
             }
+        }
+        if (mX + xStep >= 0) {
+            if (xStep > Math.abs(yStep)) {
+                mDirection = DIRECTION_RIGHT;
+            } else if (xStep < 0 && Math.abs(xStep) > Math.abs(yStep)) {
+                mDirection = DIRECTION_LEFT;
+            }
+
+            if (Math.abs(xStep) < 3) {
+                mX += xStep;
+            }
+
         }
     }
 

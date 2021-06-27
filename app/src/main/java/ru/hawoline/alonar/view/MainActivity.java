@@ -1,28 +1,37 @@
 package ru.hawoline.alonar.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.util.AttributeSet;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.content.res.ResourcesCompat;
 import ru.hawoline.alonar.R;
 import ru.hawoline.alonar.model.Map;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.presenter.MainPresenter;
 import ru.hawoline.alonar.presenter.MainPresenterImpl;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends Activity implements MainView {
     private MainPresenter mMainPresenter;
     private ImageView[][] mMapImageViews;
     private ImageView mHeroImageView;
+    private LinearLayout mEnemiesListLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViews();
         mMainPresenter = new MainPresenterImpl();
-        drawMap();
+        mMainPresenter.attachView(this);
+        findViews();
+        render();
     }
 
     @Override
@@ -30,9 +39,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
         return getApplicationContext();
     }
 
+    private void render() {
+        drawMap();
+    }
     @Override
     public void drawMap() {
         int[][] map = mMainPresenter.getGameMap();
+        int[][] enemiesMap = mMainPresenter.getEnemiesMap();
         int mapSize = map.length;
         Personage personage = mMainPresenter.getPersonage();
 
@@ -41,11 +54,23 @@ public class MainActivity extends AppCompatActivity implements MainView {
             int j = 0;
             for (int y = personage.getY() - 2; y < personage.getY() + 3; y++) {
                 if (x > -1 && y > -1 && x < mapSize && y < mapSize) {
+                    Resources resources = getResources();
+                    Drawable[] layers = new Drawable[4];
+
                     if (map[x][y] == Map.GRASS) {
-                        mMapImageViews[j][i].setImageResource(R.drawable.green);
+                        layers[0] = ResourcesCompat.getDrawable(resources, R.drawable.green, null);
                     } else if (map[y][x] == Map.MOUNTAIN) {
-                        mMapImageViews[j][i].setImageResource(R.drawable.mountains);
+                        layers[0] = ResourcesCompat.getDrawable(resources, R.drawable.mountains, null);
                     }
+                    if (enemiesMap[y][x] == Map.ENEMY_RAT) {
+                        layers[1] = ResourcesCompat.getDrawable(resources, R.drawable.point_1, null);
+                        layers[2] = ResourcesCompat.getDrawable(resources, R.drawable.point_2_quest, null);
+                        layers[3] = ResourcesCompat.getDrawable(resources, R.drawable.point_3_e, null);
+                    }
+
+                    LayerDrawable layerDrawable = new LayerDrawable(layers);
+                    mMapImageViews[j][i].setImageDrawable(layerDrawable);
+
                 } else {
                     mMapImageViews[j][i].setImageResource(R.drawable.mountains);
                 }
@@ -94,6 +119,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mMapImageViews[4][4] = findViewById(R.id.map_4_4);
 
         mHeroImageView = findViewById(R.id.hero_imageview);
+
+        mEnemiesListLayout = findViewById(R.id.main_enemies_linearlayout);
+
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 final int x = j - 2;
