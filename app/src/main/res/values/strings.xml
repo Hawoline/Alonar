@@ -4,4 +4,5 @@
     <string name="mp">100</string>
     <string name="knife">knife</string>
     <string name="choose_target_enemy">Выбрать цель</string>
+    <string name="game_log">Game Log</string>
 </resources>

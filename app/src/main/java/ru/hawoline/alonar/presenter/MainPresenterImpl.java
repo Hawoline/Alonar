@@ -1,7 +1,7 @@
 package ru.hawoline.alonar.presenter;
 
 import android.os.Bundle;
-import ru.hawoline.alonar.model.Map;
+import ru.hawoline.alonar.model.map.Map;
 import ru.hawoline.alonar.model.personage.Enemy;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.view.MainView;
@@ -59,6 +59,12 @@ public class MainPresenterImpl implements MainPresenter {
         if (mGameMap.getSize() > mGameMap.getPersonage().getX() + x && mGameMap.getSize() > mGameMap.getPersonage().getY() + y) {
             mGameMap.getPersonage().move(x, y);
         }
+    }
+
+    @Override
+    public ArrayList<Enemy> getEnemiesAroundHero() {
+        findEnemiesAroundHero();
+        return mEnemiesAroundHero;
     }
 
     private void findEnemiesAroundHero() {

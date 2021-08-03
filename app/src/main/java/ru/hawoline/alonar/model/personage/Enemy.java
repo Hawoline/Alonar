@@ -11,4 +11,8 @@ public class Enemy extends Personage {
     public static Personage createEnemy(String name) {
         return new Enemy(name);
     }
+
+    public String getName() {
+        return mName;
+    }
 }

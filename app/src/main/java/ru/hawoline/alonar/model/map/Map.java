@@ -1,4 +1,4 @@
-package ru.hawoline.alonar.model;
+package ru.hawoline.alonar.model.map;
 
 import ru.hawoline.alonar.model.personage.Enemy;
 import ru.hawoline.alonar.model.personage.Mage;

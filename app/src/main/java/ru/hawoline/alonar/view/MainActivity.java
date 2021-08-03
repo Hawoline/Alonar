@@ -5,20 +5,21 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.util.AttributeSet;
+import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.core.content.res.ResourcesCompat;
 import ru.hawoline.alonar.R;
-import ru.hawoline.alonar.model.Map;
+import ru.hawoline.alonar.model.map.Map;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.presenter.MainPresenter;
 import ru.hawoline.alonar.presenter.MainPresenterImpl;
 
 public class MainActivity extends Activity implements MainView {
     private MainPresenter mMainPresenter;
+    private GridLayout mMapGridLayout;
     private ImageView[][] mMapImageViews;
     private ImageView mHeroImageView;
     private LinearLayout mEnemiesListLayout;
@@ -42,6 +43,7 @@ public class MainActivity extends Activity implements MainView {
     private void render() {
         drawMap();
     }
+
     @Override
     public void drawMap() {
         int[][] map = mMainPresenter.getGameMap();
@@ -91,32 +93,17 @@ public class MainActivity extends Activity implements MainView {
     }
 
     private void findViews() {
+        mMapGridLayout = findViewById(R.id.main_map_gridlayout);
+        mMapGridLayout.setRowCount(5);
+        mMapGridLayout.setColumnCount(5);
         mMapImageViews = new ImageView[5][5];
-        mMapImageViews[0][0] = findViewById(R.id.map_0_0);
-        mMapImageViews[0][1] = findViewById(R.id.map_0_1);
-        mMapImageViews[0][2] = findViewById(R.id.map_0_2);
-        mMapImageViews[0][3] = findViewById(R.id.map_0_3);
-        mMapImageViews[0][4] = findViewById(R.id.map_0_4);
-        mMapImageViews[1][0] = findViewById(R.id.map_1_0);
-        mMapImageViews[1][1] = findViewById(R.id.map_1_1);
-        mMapImageViews[1][2] = findViewById(R.id.map_1_2);
-        mMapImageViews[1][3] = findViewById(R.id.map_1_3);
-        mMapImageViews[1][4] = findViewById(R.id.map_1_4);
-        mMapImageViews[2][0] = findViewById(R.id.map_2_0);
-        mMapImageViews[2][1] = findViewById(R.id.map_2_1);
-        mMapImageViews[2][2] = findViewById(R.id.map_2_2);
-        mMapImageViews[2][3] = findViewById(R.id.map_2_3);
-        mMapImageViews[2][4] = findViewById(R.id.map_2_4);
-        mMapImageViews[3][0] = findViewById(R.id.map_3_0);
-        mMapImageViews[3][1] = findViewById(R.id.map_3_1);
-        mMapImageViews[3][2] = findViewById(R.id.map_3_2);
-        mMapImageViews[3][3] = findViewById(R.id.map_3_3);
-        mMapImageViews[3][4] = findViewById(R.id.map_3_4);
-        mMapImageViews[4][0] = findViewById(R.id.map_4_0);
-        mMapImageViews[4][1] = findViewById(R.id.map_4_1);
-        mMapImageViews[4][2] = findViewById(R.id.map_4_2);
-        mMapImageViews[4][3] = findViewById(R.id.map_4_3);
-        mMapImageViews[4][4] = findViewById(R.id.map_4_4);
+        for (int row = 0; row < mMapImageViews.length; row++) {
+            for (int column = 0; column < mMapImageViews.length; column++) {
+                mMapImageViews[row][column] = new ImageView(getContext());
+                mMapImageViews[row][column].setId(View.generateViewId());
+                mMapGridLayout.addView(mMapImageViews[row][column], row * 5 + column);
+            }
+        }
 
         mHeroImageView = findViewById(R.id.hero_imageview);
 
@@ -132,6 +119,5 @@ public class MainActivity extends Activity implements MainView {
                 });
             }
         }
-
     }
 }

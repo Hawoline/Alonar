@@ -1,5 +1,10 @@
 package ru.hawoline.alonar.model.personage;
 
+import ru.hawoline.alonar.model.Range;
+import ru.hawoline.alonar.model.weapons.Knife;
+
+import java.util.ArrayList;
+
 public abstract class Personage {
     private int mHealth;
     private int mMaxHealth;
@@ -16,6 +21,7 @@ public abstract class Personage {
     private int mSpirit;
     private int mArmor;
     private int mDirection;
+    private ArrayList<Slot> mSlots;
 
     public static final int DIRECTION_FORWARD = 0;
     public static final int DIRECTION_RIGHT = 1;
@@ -37,6 +43,8 @@ public abstract class Personage {
         mDirection = DIRECTION_RIGHT;
         mX = 0;
         mY = 0;
+        mSlots = new ArrayList<>();
+        mSlots.add(new Knife(0, new Range(3, 4), 2));
     }
 
     public Personage attack(Personage personage) {
@@ -66,7 +74,6 @@ public abstract class Personage {
             if (Math.abs(xStep) < 3) {
                 mX += xStep;
             }
-
         }
     }
 
