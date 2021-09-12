@@ -3,7 +3,9 @@ package ru.hawoline.alonar.presenter;
 import android.os.Bundle;
 import ru.hawoline.alonar.model.map.Map;
 import ru.hawoline.alonar.model.personage.Enemy;
+import ru.hawoline.alonar.model.personage.Location;
 import ru.hawoline.alonar.model.personage.Personage;
+import ru.hawoline.alonar.model.personage.usecase.DamageComputationUseCase;
 import ru.hawoline.alonar.view.MainView;
 import ru.hawoline.alonar.view.View;
 
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 public class MainPresenterImpl implements MainPresenter {
     private MainView mMainView;
     private Map mGameMap;
-    private ArrayList<Enemy> mEnemiesAroundHero;
+    private ArrayList<Integer> mEnemiesAroundHero;
 
     public MainPresenterImpl() {
         mGameMap = new Map(30);
@@ -45,39 +47,50 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public int[][] getEnemiesMap() {
-        return mGameMap.getEnemiesMap();
-    }
-
-    @Override
     public Personage getPersonage() {
         return mGameMap.getPersonage();
     }
 
     @Override
+    public Location getPersonageLocation() {
+        return mGameMap.getPersonageLocation();
+    }
+
+    @Override
     public void move(int x, int y) {
-        if (mGameMap.getSize() > mGameMap.getPersonage().getX() + x && mGameMap.getSize() > mGameMap.getPersonage().getY() + y) {
-            mGameMap.getPersonage().move(x, y);
+        if (mGameMap.getSize() > mGameMap.getPersonageLocation().getX() + x && mGameMap.getSize() > mGameMap.getPersonageLocation().getY() + y) {
+            mGameMap.getPersonageLocation().move(x, y);
         }
     }
 
     @Override
-    public ArrayList<Enemy> getEnemiesAroundHero() {
-        findEnemiesAroundHero();
+    public ArrayList<Integer> findEnemiesAroundHero() {
+        mEnemiesAroundHero.clear();
+        for (Enemy enemy: mGameMap.getEnemies().keySet()) {
+            if (Math.abs(mGameMap.getEnemies().get(enemy).getX() - mGameMap.getPersonageLocation().getX()) < 3
+                    && Math.abs(mGameMap.getEnemies().get(enemy).getY() - mGameMap.getPersonageLocation().getY()) < 3) {
+                mEnemiesAroundHero.add(mGameMap.getEnemies().indexOfKey(enemy));
+            }
+        }
         return mEnemiesAroundHero;
     }
 
-    private void findEnemiesAroundHero() {
-        int[][] enemiesMap = mGameMap.getEnemiesMap();
-        ArrayList<Enemy> enemiesAroundHero = new ArrayList<>();
-
-        for (int i = mGameMap.getPersonage().getY() - 2; i < mGameMap.getPersonage().getY() + 3; i++) {
-            for (int j = mGameMap.getPersonage().getX() - 2; j < mGameMap.getPersonage().getX() + 3; j++) {
-                if (enemiesMap[i][j] == Map.ENEMY_RAT) {
-                    enemiesAroundHero.add((Enemy) Enemy.createEnemy("Rat"));
-                }
-            }
+    @Override
+    public void enemyAttacked(int enemy) {
+        Enemy attackedEnemy = mGameMap.getEnemies().keyAt(enemy);
+        DamageComputationUseCase.compute(getPersonage(), attackedEnemy, 1);
+        if (attackedEnemy.getHealth() < 1) {
+            mGameMap.removeEnemy(enemy);
         }
-        mEnemiesAroundHero = enemiesAroundHero;
+    }
+
+    @Override
+    public Enemy getEnemyAt(int index) {
+        return mGameMap.getEnemies().keyAt(index);
+    }
+
+    @Override
+    public Location getEnemyLocationAt(int index) {
+        return mGameMap.getEnemies().get(mGameMap.getEnemies().keyAt(index));
     }
 }

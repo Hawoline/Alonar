@@ -1,32 +1,31 @@
 package ru.hawoline.alonar.model.map;
 
+import android.util.ArrayMap;
 import ru.hawoline.alonar.model.personage.Enemy;
-import ru.hawoline.alonar.model.personage.Mage;
+import ru.hawoline.alonar.model.personage.Location;
+import ru.hawoline.alonar.model.personage.heroclass.Mage;
 import ru.hawoline.alonar.model.personage.Personage;
+
+import java.util.ArrayList;
 
 public class Map {
     private int[][] mMap;
-    private int[][] mEnemiesMap;
     private int mSize;
-    private Personage mPersonage;
-    private Enemy[] mEnemies;
+    private ArrayMap<Personage, Location> mPersonages = new ArrayMap<>();
+    private ArrayMap<Enemy, Location> mEnemies = new ArrayMap<>();
+    private Mage mPersonage;
+    private Location mPersonageLocation;
 
     public static final int GRASS = 0;
     public static final int MOUNTAIN = 1;
 
-    public static final int NO_ENEMIES = 0;
-    public static final int ENEMY_RAT = 1;
-
-
     public Map(int size) {
         mSize = size;
         mMap = new int[size][size];
-        mEnemiesMap = new int[size][size];
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 mMap[i][j] = GRASS;
-                mEnemiesMap[i][j] = NO_ENEMIES;
             }
         }
 
@@ -43,33 +42,24 @@ public class Map {
             mMap[i][mMap.length - 1] = MOUNTAIN;
         }
 
-        mPersonage = Mage.createPersonage();
-        mPersonage.setX(1);
-        mPersonage.setY(1);
+        mPersonage = (Mage) Mage.createPersonage();
+        mPersonageLocation = new Location(1, 1);
+        mPersonages.put(mPersonage, mPersonageLocation);
 
-        mEnemies = new Enemy[10];
-
-        for (int i = 0; i < mEnemies.length; i++) {
-            mEnemies[i] = (Enemy) Enemy.createEnemy("Rat");
-            mEnemies[i].setX((int) Math.floor(Math.random() * (mMap.length - 2) + 1));
-            mEnemies[i].setY((int) Math.floor(Math.random() * mMap.length));
-            mEnemiesMap[mEnemies[i].getY()][mEnemies[i].getX()] = ENEMY_RAT;
-        }
-
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                System.out.print(mEnemiesMap[i][j]);
-            }
-            System.out.println();
+        for (int enemyIndex = 0; enemyIndex < 10; enemyIndex++) {
+            Enemy enemy = (Enemy) Enemy.createEnemy("Rat");
+            mEnemies.put(enemy, new Location(
+                    (int) Math.floor(Math.random() * (mMap.length - 2) + 1),
+                    (int) Math.floor(Math.random() * mMap.length))
+            );
         }
     }
 
+    public void removeEnemy(int enemy) {
+        mEnemies.removeAt(enemy);
+    }
     public int[][] getMap() {
         return mMap;
-    }
-
-    public int[][] getEnemiesMap() {
-        return mEnemiesMap;
     }
 
     public void setMap(int[][] map) {
@@ -79,15 +69,19 @@ public class Map {
         }
     }
 
-    public Personage getPersonage() {
-        return mPersonage;
-    }
-
     public int getSize() {
         return mSize;
     }
 
-    public Enemy[] getEnemies() {
+    public Personage getPersonage() {
+        return mPersonage;
+    }
+
+    public Location getPersonageLocation() {
+        return mPersonages.get(mPersonage);
+    }
+
+    public ArrayMap<Enemy, Location> getEnemies() {
         return mEnemies;
     }
 }

@@ -113,6 +113,7 @@
             android:visibility="gone"
     >
         <TextView
+                android:id="@+id/main_chooseenemy_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/choose_target_enemy"
@@ -152,7 +153,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Рюкз" />
+                android:text="@string/bag" />
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,7 +161,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="перс" />
+                android:text="@string/person" />
 
         <ImageView
                 android:layout_width="wrap_content"
@@ -170,7 +171,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="квест" />
+                android:text="@string/quest" />
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -178,6 +179,6 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="карта" />
+                android:text="@string/map" />
     </LinearLayout>
 </LinearLayout>

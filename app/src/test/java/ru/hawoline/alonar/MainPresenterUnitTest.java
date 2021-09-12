@@ -3,8 +3,6 @@ package ru.hawoline.alonar;
 import org.junit.Test;
 import ru.hawoline.alonar.presenter.MainPresenterImpl;
 
-import static org.junit.Assert.*;
-
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -14,6 +12,6 @@ public class MainPresenterUnitTest {
     @Test
     public void testEnemiesAroundHero() {
         MainPresenterImpl mainPresenter = new MainPresenterImpl();
-        mainPresenter.getEnemiesAroundHero();
+        mainPresenter.findEnemiesAroundHero();
     }
 }

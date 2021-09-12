@@ -1,4 +1,4 @@
-package ru.hawoline.alonar.model.spells;
+package ru.hawoline.alonar.model.spell;
 
 import ru.hawoline.alonar.model.personage.Slot;
 
@@ -11,11 +11,13 @@ public abstract class Spell implements Slot {
      */
     private int mDistance;
     private int mRequiredMana;
+    private String mName;
     private String mDescription;
     private int mRestoreTime;
     private int mCurrentRestoreTime;
 
-    public Spell(int distance, int requiredMana, int restoreTime) {
+    public Spell(String name, int distance, int requiredMana, int restoreTime) {
+        mName = name;
         mDistance = distance;
         mRequiredMana = requiredMana;
         mRestoreTime = restoreTime;
@@ -36,6 +38,14 @@ public abstract class Spell implements Slot {
 
     public void setRequiredMana(int requiredMana) {
         this.mRequiredMana = requiredMana;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
     }
 
     public String getDescription() {

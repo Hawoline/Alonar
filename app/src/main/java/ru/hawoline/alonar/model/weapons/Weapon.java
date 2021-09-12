@@ -32,6 +32,10 @@ public abstract class Weapon implements Slot {
         mRangeDamage = rangeDamage;
     }
 
+    public int getDamage() {
+        return (int) (Math.random() * (mRangeDamage.getHigh() - mRangeDamage.getLow()) + mRangeDamage.getLow());
+    }
+
     public int getRestoreTime() {
         return mRestoreTime;
     }
