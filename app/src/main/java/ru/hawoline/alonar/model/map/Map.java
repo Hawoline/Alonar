@@ -46,7 +46,7 @@ public class Map {
         mPersonageLocation = new Location(1, 1);
         mPersonages.put(mPersonage, mPersonageLocation);
 
-        for (int enemyIndex = 0; enemyIndex < 10; enemyIndex++) {
+        for (int enemyIndex = 0; enemyIndex < 20; enemyIndex++) {
             Enemy enemy = (Enemy) Enemy.createEnemy("Rat");
             mEnemies.put(enemy, new Location(
                     (int) Math.floor(Math.random() * (mMap.length - 2) + 1),

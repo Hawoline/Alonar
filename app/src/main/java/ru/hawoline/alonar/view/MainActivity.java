@@ -32,6 +32,8 @@ public class MainActivity extends Activity implements MainView {
     private LinearLayout mSlotsLayout;
     private ImageView[] mSlots;
 
+    private int mRemovableViewId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class MainActivity extends Activity implements MainView {
         mMainPresenter = new MainPresenterImpl();
         mMainPresenter.attachView(this);
         findViews();
+        setOnClickListeners();
         render();
     }
 
@@ -147,7 +150,9 @@ public class MainActivity extends Activity implements MainView {
         mSlots[7] = findViewById(R.id.main_slot_7);
         mSlots[8] = findViewById(R.id.main_slot_8);
         mSlots[9] = findViewById(R.id.main_slot_9);
+    }
 
+    private void setOnClickListeners() {
         mSlots[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,26 +169,30 @@ public class MainActivity extends Activity implements MainView {
 
         if (enemies.size() < 2) {
             mEnemiesListLayout.setVisibility(View.GONE);
+            if (enemies.size() == 1) {
+                mMainPresenter.enemyAttacked(enemies.get(0));
+                drawMap();
+            }
         } else {
             mEnemiesListLayout.setVisibility(View.VISIBLE);
-        }
-
-        if (enemies.size() == 1) {
-            mMainPresenter.enemyAttacked(enemies.get(0));
-            drawMap();
-        } else {
             for (int enemy : enemies) {
                 TextView enemyNameTextView = new TextView(getContext());
                 enemyNameTextView.setText(mMainPresenter.getEnemyAt(enemy).getName());
-                enemyNameTextView.setId(enemy);
+                enemyNameTextView.setId(View.generateViewId());
                 enemyNameTextView.setGravity(Gravity.CENTER_HORIZONTAL);
+                mEnemiesListLayout.addView(enemyNameTextView);
                 enemyNameTextView.setOnClickListener(v -> {
-                    mMainPresenter.enemyAttacked(v.getId());
+                    mMainPresenter.enemyAttacked(enemy);
+                    mRemovableViewId = v.getId();
                     drawMap();
                 });
-                mEnemiesListLayout.addView(enemyNameTextView);
             }
         }
+    }
+
+    @Override
+    public void removeEnemyTextView() {
+        mEnemiesListLayout.removeView(mEnemiesListLayout.findViewById(mRemovableViewId));
     }
 
     private void removeEnemiesTextViews() {

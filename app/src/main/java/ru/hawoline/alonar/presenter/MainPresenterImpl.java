@@ -81,6 +81,7 @@ public class MainPresenterImpl implements MainPresenter {
         DamageComputationUseCase.compute(getPersonage(), attackedEnemy, 1);
         if (attackedEnemy.getHealth() < 1) {
             mGameMap.removeEnemy(enemy);
+            mMainView.removeEnemyTextView();
         }
     }
 
