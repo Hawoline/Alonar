@@ -162,9 +162,8 @@ public class MainActivity extends Activity implements MainView {
 
         ArrayList<Integer> enemies = mMainPresenter.findEnemiesAroundHero();
 
-        if (enemies.size() < 1) {
+        if (enemies.size() < 2) {
             mEnemiesListLayout.setVisibility(View.GONE);
-            return;
         } else {
             mEnemiesListLayout.setVisibility(View.VISIBLE);
         }
