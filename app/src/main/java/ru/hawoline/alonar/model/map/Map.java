@@ -55,8 +55,8 @@ public class Map {
         }
     }
 
-    public void removeEnemy(int enemy) {
-        mEnemies.removeAt(enemy);
+    public void removeEnemy(Enemy enemy) {
+        mEnemies.remove(enemy);
     }
     public int[][] getMap() {
         return mMap;

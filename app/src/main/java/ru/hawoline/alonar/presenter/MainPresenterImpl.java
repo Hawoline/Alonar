@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MainPresenterImpl implements MainPresenter {
     private MainView mMainView;
     private Map mGameMap;
-    private ArrayList<Integer> mEnemiesAroundHero;
+    private ArrayList<Enemy> mEnemiesAroundHero;
 
     public MainPresenterImpl() {
         mGameMap = new Map(30);
@@ -64,22 +64,21 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public ArrayList<Integer> findEnemiesAroundHero() {
+    public ArrayList<Enemy> findEnemiesAroundHero() {
         mEnemiesAroundHero.clear();
         for (Enemy enemy: mGameMap.getEnemies().keySet()) {
             if (Math.abs(mGameMap.getEnemies().get(enemy).getX() - mGameMap.getPersonageLocation().getX()) < 3
                     && Math.abs(mGameMap.getEnemies().get(enemy).getY() - mGameMap.getPersonageLocation().getY()) < 3) {
-                mEnemiesAroundHero.add(mGameMap.getEnemies().indexOfKey(enemy));
+                mEnemiesAroundHero.add(enemy);
             }
         }
         return mEnemiesAroundHero;
     }
 
     @Override
-    public void enemyAttacked(int enemy) {
-        Enemy attackedEnemy = mGameMap.getEnemies().keyAt(enemy);
-        DamageComputationUseCase.compute(getPersonage(), attackedEnemy, 1);
-        if (attackedEnemy.getHealth() < 1) {
+    public void enemyAttacked(Enemy enemy) {
+        DamageComputationUseCase.compute(getPersonage(), enemy, 1);
+        if (enemy.getHealth() < 1) {
             mGameMap.removeEnemy(enemy);
             mMainView.removeEnemyTextView();
         }
@@ -91,7 +90,7 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public Location getEnemyLocationAt(int index) {
-        return mGameMap.getEnemies().get(mGameMap.getEnemies().keyAt(index));
+    public Location getEnemyLocation(Enemy index) {
+        return mGameMap.getEnemies().get(index);
     }
 }

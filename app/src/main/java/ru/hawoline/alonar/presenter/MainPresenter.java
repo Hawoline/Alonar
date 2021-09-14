@@ -16,11 +16,11 @@ public interface MainPresenter extends Presenter {
 
     void move(int x, int y);
 
-    ArrayList<Integer> findEnemiesAroundHero();
+    ArrayList<Enemy> findEnemiesAroundHero();
 
-    void enemyAttacked(int enemy);
+    void enemyAttacked(Enemy enemy);
 
     Enemy getEnemyAt(int index);
 
-    Location getEnemyLocationAt(int index);
+    Location getEnemyLocation(Enemy enemy);
 }

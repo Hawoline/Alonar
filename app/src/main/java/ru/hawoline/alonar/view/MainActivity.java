@@ -75,10 +75,10 @@ public class MainActivity extends Activity implements MainView {
                         layers[0] = ResourcesCompat.getDrawable(resources, R.drawable.mountains, null);
                     }
 
-                    ArrayList<Integer> enemiesAroundHero = mMainPresenter.findEnemiesAroundHero();
+                    ArrayList<Enemy> enemiesAroundHero = mMainPresenter.findEnemiesAroundHero();
 
-                    for (int enemy: enemiesAroundHero) {
-                        Location enemyLocation = mMainPresenter.getEnemyLocationAt(enemy);
+                    for (Enemy enemy: enemiesAroundHero) {
+                        Location enemyLocation = mMainPresenter.getEnemyLocation(enemy);
                         if (enemyLocation.getX() == x && enemyLocation.getY() == y) {
                             layers[1] = ResourcesCompat.getDrawable(resources, R.drawable.point_1, null);
                             layers[2] = ResourcesCompat.getDrawable(resources, R.drawable.point_2_quest, null);
@@ -165,7 +165,7 @@ public class MainActivity extends Activity implements MainView {
     public void showEnemiesList() {
         removeEnemiesTextViews();
 
-        ArrayList<Integer> enemies = mMainPresenter.findEnemiesAroundHero();
+        ArrayList<Enemy> enemies = mMainPresenter.findEnemiesAroundHero();
 
         if (enemies.size() < 2) {
             mEnemiesListLayout.setVisibility(View.GONE);
@@ -175,15 +175,15 @@ public class MainActivity extends Activity implements MainView {
             }
         } else {
             mEnemiesListLayout.setVisibility(View.VISIBLE);
-            for (int enemy : enemies) {
+            for (Enemy enemy : enemies) {
                 TextView enemyNameTextView = new TextView(getContext());
-                enemyNameTextView.setText(mMainPresenter.getEnemyAt(enemy).getName());
+                enemyNameTextView.setText(enemy.getName());
                 enemyNameTextView.setId(View.generateViewId());
                 enemyNameTextView.setGravity(Gravity.CENTER_HORIZONTAL);
                 mEnemiesListLayout.addView(enemyNameTextView);
                 enemyNameTextView.setOnClickListener(v -> {
-                    mMainPresenter.enemyAttacked(enemy);
                     mRemovableViewId = v.getId();
+                    mMainPresenter.enemyAttacked(enemy);
                     drawMap();
                 });
             }
