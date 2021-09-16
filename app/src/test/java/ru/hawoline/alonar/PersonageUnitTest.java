@@ -14,13 +14,11 @@ public class PersonageUnitTest {
         Personage hero = Mage.createPersonage();
         Personage enemy = Enemy.createEnemy("Rat");
 
-        TestCase.assertEquals( 500, ((DamageSpell) hero.getSlots().get(1)).getDamage());
-        TestCase.assertEquals(1000, enemy.getHealth());
+        TestCase.assertEquals(1600, hero.getMp());
+        int damage = ((DamageSpell) hero.getSlots().get(1)).calculateDamage();
+        TestCase.assertEquals( true, damage < 237 && damage > 196);
 
         DamageComputationUseCase.compute(hero, enemy, 1);
-        TestCase.assertEquals(500, enemy.getHealth());
-
-        DamageComputationUseCase.compute(hero, enemy, 1);
-        TestCase.assertEquals(0, enemy.getHealth());
+        TestCase.assertEquals(true, enemy.getHealth() < 1000 - 196 && enemy.getHealth() > 1000 - 237);
     }
 }

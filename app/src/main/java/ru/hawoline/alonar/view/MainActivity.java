@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.util.ArrayMap;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.GridLayout;
@@ -180,12 +179,12 @@ public class MainActivity extends Activity implements MainView {
                 enemyNameTextView.setText(enemy.getName());
                 enemyNameTextView.setId(View.generateViewId());
                 enemyNameTextView.setGravity(Gravity.CENTER_HORIZONTAL);
-                mEnemiesListLayout.addView(enemyNameTextView);
                 enemyNameTextView.setOnClickListener(v -> {
                     mRemovableViewId = v.getId();
                     mMainPresenter.enemyAttacked(enemy);
                     drawMap();
                 });
+                mEnemiesListLayout.addView(enemyNameTextView);
             }
         }
     }

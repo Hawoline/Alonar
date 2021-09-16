@@ -10,7 +10,7 @@ public final class DamageComputationUseCase {
         Slot slot = attacker.getSlots().get(damageSlotIndex);
         if (slot instanceof DamageSpell) {
             if (attacker.getMp() >= ((DamageSpell) slot).getRequiredMana()) {
-                defender.setHealth(defender.getHealth() - ((DamageSpell) slot).getDamage());
+                defender.setHealth(defender.getHealth() - ((DamageSpell) slot).calculateDamage());
                 attacker.setMp(attacker.getMp() - ((DamageSpell) slot).getRequiredMana());
             }
         } else if (slot instanceof Weapon) {

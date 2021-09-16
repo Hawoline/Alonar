@@ -11,7 +11,7 @@ public class DamageSpell extends Spell {
     public DamageSpell(String name, int distance, int requiredMana, int restoreTime, Range damageRange) {
         super(name, distance, requiredMana, restoreTime);
         this.mDamageRange = damageRange;
-        mDamage = 500;
+        calculateDamage();
     }
 
     public Range getDamageRange() {
@@ -22,8 +22,8 @@ public class DamageSpell extends Spell {
         mDamageRange = damageRange;
     }
 
-    public int getDamage() {
-//        mDamage = (int) (Math.random() * (mDamageRange.getHigh() - mDamageRange.getLow()) + mDamageRange.getLow());
+    public int calculateDamage() {
+        mDamage = (int) (Math.random() * (mDamageRange.getDistance()) + mDamageRange.getLow());
         return mDamage;
     }
 }

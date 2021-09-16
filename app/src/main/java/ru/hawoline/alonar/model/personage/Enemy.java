@@ -1,11 +1,14 @@
 package ru.hawoline.alonar.model.personage;
 
+import ru.hawoline.alonar.model.personage.specification.attribute.Attribute;
+import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
+
 public class Enemy extends Personage {
     private String mName;
 
     private Enemy(String name) {
         mName = name;
-        setEndurance(100);
+        setAttribute(AttributeName.ENDURANCE, new Attribute(100));
     }
 
     public static Personage createEnemy(String name) {
