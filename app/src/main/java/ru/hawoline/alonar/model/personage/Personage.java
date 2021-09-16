@@ -1,14 +1,11 @@
 package ru.hawoline.alonar.model.personage;
 
-import ru.hawoline.alonar.model.Range;
 import ru.hawoline.alonar.model.personage.equipment.Body;
 import ru.hawoline.alonar.model.personage.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.specification.Vitality;
 import ru.hawoline.alonar.model.personage.specification.VitalityType;
 import ru.hawoline.alonar.model.personage.specification.attribute.Attribute;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
-import ru.hawoline.alonar.model.spell.DamageSpell;
-import ru.hawoline.alonar.model.weapons.Knife;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,28 +20,11 @@ public abstract class Personage {
 
     protected Personage() {
         mAttributes = new HashMap<>();
-        mAttributes.put(AttributeName.ENDURANCE, new Attribute(5));
-        mAttributes.put(AttributeName.STRENGTH, new Attribute(5));
-        mAttributes.put(AttributeName.INTELLIGENCE, new Attribute(100));
-        mAttributes.put(AttributeName.AGILITY, new Attribute(5));
-        mAttributes.put(AttributeName.SPIRIT, new Attribute(5));
         mVitality = new ArrayList<>();
-        mVitality.add(new Vitality(VitalityType.HEATH, mAttributes.get(AttributeName.ENDURANCE).getValue() * 10));
-        mVitality.add(new Vitality(VitalityType.MP, mAttributes.get(AttributeName.INTELLIGENCE).getValue() * 16));
+        mVitality.add(new Vitality(VitalityType.HEATH, 10));
+        mVitality.add(new Vitality(VitalityType.MP, 10));
         mExperience = 0;
-        mArmor = 100;
         mEquipment = new HashMap<>();
-        mSlots = new ArrayList<>();
-        mSlots.add(new Knife(0, new Range(3, 4), 2));
-        mSlots.add(new DamageSpell("Fireball", 6, 50, 6, new Range(197, 236)));
-        mSlots.add(new Knife(0, new Range(3, 4), 2));
-        mSlots.add(new Knife(0, new Range(3, 4), 2));
-        mSlots.add(new Knife(0, new Range(3, 4), 2));
-        mSlots.add(new Knife(0, new Range(3, 4), 2));
-        mSlots.add(new Knife(0, new Range(3, 4), 2));
-        mSlots.add(new Knife(0, new Range(3, 4), 2));
-        mSlots.add(new Knife(0, new Range(3, 4), 2));
-        mSlots.add(new Knife(0, new Range(3, 4), 2));
     }
 
     public int getExperience() {

@@ -7,11 +7,7 @@ import ru.hawoline.alonar.model.spell.DamageSpell;
 
 public class Mage extends Personage {
 
-    private Mage() {
+    public Mage() {
         super();
-    }
-
-    public static Personage createPersonage() {
-        return new Mage();
     }
 }

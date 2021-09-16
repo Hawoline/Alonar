@@ -3,7 +3,4 @@ package ru.hawoline.alonar.model.personage.heroclass;
 import ru.hawoline.alonar.model.personage.Personage;
 
 public class Priest extends Personage {
-    public static Personage createPersonage() {
-        return new Priest();
-    }
 }
