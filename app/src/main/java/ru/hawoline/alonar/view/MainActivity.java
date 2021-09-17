@@ -60,10 +60,12 @@ public class MainActivity extends Activity implements MainView {
         int mapSize = map.length;
         Location personageLocation = mMainPresenter.getPersonageLocation();
 
+        int xLocation = personageLocation.getX();
+        int yLocation = personageLocation.getY();
         int i = 0;
-        for (int x = personageLocation.getX() - 2; x < personageLocation.getX() + 3; x++) {
+        for (int x = xLocation - 2; x < xLocation + 3; x++) {
             int j = 0;
-            for (int y = personageLocation.getY() - 2; y < personageLocation.getY() + 3; y++) {
+            for (int y = yLocation - 2; y < yLocation + 3; y++) {
                 if (x > -1 && y > -1 && x < mapSize && y < mapSize) {
                     Resources resources = getResources();
                     Drawable[] layers = new Drawable[4];
@@ -76,7 +78,7 @@ public class MainActivity extends Activity implements MainView {
 
                     ArrayList<Enemy> enemiesAroundHero = mMainPresenter.findEnemiesAroundHero();
 
-                    for (Enemy enemy: enemiesAroundHero) {
+                    for (Enemy enemy : enemiesAroundHero) {
                         Location enemyLocation = mMainPresenter.getEnemyLocation(enemy);
                         if (enemyLocation.getX() == x && enemyLocation.getY() == y) {
                             layers[1] = ResourcesCompat.getDrawable(resources, R.drawable.point_1, null);
@@ -139,16 +141,11 @@ public class MainActivity extends Activity implements MainView {
 
         mSlotsLayout = findViewById(R.id.main_slots_linearlayout);
         mSlots = new ImageView[10];
-        mSlots[0] = findViewById(R.id.main_slot_0);
-        mSlots[1] = findViewById(R.id.main_slot_1);
-        mSlots[2] = findViewById(R.id.main_slot_2);
-        mSlots[3] = findViewById(R.id.main_slot_3);
-        mSlots[4] = findViewById(R.id.main_slot_4);
-        mSlots[5] = findViewById(R.id.main_slot_5);
-        mSlots[6] = findViewById(R.id.main_slot_6);
-        mSlots[7] = findViewById(R.id.main_slot_7);
-        mSlots[8] = findViewById(R.id.main_slot_8);
-        mSlots[9] = findViewById(R.id.main_slot_9);
+        Resources resources = getResources();
+        for (int slot = 0; slot < 10; slot++) {
+            mSlots[slot] = findViewById(
+                    resources.getIdentifier("main_slot_" + slot, "id", "ru.hawoline.alonar"));
+        }
     }
 
     private void setOnClickListeners() {

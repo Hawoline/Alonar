@@ -3,19 +3,17 @@ package ru.hawoline.alonar.model.map;
 import android.util.ArrayMap;
 import ru.hawoline.alonar.model.personage.Enemy;
 import ru.hawoline.alonar.model.personage.Location;
+import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.PersonageFactory;
 import ru.hawoline.alonar.model.personage.heroclass.HeroClass;
 import ru.hawoline.alonar.model.personage.heroclass.Mage;
-import ru.hawoline.alonar.model.personage.Personage;
-
-import java.util.ArrayList;
 
 public class Map {
     private int[][] mMap;
     private int mSize;
     private ArrayMap<Personage, Location> mPersonages = new ArrayMap<>();
     private ArrayMap<Enemy, Location> mEnemies = new ArrayMap<>();
-    private Mage mPersonage;
+    private Personage mPersonage;
     private Location mPersonageLocation;
 
     public static final int GRASS = 0;
@@ -44,7 +42,7 @@ public class Map {
             mMap[i][mMap.length - 1] = MOUNTAIN;
         }
 
-        mPersonage = (Mage) PersonageFactory.createPersonage(HeroClass.MAGE);
+        mPersonage = PersonageFactory.createPersonage(HeroClass.MAGE);
         mPersonageLocation = new Location(1, 1);
         mPersonages.put(mPersonage, mPersonageLocation);
 
