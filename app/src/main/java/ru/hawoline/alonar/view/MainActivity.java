@@ -33,6 +33,8 @@ public class MainActivity extends Activity implements MainView {
 
     private int mRemovableViewId;
 
+    private final int VISIBLE_CELLS = 5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,11 +72,7 @@ public class MainActivity extends Activity implements MainView {
                     Resources resources = getResources();
                     Drawable[] layers = new Drawable[4];
 
-                    if (map[y][x] == Map.GRASS) {
-                        layers[0] = ResourcesCompat.getDrawable(resources, R.drawable.green, null);
-                    } else if (map[y][x] == Map.MOUNTAIN) {
-                        layers[0] = ResourcesCompat.getDrawable(resources, R.drawable.mountains, null);
-                    }
+                    layers[0] = ResourcesCompat.getDrawable(resources, getLandscapeDrawableId(map[y][x]), null);
 
                     ArrayList<Enemy> enemiesAroundHero = mMainPresenter.findEnemiesAroundHero();
 
@@ -100,23 +98,36 @@ public class MainActivity extends Activity implements MainView {
         drawPersonage(personageLocation);
     }
 
+    private int getLandscapeDrawableId(int landscapeType) {
+        int drawableId;
+        if (landscapeType == Map.GRASS) {
+            drawableId = R.drawable.green;
+        } else if (landscapeType == Map.MOUNTAIN) {
+            drawableId = R.drawable.mountains;
+        } else {
+            drawableId = R.drawable.mountains;
+        }
+        return drawableId;
+    }
+
     private void drawPersonage(Location personageLocation) {
-        if (personageLocation.getDirection() == Location.DIRECTION_BACK) {
+        int direction = personageLocation.getDirection();
+        if (direction == Location.DIRECTION_BACK) {
             mHeroImageView.setImageResource(R.drawable.hero_back);
-        } else if (personageLocation.getDirection() == Location.DIRECTION_FORWARD) {
+        } else if (direction == Location.DIRECTION_FORWARD) {
             mHeroImageView.setImageResource(R.drawable.hero_forward);
-        } else if (personageLocation.getDirection() == Location.DIRECTION_LEFT) {
+        } else if (direction == Location.DIRECTION_LEFT) {
             mHeroImageView.setImageResource(R.drawable.hero_left);
-        } else if (personageLocation.getDirection() == Location.DIRECTION_RIGHT) {
+        } else if (direction == Location.DIRECTION_RIGHT) {
             mHeroImageView.setImageResource(R.drawable.hero_right);
         }
     }
 
     private void findViews() {
         mMapGridLayout = findViewById(R.id.main_map_gridlayout);
-        mMapGridLayout.setRowCount(5);
-        mMapGridLayout.setColumnCount(5);
-        mMapImageViews = new ImageView[5][5];
+        mMapGridLayout.setRowCount(VISIBLE_CELLS);
+        mMapGridLayout.setColumnCount(VISIBLE_CELLS);
+        mMapImageViews = new ImageView[VISIBLE_CELLS][VISIBLE_CELLS];
         for (int row = 0; row < mMapImageViews.length; row++) {
             for (int column = 0; column < mMapImageViews.length; column++) {
                 mMapImageViews[row][column] = new ImageView(getContext());
@@ -124,8 +135,8 @@ public class MainActivity extends Activity implements MainView {
                 mMapGridLayout.addView(mMapImageViews[row][column], row * 5 + column);
             }
         }
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < VISIBLE_CELLS; i++) {
+            for (int j = 0; j < VISIBLE_CELLS; j++) {
                 final int x = j - 2;
                 final int y = i - 2;
                 mMapImageViews[i][j].setOnClickListener(v -> {
@@ -172,18 +183,22 @@ public class MainActivity extends Activity implements MainView {
         } else {
             mEnemiesListLayout.setVisibility(View.VISIBLE);
             for (Enemy enemy : enemies) {
-                TextView enemyNameTextView = new TextView(getContext());
-                enemyNameTextView.setText(enemy.getName());
-                enemyNameTextView.setId(View.generateViewId());
-                enemyNameTextView.setGravity(Gravity.CENTER_HORIZONTAL);
-                enemyNameTextView.setOnClickListener(v -> {
-                    mRemovableViewId = v.getId();
-                    mMainPresenter.enemyAttacked(enemy);
-                    drawMap();
-                });
-                mEnemiesListLayout.addView(enemyNameTextView);
+                createEnemyTextView(enemy);
             }
         }
+    }
+
+    private void createEnemyTextView(Enemy enemy) {
+        TextView enemyNameTextView = new TextView(getContext());
+        enemyNameTextView.setText(enemy.getName());
+        enemyNameTextView.setId(View.generateViewId());
+        enemyNameTextView.setGravity(Gravity.CENTER_HORIZONTAL);
+        enemyNameTextView.setOnClickListener(v -> {
+            mRemovableViewId = v.getId();
+            mMainPresenter.enemyAttacked(enemy);
+            drawMap();
+        });
+        mEnemiesListLayout.addView(enemyNameTextView);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ru.hawoline.alonar.presenter;
 
 import android.os.Bundle;
+import android.util.ArrayMap;
 import ru.hawoline.alonar.model.map.Map;
 import ru.hawoline.alonar.model.personage.Enemy;
 import ru.hawoline.alonar.model.personage.Location;
@@ -58,17 +59,20 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void move(int x, int y) {
-        if (mGameMap.getSize() > mGameMap.getPersonageLocation().getX() + x && mGameMap.getSize() > mGameMap.getPersonageLocation().getY() + y) {
-            mGameMap.getPersonageLocation().move(x, y);
+        Location personageLocation = mGameMap.getPersonageLocation();
+        if (mGameMap.getSize() > personageLocation.getX() + x && mGameMap.getSize() > personageLocation.getY() + y) {
+            personageLocation.move(x, y);
         }
     }
 
     @Override
     public ArrayList<Enemy> findEnemiesAroundHero() {
         mEnemiesAroundHero.clear();
-        for (Enemy enemy: mGameMap.getEnemies().keySet()) {
-            if (Math.abs(mGameMap.getEnemies().get(enemy).getX() - mGameMap.getPersonageLocation().getX()) < 3
-                    && Math.abs(mGameMap.getEnemies().get(enemy).getY() - mGameMap.getPersonageLocation().getY()) < 3) {
+        ArrayMap<Enemy, Location> enemies = mGameMap.getEnemies();
+        for (Enemy enemy: enemies.keySet()) {
+            Location personageLocation = mGameMap.getPersonageLocation();
+            if (Math.abs(enemies.get(enemy).getX() - personageLocation.getX()) < 3
+                    && Math.abs(enemies.get(enemy).getY() - personageLocation.getY()) < 3) {
                 mEnemiesAroundHero.add(enemy);
             }
         }
