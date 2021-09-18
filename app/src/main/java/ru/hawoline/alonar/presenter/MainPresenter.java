@@ -14,7 +14,7 @@ public interface MainPresenter extends Presenter {
 
     Location getPersonageLocation();
 
-    void move(int x, int y);
+    void onPersonageMove(int x, int y);
 
     ArrayList<Enemy> findEnemiesAroundHero();
 

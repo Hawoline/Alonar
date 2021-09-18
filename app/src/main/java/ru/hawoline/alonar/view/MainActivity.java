@@ -128,8 +128,8 @@ public class MainActivity extends Activity implements MainView {
         mMapGridLayout.setRowCount(VISIBLE_CELLS);
         mMapGridLayout.setColumnCount(VISIBLE_CELLS);
         mMapImageViews = new ImageView[VISIBLE_CELLS][VISIBLE_CELLS];
-        for (int row = 0; row < mMapImageViews.length; row++) {
-            for (int column = 0; column < mMapImageViews.length; column++) {
+        for (int row = 0; row < VISIBLE_CELLS; row++) {
+            for (int column = 0; column < VISIBLE_CELLS; column++) {
                 mMapImageViews[row][column] = new ImageView(getContext());
                 mMapImageViews[row][column].setId(View.generateViewId());
                 mMapGridLayout.addView(mMapImageViews[row][column], row * 5 + column);
@@ -140,7 +140,7 @@ public class MainActivity extends Activity implements MainView {
                 final int x = j - 2;
                 final int y = i - 2;
                 mMapImageViews[i][j].setOnClickListener(v -> {
-                    mMainPresenter.move(x, y);
+                    mMainPresenter.onPersonageMove(x, y);
                     drawMap();
                 });
             }

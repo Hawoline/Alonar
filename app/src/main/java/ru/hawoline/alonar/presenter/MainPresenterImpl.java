@@ -58,7 +58,7 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void move(int x, int y) {
+    public void onPersonageMove(int x, int y) {
         Location personageLocation = mGameMap.getPersonageLocation();
         if (mGameMap.getSize() > personageLocation.getX() + x && mGameMap.getSize() > personageLocation.getY() + y) {
             personageLocation.move(x, y);
