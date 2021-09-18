@@ -18,6 +18,9 @@ public abstract class Personage {
     private HashMap<Body, Equipment> mEquipment;
     private ArrayList<Slot> mSlots;
 
+    private final int HEALTH = 0;
+    private final int MP = 1;
+
     protected Personage() {
         mAttributes = new HashMap<>();
         mVitality = new ArrayList<>();
@@ -44,25 +47,25 @@ public abstract class Personage {
     }
 
     public int getHealth() {
-        return mVitality.get(0).getResidualMax().getSecond();
+        return mVitality.get(HEALTH).getResidualMax().getSecond();
     }
     public void setHealth(int heath) {
-        mVitality.get(0).setValue(heath);
+        mVitality.get(HEALTH).setValue(heath);
     }
 
     public int getMp() {
-        return mVitality.get(1).getResidualMax().getSecond();
+        return mVitality.get(MP).getResidualMax().getSecond();
     }
     public void setMp(int mp) {
-        mVitality.get(1).setValue(mp);
+        mVitality.get(MP).setValue(mp);
     }
 
     public void setAttribute(AttributeName attributeName, Attribute attributeValue) {
         mAttributes.put(attributeName, attributeValue);
         if (attributeName == AttributeName.ENDURANCE) {
-            mVitality.get(0).setMaxValue(attributeValue.getMax() * 10);
+            mVitality.get(HEALTH).setMaxValue(attributeValue.getMax() * 10);
         } else if (attributeName == AttributeName.INTELLIGENCE) {
-            mVitality.get(1).setMaxValue(attributeValue.getMax() * 16);
+            mVitality.get(MP).setMaxValue(attributeValue.getMax() * 16);
         }
     }
 
