@@ -1,4 +1,4 @@
-package ru.hawoline.alonar.model.spell;
+package ru.hawoline.alonar.model.personage.spell;
 
 import ru.hawoline.alonar.model.Range;
 

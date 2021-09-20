@@ -4,7 +4,7 @@ import ru.hawoline.alonar.model.Range;
 import ru.hawoline.alonar.model.personage.heroclass.*;
 import ru.hawoline.alonar.model.personage.specification.attribute.Attribute;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
-import ru.hawoline.alonar.model.spell.DamageSpell;
+import ru.hawoline.alonar.model.personage.spell.DamageSpell;
 import ru.hawoline.alonar.model.weapons.Knife;
 
 import java.util.ArrayList;

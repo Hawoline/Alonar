@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.core.content.res.ResourcesCompat;
 import ru.hawoline.alonar.R;
+import ru.hawoline.alonar.model.map.LandscapeMap;
 import ru.hawoline.alonar.model.map.Map;
 import ru.hawoline.alonar.model.personage.Enemy;
 import ru.hawoline.alonar.model.personage.Location;
@@ -100,9 +101,9 @@ public class MainActivity extends Activity implements MainView {
 
     private int getLandscapeDrawableId(int landscapeType) {
         int drawableId;
-        if (landscapeType == Map.GRASS) {
+        if (landscapeType == LandscapeMap.GRASS) {
             drawableId = R.drawable.green;
-        } else if (landscapeType == Map.MOUNTAIN) {
+        } else if (landscapeType == LandscapeMap.MOUNTAIN) {
             drawableId = R.drawable.mountains;
         } else {
             drawableId = R.drawable.mountains;

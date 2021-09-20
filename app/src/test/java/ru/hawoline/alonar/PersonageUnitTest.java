@@ -8,7 +8,7 @@ import ru.hawoline.alonar.model.personage.PersonageFactory;
 import ru.hawoline.alonar.model.personage.heroclass.HeroClass;
 import ru.hawoline.alonar.model.personage.heroclass.Mage;
 import ru.hawoline.alonar.model.personage.usecase.DamageComputationUseCase;
-import ru.hawoline.alonar.model.spell.DamageSpell;
+import ru.hawoline.alonar.model.personage.spell.DamageSpell;
 
 public class PersonageUnitTest {
     @Test

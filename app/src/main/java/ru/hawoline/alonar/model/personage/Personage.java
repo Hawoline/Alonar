@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Personage {
-    private int mExperience;
-    private int mArmor;
     private ArrayList<Vitality> mVitality;
     private HashMap<AttributeName, Attribute> mAttributes;
     private HashMap<Body, Equipment> mEquipment;
     private ArrayList<Slot> mSlots;
+    private int mExperience;
+    private int mArmor; // In percent. Max is 80%
 
     private final int HEALTH = 0;
     private final int MP = 1;
@@ -26,8 +26,8 @@ public abstract class Personage {
         mVitality = new ArrayList<>();
         mVitality.add(new Vitality(VitalityType.HEATH, 10));
         mVitality.add(new Vitality(VitalityType.MP, 10));
-        mExperience = 0;
         mEquipment = new HashMap<>();
+        mExperience = 0;
     }
 
     public int getExperience() {
