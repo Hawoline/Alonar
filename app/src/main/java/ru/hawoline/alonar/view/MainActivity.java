@@ -15,7 +15,6 @@ import android.widget.TextView;
 import androidx.core.content.res.ResourcesCompat;
 import ru.hawoline.alonar.R;
 import ru.hawoline.alonar.model.map.LandscapeMap;
-import ru.hawoline.alonar.model.map.Map;
 import ru.hawoline.alonar.model.personage.Enemy;
 import ru.hawoline.alonar.model.personage.Location;
 import ru.hawoline.alonar.presenter.MainPresenter;
@@ -25,11 +24,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity implements MainView {
     private MainPresenter mMainPresenter;
+    private LinearLayout mSlotsLayout;
+    private LinearLayout mEnemiesListLayout;
     private GridLayout mMapGridLayout;
+    private TextView mChooseEnemyTextView;
     private ImageView[][] mMapImageViews;
     private ImageView mHeroImageView;
-    private LinearLayout mEnemiesListLayout;
-    private LinearLayout mSlotsLayout;
     private ImageView[] mSlots;
 
     private int mRemovableViewId;
@@ -128,6 +128,7 @@ public class MainActivity extends Activity implements MainView {
         mMapGridLayout = findViewById(R.id.main_map_gridlayout);
         mMapGridLayout.setRowCount(VISIBLE_CELLS);
         mMapGridLayout.setColumnCount(VISIBLE_CELLS);
+        mChooseEnemyTextView = findViewById(R.id.main_chooseenemy_textview);
         mMapImageViews = new ImageView[VISIBLE_CELLS][VISIBLE_CELLS];
         for (int row = 0; row < VISIBLE_CELLS; row++) {
             for (int column = 0; column < VISIBLE_CELLS; column++) {
@@ -161,28 +162,25 @@ public class MainActivity extends Activity implements MainView {
     }
 
     private void setOnClickListeners() {
-        mSlots[1].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showEnemiesList();
-            }
-        });
+        mSlots[1].setOnClickListener(v -> showEnemiesList());
     }
 
     @Override
     public void showEnemiesList() {
-        removeEnemiesTextViews();
+        removeEnemyTextViews();
 
         ArrayList<Enemy> enemies = mMainPresenter.findEnemiesAroundHero();
 
         if (enemies.size() < 2) {
             mEnemiesListLayout.setVisibility(View.GONE);
+            mChooseEnemyTextView.setVisibility(View.GONE);
             if (enemies.size() == 1) {
                 mMainPresenter.enemyAttacked(enemies.get(0));
                 drawMap();
             }
         } else {
             mEnemiesListLayout.setVisibility(View.VISIBLE);
+            mChooseEnemyTextView.setVisibility(View.VISIBLE);
             for (Enemy enemy : enemies) {
                 createEnemyTextView(enemy);
             }
@@ -207,11 +205,7 @@ public class MainActivity extends Activity implements MainView {
         mEnemiesListLayout.removeView(mEnemiesListLayout.findViewById(mRemovableViewId));
     }
 
-    private void removeEnemiesTextViews() {
-        for (int enemyTextView = 0; enemyTextView < mEnemiesListLayout.getChildCount(); enemyTextView++) {
-            if (mEnemiesListLayout.getChildAt(enemyTextView).getId() != R.id.main_chooseenemy_textview) {
-                mEnemiesListLayout.removeViewAt(enemyTextView);
-            }
-        }
+    private void removeEnemyTextViews() {
+        mEnemiesListLayout.removeAllViews();
     }
 }

@@ -3,7 +3,7 @@
     <string name="hp">100</string>
     <string name="mp">100</string>
     <string name="knife">knife</string>
-    <string name="choose_target_enemy">Выбрать цель</string>
+    <string name="choose_target_enemy">Choose target</string>
     <string name="game_log">Game Log</string>
     <string name="bag">bag</string>
     <string name="person">person</string>
