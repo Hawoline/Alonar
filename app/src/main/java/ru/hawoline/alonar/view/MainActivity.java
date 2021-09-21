@@ -162,14 +162,14 @@ public class MainActivity extends Activity implements MainView {
     }
 
     private void setOnClickListeners() {
-        mSlots[1].setOnClickListener(v -> showEnemiesList());
+        mSlots[1].setOnClickListener(v -> showEnemiesList(1));
     }
 
     @Override
-    public void showEnemiesList() {
+    public void showEnemiesList(int slotIndex) {
         removeEnemyTextViews();
 
-        ArrayList<Enemy> enemies = mMainPresenter.findEnemiesAroundHero();
+        ArrayList<Enemy> enemies = mMainPresenter.findEnemiesAroundHero(slotIndex);
 
         if (enemies.size() < 2) {
             mEnemiesListLayout.setVisibility(View.GONE);

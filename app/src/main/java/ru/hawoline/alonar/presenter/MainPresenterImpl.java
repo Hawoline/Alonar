@@ -3,10 +3,7 @@ package ru.hawoline.alonar.presenter;
 import android.os.Bundle;
 import ru.hawoline.alonar.model.map.LandscapeMap;
 import ru.hawoline.alonar.model.map.Map;
-import ru.hawoline.alonar.model.personage.Enemy;
-import ru.hawoline.alonar.model.personage.Location;
-import ru.hawoline.alonar.model.personage.Personage;
-import ru.hawoline.alonar.model.personage.PersonageFactory;
+import ru.hawoline.alonar.model.personage.*;
 import ru.hawoline.alonar.model.personage.heroclass.HeroClass;
 import ru.hawoline.alonar.model.personage.usecase.DamageComputationUseCase;
 import ru.hawoline.alonar.view.MainView;
@@ -90,13 +87,52 @@ public class MainPresenterImpl implements MainPresenter {
     public ArrayList<Enemy> findEnemiesAroundHero() {
         mEnemiesAroundHero.clear();
         HashMap<Enemy, Location> enemies = mEnemies;
+        Location personageLocation = getPersonageLocation();
         for (Enemy enemy: enemies.keySet()) {
-            Location personageLocation = getPersonageLocation();
             if (Math.abs(enemies.get(enemy).getX() - personageLocation.getX()) < 3
                     && Math.abs(enemies.get(enemy).getY() - personageLocation.getY()) < 3) {
                 mEnemiesAroundHero.add(enemy);
             }
         }
+        return mEnemiesAroundHero;
+    }
+
+    @Override
+    public ArrayList<Enemy> findEnemiesAroundHero(int slotIndex) {
+        mEnemiesAroundHero.clear();
+        DamageSlot slot = (DamageSlot) mPersonage.getSlots().get(slotIndex);
+        Location personageLocation = getPersonageLocation();
+        int distance = slot.getDistance();
+        for (Enemy enemy: mEnemies.keySet()) {
+            Location enemyLocation = mEnemies.get(enemy);
+            int xDistance = personageLocation.getX() - enemyLocation.getX();
+            int yDistance = personageLocation.getY() - enemyLocation.getY();
+            int sum = Math.abs(xDistance) + Math.abs(yDistance);
+            int diagonalSquaredDistance = xDistance * xDistance + yDistance * yDistance;
+            switch (slot.getDistance()) {
+                case 0:
+                    if (xDistance == 0 && yDistance == 0) {
+                        mEnemiesAroundHero.add(enemy);
+                    }
+                    break;
+                case 3:
+                    if (sum < 2) {
+                        mEnemiesAroundHero.add(enemy);
+                    }
+                    break;
+                case 4:
+                    if (diagonalSquaredDistance == 2) {
+                        mEnemiesAroundHero.add(enemy);
+                    }
+                    break;
+                case 6:
+                    if (sum < 3) {
+                        mEnemiesAroundHero.add(enemy);
+                    }
+                    break;
+            }
+        }
+
         return mEnemiesAroundHero;
     }
 

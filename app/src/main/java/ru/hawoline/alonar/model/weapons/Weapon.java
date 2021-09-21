@@ -1,9 +1,10 @@
 package ru.hawoline.alonar.model.weapons;
 
 import ru.hawoline.alonar.model.Range;
+import ru.hawoline.alonar.model.personage.DamageSlot;
 import ru.hawoline.alonar.model.personage.Slot;
 
-public abstract class Weapon implements Slot {
+public abstract class Weapon implements DamageSlot {
     private int mDistance;
     private Range mRangeDamage;
     private int mRestoreTime;
@@ -16,6 +17,7 @@ public abstract class Weapon implements Slot {
         mCurrentRestoreTime = restoreTime;
     }
 
+    @Override
     public int getDistance() {
         return mDistance;
     }

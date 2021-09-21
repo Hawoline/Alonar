@@ -1,8 +1,9 @@
 package ru.hawoline.alonar.model.personage.spell;
 
 import ru.hawoline.alonar.model.Range;
+import ru.hawoline.alonar.model.personage.DamageSlot;
 
-public class DamageSpell extends Spell {
+public class DamageSpell extends Spell implements DamageSlot {
     private int mDamage;
     private Range mDamageRange;
 

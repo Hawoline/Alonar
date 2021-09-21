@@ -2,7 +2,7 @@ package ru.hawoline.alonar.view;
 
 public interface MainView extends View {
 
-    void showEnemiesList();
+    void showEnemiesList(int slotIndex);
 
     void removeEnemyTextView();
 }
