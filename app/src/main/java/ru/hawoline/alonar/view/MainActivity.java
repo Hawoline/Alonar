@@ -162,7 +162,8 @@ public class MainActivity extends Activity implements MainView {
     }
 
     private void setOnClickListeners() {
-        mSlots[1].setOnClickListener(v -> showEnemiesList(1));
+        mSlots[0].setOnClickListener(view -> showEnemiesList(0));
+        mSlots[1].setOnClickListener(view -> showEnemiesList(1));
     }
 
     @Override
