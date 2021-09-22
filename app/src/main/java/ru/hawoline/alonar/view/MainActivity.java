@@ -69,33 +69,19 @@ public class MainActivity extends Activity implements MainView {
         for (int x = xLocation - 2; x < xLocation + 3; x++) {
             int j = 0;
             for (int y = yLocation - 2; y < yLocation + 3; y++) {
+                int landscapeResourceId;
                 if (x > -1 && y > -1 && x < mapSize && y < mapSize) {
-                    Resources resources = getResources();
-                    Drawable[] layers = new Drawable[4];
-
-                    layers[0] = ResourcesCompat.getDrawable(resources, getLandscapeDrawableId(map[y][x]), null);
-
-                    ArrayList<Enemy> enemiesAroundHero = mMainPresenter.findEnemiesAroundHero();
-
-                    for (Enemy enemy : enemiesAroundHero) {
-                        Location enemyLocation = mMainPresenter.getEnemyLocation(enemy);
-                        if (enemyLocation.getX() == x && enemyLocation.getY() == y) {
-                            layers[1] = ResourcesCompat.getDrawable(resources, R.drawable.point_1, null);
-                            layers[2] = ResourcesCompat.getDrawable(resources, R.drawable.point_2_quest, null);
-                            layers[3] = ResourcesCompat.getDrawable(resources, R.drawable.point_3_e, null);
-                        }
-                    }
-                    LayerDrawable layerDrawable = new LayerDrawable(layers);
-                    mMapImageViews[j][i].setImageDrawable(layerDrawable);
-
+                    landscapeResourceId = getLandscapeDrawableId(map[y][x]);
                 } else {
-                    mMapImageViews[j][i].setImageResource(R.drawable.mountains);
+                    landscapeResourceId = R.drawable.mountains;
                 }
+                mMapImageViews[j][i].setImageResource(landscapeResourceId);
                 j++;
             }
             i++;
         }
 
+        drawEnemies(map, personageLocation);
         drawPersonage(personageLocation);
     }
 
@@ -121,6 +107,24 @@ public class MainActivity extends Activity implements MainView {
             mHeroImageView.setImageResource(R.drawable.hero_left);
         } else if (direction == Location.DIRECTION_RIGHT) {
             mHeroImageView.setImageResource(R.drawable.hero_right);
+        }
+    }
+
+    private void drawEnemies(int[][] map, Location personageLocation) {
+        ArrayList<Enemy> enemiesAroundHero = mMainPresenter.findEnemiesAroundHero();
+
+        Resources resources = getResources();
+        for (Enemy enemy : enemiesAroundHero) {
+            Drawable[] layers = new Drawable[4];
+            Location enemyLocation = mMainPresenter.getEnemyLocation(enemy);
+            layers[0] = ResourcesCompat.getDrawable(resources,
+                    getLandscapeDrawableId(map[enemyLocation.getY()][enemyLocation.getX()]), null);
+            layers[1] = ResourcesCompat.getDrawable(resources, R.drawable.point_1, null);
+            layers[2] = ResourcesCompat.getDrawable(resources, R.drawable.point_2_quest, null);
+            layers[3] = ResourcesCompat.getDrawable(resources, R.drawable.point_3_e, null);
+            LayerDrawable layerDrawable = new LayerDrawable(layers);
+            mMapImageViews[enemyLocation.getY() - personageLocation.getY() + 2]
+                    [enemyLocation.getX() - personageLocation.getX() + 2].setImageDrawable(layerDrawable);
         }
     }
 

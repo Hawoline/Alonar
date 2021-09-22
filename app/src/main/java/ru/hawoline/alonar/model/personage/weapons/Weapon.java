@@ -1,8 +1,7 @@
-package ru.hawoline.alonar.model.weapons;
+package ru.hawoline.alonar.model.personage.weapons;
 
 import ru.hawoline.alonar.model.Range;
 import ru.hawoline.alonar.model.personage.DamageSlot;
-import ru.hawoline.alonar.model.personage.Slot;
 
 public abstract class Weapon implements DamageSlot {
     private int mDistance;
