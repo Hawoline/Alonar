@@ -3,7 +3,7 @@ package ru.hawoline.alonar.model.personage.usecase;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.Slot;
 import ru.hawoline.alonar.model.personage.spell.DamageSpell;
-import ru.hawoline.alonar.model.personage.weapons.Weapon;
+import ru.hawoline.alonar.model.personage.weapon.Weapon;
 
 public final class DamageComputationUseCase {
     public static void compute(Personage attacker, Personage defender, int damageSlotIndex) {

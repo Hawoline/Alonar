@@ -1,4 +1,4 @@
-package ru.hawoline.alonar.model.personage.weapons;
+package ru.hawoline.alonar.model.personage.weapon;
 
 import ru.hawoline.alonar.model.Range;
 import ru.hawoline.alonar.model.personage.DamageSlot;
