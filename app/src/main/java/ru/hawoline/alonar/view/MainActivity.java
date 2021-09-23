@@ -69,11 +69,9 @@ public class MainActivity extends Activity implements MainView {
         for (int x = xLocation - 2; x < xLocation + 3; x++) {
             int j = 0;
             for (int y = yLocation - 2; y < yLocation + 3; y++) {
-                int landscapeResourceId;
+                int landscapeResourceId = R.drawable.mountains;
                 if (x > -1 && y > -1 && x < mapSize && y < mapSize) {
                     landscapeResourceId = getLandscapeDrawableId(map[y][x]);
-                } else {
-                    landscapeResourceId = R.drawable.mountains;
                 }
                 mMapImageViews[j][i].setImageResource(landscapeResourceId);
                 j++;
