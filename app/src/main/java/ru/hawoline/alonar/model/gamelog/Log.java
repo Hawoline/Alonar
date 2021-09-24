@@ -1,9 +1,26 @@
 package ru.hawoline.alonar.model.gamelog;
 
-import java.util.ArrayList;
-
 public abstract class Log {
-    private ArrayList<String> mLog;
+    private String[] mLog;
+    private int mSize;
 
-    
+    private int mCurrentAction;
+
+    public Log(int size) {
+        mSize = size;
+        mLog = new String[mSize];
+        mCurrentAction = 0;
+    }
+
+    public void putToLog(String action) {
+        mLog[mCurrentAction++ % mSize] = action;
+    }
+
+    public String[] getLog() {
+        return mLog;
+    }
+
+    public String getCurrent() {
+        return mLog[(mCurrentAction - 1) % mSize];
+    }
 }
