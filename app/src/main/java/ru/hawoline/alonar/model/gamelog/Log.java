@@ -17,7 +17,11 @@ public abstract class Log {
     }
 
     public String[] getLog() {
-        return mLog;
+        String[] showedLog = new String[mSize];
+        for (int i = 0; i < mSize; i++) {
+            showedLog[i] = mLog[(mCurrentAction + i) % mSize];
+        }
+        return showedLog;
     }
 
     public String getCurrent() {
