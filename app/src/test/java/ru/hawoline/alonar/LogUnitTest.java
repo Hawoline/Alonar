@@ -3,13 +3,14 @@ package ru.hawoline.alonar;
 import junit.framework.TestCase;
 import org.junit.Test;
 import ru.hawoline.alonar.model.gamelog.Log;
-import ru.hawoline.alonar.model.gamelog.LogImpl;
+import ru.hawoline.alonar.model.gamelog.GameLog;
 
 public class LogUnitTest {
     Log mLog;
 
     private void init() {
-        mLog = new LogImpl(10);
+        mLog = GameLog.getInstance();
+        mLog.init(10);
     }
     @Test
     public void testLog() {
@@ -28,7 +29,7 @@ public class LogUnitTest {
         for (int i = 0; i < 15; i++) {
             mLog.putToLog(String.valueOf(i));
         }
-        String[] log = mLog.getLog();
+        String[] log = mLog.showLog();
 
         TestCase.assertEquals("5", log[0]);
         TestCase.assertEquals("6", log[1]);
