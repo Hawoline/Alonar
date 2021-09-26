@@ -1,186 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         tools:context=".view.MainActivity">
     <LinearLayout
             android:id="@+id/main_gamelogs_linearlayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="8dp"
             android:orientation="vertical"
+            android:layout_alignParentTop="true"
             android:visibility="gone"
     >
-        <TextView
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="svdsvsv" />
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+    >
+        <LinearLayout
+                android:id="@+id/main_vitality_linearlayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/game_log"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+        >
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/hp"/>
+            <TextView
+                    android:id="@+id/main_hp_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hp"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/mp"/>
+            <TextView
+                    android:id="@+id/main_mp_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/main_slots_linearlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp"
+        >
+            <ImageView
+                    android:id="@+id/main_slot_0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/knife_0"/>
+            <ImageView
+                    android:id="@+id/main_slot_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fire"/>
+            <ImageView
+                    android:id="@+id/main_slot_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fire_flash"/>
+            <ImageView
+                    android:id="@+id/main_slot_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/frost_ball"/>
+            <ImageView
+                    android:id="@+id/main_slot_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/mind"/>
+            <ImageView
+                    android:id="@+id/main_slot_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/frost_spear"/>
+            <ImageView
+                    android:id="@+id/main_slot_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/strength_of_mind"/>
+            <ImageView
+                    android:id="@+id/main_slot_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/frost_shield"/>
+            <ImageView
+                    android:id="@+id/main_slot_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/pillar_of_fire"/>
+            <ImageView
+                    android:id="@+id/main_slot_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/frost_ring"/>
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/main_chooseenemy_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_target_enemy"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+        />
+        <LinearLayout
+                android:id="@+id/main_enemies_linearlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone"
+        >
+
+        </LinearLayout>
+
+        <GridLayout
+                android:id="@+id/main_map_gridlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+        >
+
+            <ImageView
+                    android:id="@+id/hero_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="2"
+                    android:layout_column="2"
+            />
+
+        </GridLayout>
+        <ProgressBar
+                android:id="@+id/main_herotransition_progressbar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
         />
 
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bag"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/person"/>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/quest"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/map"/>
+        </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/hp"/>
-        <TextView
-                android:id="@+id/main_hp_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hp"/>
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/mp"/>
-        <TextView
-                android:id="@+id/main_mp_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mp"/>
-    </LinearLayout>
-    <LinearLayout
-            android:id="@+id/main_slots_linearlayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="0dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center">
-        <ImageView
-                android:id="@+id/main_slot_0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/knife_0"/>
-        <ImageView
-                android:id="@+id/main_slot_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/fire"/>
-        <ImageView
-                android:id="@+id/main_slot_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/fire_flash"/>
-        <ImageView
-                android:id="@+id/main_slot_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/frost_ball"/>
-        <ImageView
-                android:id="@+id/main_slot_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/mind"/>
-        <ImageView
-                android:id="@+id/main_slot_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/frost_spear"/>
-        <ImageView
-                android:id="@+id/main_slot_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/strength_of_mind"/>
-        <ImageView
-                android:id="@+id/main_slot_7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/frost_shield"/>
-        <ImageView
-                android:id="@+id/main_slot_8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/pillar_of_fire"/>
-        <ImageView
-                android:id="@+id/main_slot_9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/frost_ring"/>
-    </LinearLayout>
-
-    <TextView
-            android:id="@+id/main_chooseenemy_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_target_enemy"
-            android:gravity="center_horizontal"
-            android:visibility="gone"
-    />
-    <LinearLayout
-            android:id="@+id/main_enemies_linearlayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
-            android:visibility="gone"
-    >
-
-    </LinearLayout>
-
-    <GridLayout
-            android:id="@+id/main_map_gridlayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-    >
-
-        <ImageView
-                android:id="@+id/hero_imageview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="2"
-        />
-
-    </GridLayout>
-    <ProgressBar
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-    />
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-    >
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bag"/>
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/point"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/person"/>
-
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/point"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/quest"/>
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/point"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/map"/>
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

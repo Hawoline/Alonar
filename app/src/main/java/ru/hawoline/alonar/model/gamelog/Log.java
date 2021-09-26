@@ -6,7 +6,7 @@ public abstract class Log {
 
     private int mCurrentAction;
 
-    public Log(int size) {
+    protected Log(int size) {
         mSize = size;
         mLog = new String[mSize];
         mCurrentAction = 0;
@@ -28,5 +28,8 @@ public abstract class Log {
         return mLog[(mCurrentAction - 1) % mSize];
     }
 
-    public abstract void init(int size);
+    public void clearLog() {
+        mLog = new String[mSize];
+        mCurrentAction = 0;
+    }
 }

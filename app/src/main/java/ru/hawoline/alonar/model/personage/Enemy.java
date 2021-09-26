@@ -11,7 +11,7 @@ public class Enemy extends Personage {
         setAttribute(AttributeName.ENDURANCE, new Attribute(100));
     }
 
-    public static Personage createEnemy(String name) {
+    public static Enemy createEnemy(String name) {
         return new Enemy(name);
     }
 

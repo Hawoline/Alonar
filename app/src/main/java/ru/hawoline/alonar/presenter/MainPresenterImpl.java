@@ -137,8 +137,8 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void enemyAttacked(Enemy enemy) {
-        DamageComputationUseCase.compute(getPersonage(), enemy, 1);
+    public void enemyAttacked(Enemy enemy, int slotIndex) {
+        DamageComputationUseCase.compute(getPersonage(), enemy, slotIndex);
         if (enemy.getHealth() < 1) {
             mEnemies.remove(enemy);
             mMainView.removeEnemyTextView();

@@ -25,4 +25,9 @@ public class DamageSpell extends Spell implements DamageSlot {
         mDamage = (int) (Math.random() * (mDamageRange.getDistance()) + mDamageRange.getLow());
         return mDamage;
     }
+
+    @Override
+    public int getDamage() {
+        return calculateDamage();
+    }
 }

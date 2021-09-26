@@ -20,7 +20,7 @@ public interface MainPresenter extends Presenter {
 
     ArrayList<Enemy> findEnemiesAroundHero(int slotIndex);
 
-    void enemyAttacked(Enemy enemy);
+    void enemyAttacked(Enemy enemy, int slotIndex);
 
     Location getEnemyLocation(Enemy enemy);
 }

@@ -28,6 +28,7 @@ public abstract class Personage {
         mVitality.add(new Vitality(VitalityType.MP, 10));
         mEquipment = new HashMap<>();
         mExperience = 0;
+        mArmor = 10;
     }
 
     public int getExperience() {

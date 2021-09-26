@@ -10,7 +10,6 @@ public class LogUnitTest {
 
     private void init() {
         mLog = GameLog.getInstance();
-        mLog.init(10);
     }
     @Test
     public void testLog() {

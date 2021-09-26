@@ -5,13 +5,13 @@ import ru.hawoline.alonar.model.personage.DamageSlot;
 
 public abstract class Weapon implements DamageSlot {
     private int mDistance;
-    private Range mRangeDamage;
+    private Range mDamageRange;
     private int mRestoreTime;
     private int mCurrentRestoreTime;
 
-    public Weapon(int distance, Range rangeDamage, int restoreTime) {
+    public Weapon(int distance, Range damageRange, int restoreTime) {
         mDistance = distance;
-        mRangeDamage = rangeDamage;
+        mDamageRange = damageRange;
         mRestoreTime = restoreTime;
         mCurrentRestoreTime = restoreTime;
     }
@@ -25,16 +25,17 @@ public abstract class Weapon implements DamageSlot {
         mDistance = distance;
     }
 
-    public Range getRangeDamage() {
-        return mRangeDamage;
+    public Range getDamageRange() {
+        return mDamageRange;
     }
 
-    public void setRangeDamage(Range rangeDamage) {
-        mRangeDamage = rangeDamage;
+    public void setDamageRange(Range damageRange) {
+        mDamageRange = damageRange;
     }
 
+    @Override
     public int getDamage() {
-        return (int) (Math.random() * (mRangeDamage.getHigh() - mRangeDamage.getLow()) + mRangeDamage.getLow());
+        return (int) (Math.random() * (mDamageRange.getHigh() - mDamageRange.getLow()) + mDamageRange.getLow());
     }
 
     public int getRestoreTime() {
