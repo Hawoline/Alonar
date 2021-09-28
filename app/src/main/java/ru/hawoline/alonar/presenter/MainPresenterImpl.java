@@ -1,6 +1,8 @@
 package ru.hawoline.alonar.presenter;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import ru.hawoline.alonar.model.map.LandscapeMap;
 import ru.hawoline.alonar.model.map.Map;
 import ru.hawoline.alonar.model.personage.*;
@@ -9,6 +11,7 @@ import ru.hawoline.alonar.model.personage.usecase.DamageComputationUseCase;
 import ru.hawoline.alonar.view.MainView;
 import ru.hawoline.alonar.view.View;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,7 +35,7 @@ public class MainPresenterImpl implements MainPresenter {
 
         mEnemies = new HashMap<>();
         for (int enemyIndex = 0; enemyIndex < 20; enemyIndex++) {
-            Enemy enemy = (Enemy) Enemy.createEnemy("Rat");
+            Enemy enemy = Enemy.createEnemy("Rat");
             mEnemies.put(enemy, new Location(
                     (int) Math.floor(Math.random() * (mGameMap.getSize() - 2) + 1),
                     (int) Math.floor(Math.random() * mGameMap.getSize()))
@@ -52,12 +55,34 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void saveInstance(Bundle state) {
-
+        try {
+            FileOutputStream heroFileOutputStream = mMainView.getContext().openFileOutput("Hero.out", Context.MODE_PRIVATE);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(heroFileOutputStream);
+            objectOutputStream.writeObject(mPersonage);
+            objectOutputStream.close();
+            FileOutputStream heroLocationFileOutputStream = mMainView.getContext().openFileOutput("HeroLocation.out", Context.MODE_PRIVATE);
+            ObjectOutputStream heroLocationOutputStream = new ObjectOutputStream(heroLocationFileOutputStream);
+            heroLocationOutputStream.writeObject(mPersonageLocation);
+            heroLocationOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void restoreInstance(Bundle state) {
-
+        try {
+            FileInputStream heroFileInputStream = mMainView.getContext().openFileInput("Hero.out");
+            ObjectInputStream objectInputStream = new ObjectInputStream(heroFileInputStream);
+            mPersonage = (Personage) objectInputStream.readObject();
+            objectInputStream.close();
+            FileInputStream heroLocationFileInputStream = mMainView.getContext().openFileInput("HeroLocation.out");
+            ObjectInputStream heroLocationInputStream = new ObjectInputStream(heroLocationFileInputStream);
+            mPersonageLocation = (Location) heroLocationInputStream.readObject();
+            heroLocationInputStream.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

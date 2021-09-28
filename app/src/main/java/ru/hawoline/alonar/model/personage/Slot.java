@@ -1,5 +1,7 @@
 package ru.hawoline.alonar.model.personage;
 
-public interface Slot {
+import java.io.Serializable;
+
+public interface Slot extends Serializable {
 
 }

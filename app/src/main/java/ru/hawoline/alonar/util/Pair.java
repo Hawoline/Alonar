@@ -1,8 +1,12 @@
 package ru.hawoline.alonar.util;
 
-public class Pair<T, V> {
+import java.io.Serializable;
+
+public class Pair<T, V> implements Serializable {
     private T mFirst;
     private V mSecond;
+
+    private static final long serialVersionUID = 7005557444853977271L;
 
     public Pair(T first, V second) {
         mFirst = first;

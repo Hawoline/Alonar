@@ -1,9 +1,13 @@
 package ru.hawoline.alonar.model.personage;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private int mX;
     private int mY;
     private int mDirection;
+
+    private static final long serialVersionUID = 4815547538178012906L;
 
     public static final int DIRECTION_FORWARD = 0;
     public static final int DIRECTION_RIGHT = 1;

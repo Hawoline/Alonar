@@ -7,10 +7,11 @@ import ru.hawoline.alonar.model.personage.specification.VitalityType;
 import ru.hawoline.alonar.model.personage.specification.attribute.Attribute;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Personage {
+public abstract class Personage implements Serializable {
     private ArrayList<Vitality> mVitality;
     private HashMap<AttributeName, Attribute> mAttributes;
     private HashMap<Body, Equipment> mEquipment;
@@ -20,6 +21,8 @@ public abstract class Personage {
 
     private final int HEALTH = 0;
     private final int MP = 1;
+
+    private static final long serialVersionUID = -1613269264133657958L;
 
     protected Personage() {
         mAttributes = new HashMap<>();

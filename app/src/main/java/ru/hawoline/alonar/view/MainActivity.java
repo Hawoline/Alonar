@@ -12,6 +12,7 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import ru.hawoline.alonar.R;
 import ru.hawoline.alonar.model.gamelog.GameLog;
@@ -48,6 +49,24 @@ public class MainActivity extends Activity implements MainView {
         findViews();
         setOnClickListeners();
         render();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        drawMap();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        mMainPresenter.saveInstance(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        mMainPresenter.restoreInstance(savedInstanceState);
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -227,6 +246,5 @@ public class MainActivity extends Activity implements MainView {
             mGameLogLayout.addView(logTextView);
         }
         mGameLogLayout.setVisibility(View.VISIBLE);
-//        GameLog.getInstance().clearLog();
     }
 }

@@ -2,9 +2,13 @@ package ru.hawoline.alonar.model.personage.specification;
 
 import ru.hawoline.alonar.util.Pair;
 
-public class Vitality {
+import java.io.Serializable;
+
+public class Vitality implements Serializable {
     private VitalityType mType;
     private Pair<Integer, Integer> mResidualMax;
+
+    private static final long serialVersionUID = -990341370978716524L;
 
     public Vitality(VitalityType type, int max) {
         setVitality(type, new Pair<>(max, max));
