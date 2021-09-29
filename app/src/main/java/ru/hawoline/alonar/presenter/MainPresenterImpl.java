@@ -2,12 +2,14 @@ package ru.hawoline.alonar.presenter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import ru.hawoline.alonar.model.map.LandscapeMap;
 import ru.hawoline.alonar.model.map.Map;
 import ru.hawoline.alonar.model.personage.*;
+import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.model.personage.heroclass.HeroClass;
 import ru.hawoline.alonar.model.personage.usecase.DamageComputationUseCase;
+import ru.hawoline.alonar.model.personage.usecase.EnemyAttackComputationUseCase;
+import ru.hawoline.alonar.util.Pair;
 import ru.hawoline.alonar.view.MainView;
 import ru.hawoline.alonar.view.View;
 
@@ -23,6 +25,7 @@ public class MainPresenterImpl implements MainPresenter {
     private Location mPersonageLocation;
     private HashMap<Personage, Location> mPersonages;
     private HashMap<Enemy, Location> mEnemies;
+    private EnemyAttackComputationUseCase mEnemyAttackComputationUseCase;
 
     public MainPresenterImpl() {
         mGameMap = new LandscapeMap(30);
@@ -41,6 +44,9 @@ public class MainPresenterImpl implements MainPresenter {
                     (int) Math.floor(Math.random() * mGameMap.getSize()))
             );
         }
+
+        mEnemyAttackComputationUseCase =
+                new EnemyAttackComputationUseCase(mEnemies, new Pair<>(mPersonage, mPersonageLocation));
     }
 
     @Override
@@ -67,6 +73,8 @@ public class MainPresenterImpl implements MainPresenter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        stopEnemyAttacks();
     }
 
     @Override
@@ -173,5 +181,10 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public Location getEnemyLocation(Enemy enemy) {
         return mEnemies.get(enemy);
+    }
+
+    @Override
+    public void stopEnemyAttacks() {
+        mEnemyAttackComputationUseCase.stopThread();
     }
 }

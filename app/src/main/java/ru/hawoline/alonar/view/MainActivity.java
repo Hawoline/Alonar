@@ -17,7 +17,7 @@ import androidx.core.content.res.ResourcesCompat;
 import ru.hawoline.alonar.R;
 import ru.hawoline.alonar.model.gamelog.GameLog;
 import ru.hawoline.alonar.model.map.LandscapeMap;
-import ru.hawoline.alonar.model.personage.Enemy;
+import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.model.personage.Location;
 import ru.hawoline.alonar.presenter.MainPresenter;
 import ru.hawoline.alonar.presenter.MainPresenterImpl;
@@ -70,6 +70,12 @@ public class MainActivity extends Activity implements MainView {
     }
 
     @Override
+    protected void onStop() {
+        mMainPresenter.stopEnemyAttacks();
+        super.onStop();
+    }
+
+    @Override
     public Context getContext() {
         return getApplicationContext();
     }
@@ -101,6 +107,7 @@ public class MainActivity extends Activity implements MainView {
                 mMapImageViews[i][j].setOnClickListener(v -> {
                     mMainPresenter.onPersonageMove(x, y);
                     drawMap();
+                    createLogTextViews();
                 });
             }
         }

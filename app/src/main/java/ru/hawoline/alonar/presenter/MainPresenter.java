@@ -1,7 +1,6 @@
 package ru.hawoline.alonar.presenter;
 
-import android.util.ArrayMap;
-import ru.hawoline.alonar.model.personage.Enemy;
+import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.model.personage.Location;
 import ru.hawoline.alonar.model.personage.Personage;
 
@@ -23,4 +22,6 @@ public interface MainPresenter extends Presenter {
     void enemyAttacked(Enemy enemy, int slotIndex);
 
     Location getEnemyLocation(Enemy enemy);
+
+    void stopEnemyAttacks();
 }

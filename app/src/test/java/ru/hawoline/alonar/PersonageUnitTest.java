@@ -3,7 +3,7 @@ package ru.hawoline.alonar;
 import junit.framework.TestCase;
 import org.junit.Test;
 import ru.hawoline.alonar.model.personage.DamageSlot;
-import ru.hawoline.alonar.model.personage.Enemy;
+import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.PersonageFactory;
 import ru.hawoline.alonar.model.personage.heroclass.HeroClass;

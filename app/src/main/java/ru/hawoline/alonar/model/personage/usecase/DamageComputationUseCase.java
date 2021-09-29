@@ -1,9 +1,11 @@
 package ru.hawoline.alonar.model.personage.usecase;
 
+import android.util.Log;
 import ru.hawoline.alonar.model.gamelog.GameLog;
 import ru.hawoline.alonar.model.personage.DamageSlot;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.Slot;
+import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.model.personage.spell.DamageSpell;
 import ru.hawoline.alonar.model.personage.weapon.Weapon;
 
@@ -15,13 +17,24 @@ public final class DamageComputationUseCase {
             if (attacker.getMp() >= ((DamageSpell) slot).getRequiredMana()) {
                 defender.setHealth(defender.getHealth() - ((DamageSlot) slot).getDamage());
                 attacker.setMp(attacker.getMp() - ((DamageSpell) slot).getRequiredMana());
-                GameLog.getInstance().putToLog("Hero attacks the enemy " + ((DamageSpell) slot).getDamage() +
-                        " magic damage");
+                if (attacker instanceof Enemy) {
+                    GameLog.getInstance().putToLog(((Enemy) attacker).getName() + " attacks the hero " +
+                            ((DamageSpell) slot).getDamage() + " magic damage");
+                } else {
+                    GameLog.getInstance().putToLog("Hero attacks the enemy " + ((DamageSpell) slot).getDamage() +
+                            " magic damage");
+                }
             }
         } else if (slot instanceof Weapon) {
             int damage = (int) (((DamageSlot) slot).getDamage() * (100 - defender.getArmor()) * 0.01);
             defender.setHealth(defender.getHealth() - damage);
-            GameLog.getInstance().putToLog("Hero attacks the enemy " + damage + " weapon damage");
+
+            if (attacker instanceof Enemy) {
+                GameLog.getInstance().putToLog(((Enemy) attacker).getName() + " attacks the hero " + damage +
+                        " weapon damage");
+            } else {
+                GameLog.getInstance().putToLog("Hero attacks the enemy " + damage + " weapon damage");
+            }
         }
     }
 }

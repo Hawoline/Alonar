@@ -1,11 +1,15 @@
 package ru.hawoline.alonar.model.personage.inventory;
 
-public class Money {
+import java.io.Serializable;
+
+public class Money implements Serializable {
     private int mMoney;
     private int mCopper;
     private int mSilver;
     private int mGold;
     private int mDoubloon;
+
+    private static final long serialVersionUID = -3731504861208603753L;
 
     public Money(int money, int doubloon) {
         mMoney = money;

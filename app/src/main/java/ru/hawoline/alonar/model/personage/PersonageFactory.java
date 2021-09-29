@@ -31,7 +31,7 @@ public class PersonageFactory {
         personage.setAttribute(AttributeName.INTELLIGENCE, new Attribute(100));
         personage.setAttribute(AttributeName.AGILITY, new Attribute(5));
         personage.setAttribute(AttributeName.SPIRIT, new Attribute(5));
-        personage.setArmor(100);
+        personage.setArmor(10);
         ArrayList<Slot> slots = new ArrayList<>();
         slots.add(new Knife(0, new Range(3, 4), 2));
         slots.add(new DamageSpell("Fireball", 6, 50, 6, new Range(197, 236)));
