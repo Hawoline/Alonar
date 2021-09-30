@@ -33,7 +33,9 @@ public class Vitality implements Serializable {
     }
 
     public void setValue(int value) {
-        if (value < getResidualMax().getFirst()) {
+        if (value > getResidualMax().getFirst()) {
+            setMaxValue(value);
+        } else {
             mResidualMax.setSecond(value);
         }
     }

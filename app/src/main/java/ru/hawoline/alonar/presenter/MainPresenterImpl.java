@@ -105,13 +105,20 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public Location getPersonageLocation() {
+        if (mPersonage.getHealth() < 1) {
+            mPersonage.setHealth(100);
+            mPersonageLocation.setX(1);
+            mPersonageLocation.setY(1);
+        }
         return mPersonageLocation;
     }
 
     @Override
     public void onPersonageMove(int x, int y) {
         Location personageLocation = getPersonageLocation();
-        if (mGameMap.getSize() > personageLocation.getX() + x && mGameMap.getSize() > personageLocation.getY() + y) {
+        int newXCoordinate = personageLocation.getX() + x;
+        int newYCoordinate = personageLocation.getY() + y;
+        if (mGameMap.getSize() > newXCoordinate && mGameMap.getSize() > newYCoordinate || newXCoordinate > -1 || newYCoordinate > -1) {
             personageLocation.move(x, y);
         }
     }

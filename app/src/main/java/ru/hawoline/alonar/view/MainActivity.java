@@ -17,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat;
 import ru.hawoline.alonar.R;
 import ru.hawoline.alonar.model.gamelog.GameLog;
 import ru.hawoline.alonar.model.map.LandscapeMap;
+import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.model.personage.Location;
 import ru.hawoline.alonar.presenter.MainPresenter;
@@ -34,6 +35,8 @@ public class MainActivity extends Activity implements MainView {
     private ImageView[][] mMapImageViews;
     private ImageView mHeroImageView;
     private ImageView[] mSlots;
+    private TextView mHealthTextView;
+    private TextView mMpTextView;
 
     private int mRemovableViewId;
 
@@ -80,11 +83,6 @@ public class MainActivity extends Activity implements MainView {
         return getApplicationContext();
     }
 
-    private void render() {
-        drawMap();
-        createLogTextViews();
-    }
-
     private void findViews() {
         mGameLogLayout = findViewById(R.id.main_gamelogs_linearlayout);
 
@@ -92,6 +90,8 @@ public class MainActivity extends Activity implements MainView {
         mMapGridLayout.setRowCount(VISIBLE_CELLS);
         mMapGridLayout.setColumnCount(VISIBLE_CELLS);
         mChooseEnemyTextView = findViewById(R.id.main_chooseenemy_textview);
+        mHealthTextView = findViewById(R.id.main_hp_textview);
+        mMpTextView = findViewById(R.id.main_mp_textview);
         mMapImageViews = new ImageView[VISIBLE_CELLS][VISIBLE_CELLS];
         for (int row = 0; row < VISIBLE_CELLS; row++) {
             for (int column = 0; column < VISIBLE_CELLS; column++) {
@@ -106,8 +106,7 @@ public class MainActivity extends Activity implements MainView {
                 final int y = i - 2;
                 mMapImageViews[i][j].setOnClickListener(v -> {
                     mMainPresenter.onPersonageMove(x, y);
-                    drawMap();
-                    createLogTextViews();
+                    render();
                 });
             }
         }
@@ -123,6 +122,18 @@ public class MainActivity extends Activity implements MainView {
             mSlots[slot] = findViewById(
                     resources.getIdentifier("main_slot_" + slot, "id", "ru.hawoline.alonar"));
         }
+    }
+
+    private void setOnClickListeners() {
+        mSlots[0].setOnClickListener(view -> showEnemiesList(0));
+        mSlots[1].setOnClickListener(view -> showEnemiesList(1));
+    }
+
+    @Override
+    public void render() {
+        drawMap();
+        createLogTextViews();
+        showVitalityValues();
     }
 
     @Override
@@ -149,6 +160,12 @@ public class MainActivity extends Activity implements MainView {
 
         drawEnemies(map, personageLocation);
         drawPersonage(personageLocation);
+    }
+
+    private void showVitalityValues() {
+        Personage personage = mMainPresenter.getPersonage();
+        mHealthTextView.setText(String.valueOf(personage.getHealth()));
+        mMpTextView.setText(String.valueOf(personage.getMp()));
     }
 
     private int getLandscapeDrawableId(int landscapeType) {
@@ -192,11 +209,6 @@ public class MainActivity extends Activity implements MainView {
             mMapImageViews[enemyLocation.getY() - personageLocation.getY() + 2]
                     [enemyLocation.getX() - personageLocation.getX() + 2].setImageDrawable(layerDrawable);
         }
-    }
-
-    private void setOnClickListeners() {
-        mSlots[0].setOnClickListener(view -> showEnemiesList(0));
-        mSlots[1].setOnClickListener(view -> showEnemiesList(1));
     }
 
     @Override

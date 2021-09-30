@@ -1,6 +1,5 @@
 package ru.hawoline.alonar.model.personage.usecase;
 
-import android.util.Log;
 import ru.hawoline.alonar.model.personage.Location;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.enemy.Enemy;

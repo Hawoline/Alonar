@@ -1,6 +1,5 @@
 package ru.hawoline.alonar.model.personage.usecase;
 
-import android.util.Log;
 import ru.hawoline.alonar.model.gamelog.GameLog;
 import ru.hawoline.alonar.model.personage.DamageSlot;
 import ru.hawoline.alonar.model.personage.Personage;
