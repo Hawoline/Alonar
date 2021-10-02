@@ -55,6 +55,12 @@ public class MainActivity extends Activity implements MainView {
     }
 
     @Override
+    protected void onStart() {
+        mMainPresenter.startEnemyAttacks();
+        super.onStart();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         drawMap();

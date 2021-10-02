@@ -118,7 +118,8 @@ public class MainPresenterImpl implements MainPresenter {
         Location personageLocation = getPersonageLocation();
         int newXCoordinate = personageLocation.getX() + x;
         int newYCoordinate = personageLocation.getY() + y;
-        if (mGameMap.getSize() > newXCoordinate && mGameMap.getSize() > newYCoordinate || newXCoordinate > -1 || newYCoordinate > -1) {
+        if (mGameMap.getSize() > newXCoordinate && mGameMap.getSize() > newYCoordinate
+                && newXCoordinate > -1 && newYCoordinate > -1) {
             personageLocation.move(x, y);
         }
     }
@@ -190,6 +191,12 @@ public class MainPresenterImpl implements MainPresenter {
         return mEnemies.get(enemy);
     }
 
+    @Override
+    public void startEnemyAttacks() {
+        mEnemyAttackComputationUseCase.setEnemies(mEnemies);
+        mEnemyAttackComputationUseCase.setHero(new Pair<>(mPersonage, mPersonageLocation));
+        mEnemyAttackComputationUseCase.startThread();
+    }
     @Override
     public void stopEnemyAttacks() {
         mEnemyAttackComputationUseCase.stopThread();
