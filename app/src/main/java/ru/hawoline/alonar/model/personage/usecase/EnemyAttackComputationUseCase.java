@@ -13,12 +13,11 @@ public final class EnemyAttackComputationUseCase implements Runnable {
     private HashMap<Enemy, Location> mEnemies;
     private Pair<Personage, Location> mHero;
     private ExecutorService mExecutorService;
+    private Thread mThread;
 
     public EnemyAttackComputationUseCase(HashMap<Enemy, Location> enemies, Pair<Personage, Location> hero) {
         mEnemies = enemies;
         mHero = hero;
-        mExecutorService = Executors.newFixedThreadPool(1);
-        mExecutorService.submit(new Thread(this));
     }
 
     @Override
@@ -50,7 +49,22 @@ public final class EnemyAttackComputationUseCase implements Runnable {
         }
     }
 
+    public void startThread() {
+        mExecutorService = Executors.newSingleThreadExecutor();
+        mThread = new Thread(this);
+        mExecutorService.execute(mThread);
+    }
+
     public void stopThread() {
         mExecutorService.shutdownNow();
+        mThread.interrupt();
+    }
+
+    public void setEnemies(HashMap<Enemy, Location> enemies) {
+        mEnemies = enemies;
+    }
+
+    public void setHero(Pair<Personage, Location> hero) {
+        mHero = hero;
     }
 }
