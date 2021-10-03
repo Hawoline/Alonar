@@ -6,51 +6,44 @@ import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.util.Pair;
 
 import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public final class EnemyAttackComputationUseCase implements Runnable {
     private HashMap<Enemy, Location> mEnemies;
     private Pair<Personage, Location> mHero;
-    private ExecutorService mExecutorService;
+    private Thread mThread;
 
     public EnemyAttackComputationUseCase(HashMap<Enemy, Location> enemies, Pair<Personage, Location> hero) {
         mEnemies = enemies;
         mHero = hero;
-        mExecutorService = Executors.newFixedThreadPool(1);
-        mExecutorService.submit(new Thread(this));
+        mThread = new Thread(this);
+        mThread.start();
     }
 
     @Override
     public void run() {
-        try {
-            while(true) {
-                if (Thread.interrupted()) {
-                    throw new InterruptedException();
+        while (mHero.getFirst().getHealth() >= 1 && !mEnemies.isEmpty()) {
+
+            for (Enemy enemy : mEnemies.keySet()) {
+                if (enemy.getHealth() < 1) {
+                    mEnemies.remove(enemy);
+                    continue;
                 }
-                if (mHero.getFirst().getHealth() < 1 || mEnemies.isEmpty()) {
-                    break;
-                }
-                for (Enemy enemy: mEnemies.keySet()) {
-                    if (enemy.getHealth() < 1) {
-                        mEnemies.remove(enemy);
-                        continue;
-                    }
-                    Location enemyLocation = mEnemies.get(enemy);
-                    Location heroLocation = mHero.getSecond();
-                    if (enemyLocation.getX() == heroLocation.getX() && enemyLocation.getY() == heroLocation.getY()) {
-                        if (enemy.canAttack()) {
-                            DamageComputationUseCase.compute(enemy, mHero.getFirst(), 0);
-                        }
+                Location enemyLocation = mEnemies.get(enemy);
+                Location heroLocation = mHero.getSecond();
+                if (enemyLocation.getX() == heroLocation.getX() && enemyLocation.getY() == heroLocation.getY()) {
+                    if (enemy.canAttack()) {
+                        DamageComputationUseCase.compute(enemy, mHero.getFirst(), 0);
                     }
                 }
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
-    public void stopThread() {
-        mExecutorService.shutdownNow();
+    public void setEnemies(HashMap<Enemy, Location> enemies) {
+        mEnemies = enemies;
+    }
+
+    public void setHero(Pair<Personage, Location> hero) {
+        mHero = hero;
     }
 }

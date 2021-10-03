@@ -73,8 +73,6 @@ public class MainPresenterImpl implements MainPresenter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        stopEnemyAttacks();
     }
 
     @Override
@@ -91,6 +89,8 @@ public class MainPresenterImpl implements MainPresenter {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        mEnemyAttackComputationUseCase.setEnemies(mEnemies);
+        mEnemyAttackComputationUseCase.setHero(new Pair<>(mPersonage, mPersonageLocation));
     }
 
     @Override
@@ -188,10 +188,5 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public Location getEnemyLocation(Enemy enemy) {
         return mEnemies.get(enemy);
-    }
-
-    @Override
-    public void stopEnemyAttacks() {
-        mEnemyAttackComputationUseCase.stopThread();
     }
 }

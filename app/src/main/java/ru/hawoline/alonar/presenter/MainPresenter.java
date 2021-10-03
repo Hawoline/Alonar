@@ -22,6 +22,4 @@ public interface MainPresenter extends Presenter {
     void enemyAttacked(Enemy enemy, int slotIndex);
 
     Location getEnemyLocation(Enemy enemy);
-
-    void stopEnemyAttacks();
 }
