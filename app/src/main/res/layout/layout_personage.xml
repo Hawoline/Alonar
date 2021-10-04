@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:textColor="#e6e3b9"
             android:text="Close"
-            app:drawableStartCompat="@drawable/quest_icon"/>
+            app:drawableStartCompat="@drawable/cross_icon"/>
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
