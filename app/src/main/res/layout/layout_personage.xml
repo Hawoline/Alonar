@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#282828"
+>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F0E68C" />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/personage"
+            android:layout_gravity="center"
+            android:textSize="14sp"
+            android:textColor="#bdb76b" />
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F0E68C" />
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/hero_back"
+        />
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:text="Nickname"
+                    android:textColor="#e6e3b9"
+            />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:textColor="@color/dark_khaki"
+                    android:text="Mage 15 lvl, male"
+            />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/khaki" />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#e6e3b9"
+            android:text="Quests (12/15)"
+            app:drawableStartCompat="@drawable/quest_icon"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#e6e3b9"
+            android:text="Quests (12/15)"
+            app:drawableStartCompat="@drawable/quest_icon"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#e6e3b9"
+            android:text="Quests (12/15)"
+            app:drawableStartCompat="@drawable/quest_icon"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#e6e3b9"
+            android:text="Quests (12/15)"
+            app:drawableStartCompat="@drawable/quest_icon"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#e6e3b9"
+            android:text="Quests (12/15)"
+            app:drawableStartCompat="@drawable/quest_icon"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/khaki" />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/khaki"
+            android:text="Trade"
+            app:drawableStartCompat="@drawable/quest_icon"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/khaki" />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#e6e3b9"
+            android:text="Quests (12/15)"
+            app:drawableStartCompat="@drawable/quest_icon"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#e6e3b9"
+            android:text="Quests (12/15)"
+            app:drawableStartCompat="@drawable/quest_icon"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#e6e3b9"
+            android:text="Quests (12/15)"
+            app:drawableStartCompat="@drawable/quest_icon"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/khaki" />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#e6e3b9"
+            android:text="Close"
+            app:drawableStartCompat="@drawable/quest_icon"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/khaki" />
+</LinearLayout>

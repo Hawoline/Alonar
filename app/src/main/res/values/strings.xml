@@ -9,4 +9,5 @@
     <string name="person">person</string>
     <string name="quest">quest</string>
     <string name="map">map</string>
+    <string name="personage">Personage</string>
 </resources>
