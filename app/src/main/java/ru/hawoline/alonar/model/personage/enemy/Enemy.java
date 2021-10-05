@@ -3,9 +3,12 @@ package ru.hawoline.alonar.model.personage.enemy;
 import ru.hawoline.alonar.model.Range;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.Slot;
+import ru.hawoline.alonar.model.personage.item.equipment.Body;
+import ru.hawoline.alonar.model.personage.item.equipment.Quality;
 import ru.hawoline.alonar.model.personage.specification.attribute.Attribute;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
-import ru.hawoline.alonar.model.personage.weapon.Knife;
+import ru.hawoline.alonar.model.personage.item.equipment.weapon.Knife;
+import ru.hawoline.alonar.util.Pair;
 
 import java.util.ArrayList;
 
@@ -22,7 +25,7 @@ public class Enemy extends Personage {
         mCooldown = 4;
         setAttribute(AttributeName.ENDURANCE, new Attribute(100));
         ArrayList<Slot> slots = new ArrayList<>();
-        slots.add(new Knife(0, new Range(3, 4), 4));
+        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4, false));
         setSlots(slots);
     }
 

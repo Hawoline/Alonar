@@ -2,10 +2,13 @@ package ru.hawoline.alonar.model.personage;
 
 import ru.hawoline.alonar.model.Range;
 import ru.hawoline.alonar.model.personage.heroclass.*;
+import ru.hawoline.alonar.model.personage.item.equipment.Body;
+import ru.hawoline.alonar.model.personage.item.equipment.Quality;
 import ru.hawoline.alonar.model.personage.specification.attribute.Attribute;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
 import ru.hawoline.alonar.model.personage.spell.DamageSpell;
-import ru.hawoline.alonar.model.personage.weapon.Knife;
+import ru.hawoline.alonar.model.personage.item.equipment.weapon.Knife;
+import ru.hawoline.alonar.util.Pair;
 
 import java.util.ArrayList;
 
@@ -31,18 +34,21 @@ public class PersonageFactory {
         personage.setAttribute(AttributeName.INTELLIGENCE, new Attribute(100));
         personage.setAttribute(AttributeName.AGILITY, new Attribute(5));
         personage.setAttribute(AttributeName.SPIRIT, new Attribute(5));
+
+        Knife knife = new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4,false);
+        personage.equip(Body.ARMS, knife);
         personage.setArmor(10);
         ArrayList<Slot> slots = new ArrayList<>();
-        slots.add(new Knife(0, new Range(3, 4), 2));
+        slots.add(knife);
         slots.add(new DamageSpell("Fireball", 6, 50, 6, new Range(197, 236)));
-        slots.add(new Knife(0, new Range(3, 4), 2));
-        slots.add(new Knife(0, new Range(3, 4), 2));
-        slots.add(new Knife(0, new Range(3, 4), 2));
-        slots.add(new Knife(0, new Range(3, 4), 2));
-        slots.add(new Knife(0, new Range(3, 4), 2));
-        slots.add(new Knife(0, new Range(3, 4), 2));
-        slots.add(new Knife(0, new Range(3, 4), 2));
-        slots.add(new Knife(0, new Range(3, 4), 2));
+        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4,false));
+        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4,false));
+        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4, false));
+        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4, false));
+        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4, false));
+        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4, false));
+        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4, false));
+        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4, false));
         personage.setSlots(slots);
         return personage;
     }

@@ -1,7 +1,7 @@
 package ru.hawoline.alonar.model.personage;
 
-import ru.hawoline.alonar.model.personage.equipment.Body;
-import ru.hawoline.alonar.model.personage.equipment.Equipment;
+import ru.hawoline.alonar.model.personage.item.equipment.Body;
+import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.specification.Vitality;
 import ru.hawoline.alonar.model.personage.specification.VitalityType;
 import ru.hawoline.alonar.model.personage.specification.attribute.Attribute;
@@ -75,6 +75,20 @@ public abstract class Personage implements Serializable {
 
     public Attribute getAttribute(AttributeName attributeName) {
         return mAttributes.get(attributeName);
+    }
+
+    public HashMap<Body, Equipment> getEquipment() {
+        return mEquipment;
+    }
+
+    public void setEquipment(HashMap<Body, Equipment> equipment) {
+        mEquipment = equipment;
+    }
+
+    public void equip(Body body, Equipment equipment) {
+        if (equipment.getRequiredBody() == body) {
+            mEquipment.put(body, equipment);
+        }
     }
 
     public ArrayList<Slot> getSlots() {

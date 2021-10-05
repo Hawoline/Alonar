@@ -1,4 +1,4 @@
-package ru.hawoline.alonar.model.personage.specification.effect;
+package ru.hawoline.alonar.model.personage.effect;
 
 public class TemporaryEffect extends Effect {
     private int mDuration;

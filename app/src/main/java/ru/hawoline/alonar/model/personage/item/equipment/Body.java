@@ -1,4 +1,4 @@
-package ru.hawoline.alonar.model.personage.equipment;
+package ru.hawoline.alonar.model.personage.item.equipment;
 
 // Класс находится в экипировке, потому что я не буду использовать тело в других частях приложения кроме как
 // частей экипировки персонажа. И не буду реализовывать логику получения урона рукой, или ногой и отрывания частей тела.

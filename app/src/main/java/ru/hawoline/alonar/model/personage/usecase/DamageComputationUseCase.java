@@ -6,7 +6,7 @@ import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.Slot;
 import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.model.personage.spell.DamageSpell;
-import ru.hawoline.alonar.model.personage.weapon.Weapon;
+import ru.hawoline.alonar.model.personage.item.equipment.weapon.Weapon;
 
 public final class DamageComputationUseCase {
     public static void compute(Personage attacker, Personage defender, int damageSlotIndex) {
