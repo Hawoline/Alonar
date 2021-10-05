@@ -1,5 +1,6 @@
 package ru.hawoline.alonar.model.personage;
 
+import androidx.annotation.NonNull;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.specification.Vitality;
@@ -85,10 +86,14 @@ public abstract class Personage implements Serializable {
         mEquipment = equipment;
     }
 
-    public void equip(Body body, Equipment equipment) {
+    public void equip(Body body, @NonNull Equipment equipment) {
         if (equipment.getRequiredBody() == body) {
             mEquipment.put(body, equipment);
         }
+    }
+
+    public void unequip(Body body) {
+        mEquipment.remove(body);
     }
 
     public ArrayList<Slot> getSlots() {
