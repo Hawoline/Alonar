@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static ru.hawoline.alonar.model.personage.specification.Vitality.MP;
+
 public abstract class Personage implements Serializable {
     private ArrayList<Vitality> mVitality;
     private HashMap<AttributeName, Attribute> mAttributes;
@@ -19,9 +21,6 @@ public abstract class Personage implements Serializable {
     private ArrayList<Slot> mSlots;
     private int mExperience;
     private int mArmor; // In percent. Max is 80%
-
-    private final int HEALTH = 0;
-    private final int MP = 1;
 
     private static final long serialVersionUID = -1613269264133657958L;
 
@@ -52,10 +51,10 @@ public abstract class Personage implements Serializable {
     }
 
     public int getHealth() {
-        return mVitality.get(HEALTH).getResidualMax().getSecond();
+        return mVitality.get(Vitality.HP).getResidualMax().getSecond();
     }
     public void setHealth(int heath) {
-        mVitality.get(HEALTH).setValue(heath);
+        mVitality.get(Vitality.HP).setValue(heath);
     }
 
     public int getMp() {
@@ -68,7 +67,7 @@ public abstract class Personage implements Serializable {
     public void setAttribute(AttributeName attributeName, Attribute attributeValue) {
         mAttributes.put(attributeName, attributeValue);
         if (attributeName == AttributeName.ENDURANCE) {
-            mVitality.get(HEALTH).setMaxValue(attributeValue.getMax() * 10);
+            mVitality.get(Vitality.HP).setMaxValue(attributeValue.getMax() * 10);
         } else if (attributeName == AttributeName.INTELLIGENCE) {
             mVitality.get(MP).setMaxValue(attributeValue.getMax() * 16);
         }

@@ -1,4 +1,4 @@
-package ru.hawoline.alonar.model.personage.inventory;
+package ru.hawoline.alonar.model.personage.money;
 
 import java.io.Serializable;
 

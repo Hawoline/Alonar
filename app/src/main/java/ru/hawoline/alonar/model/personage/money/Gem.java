@@ -1,4 +1,4 @@
-package ru.hawoline.alonar.model.personage.item.equipment;
+package ru.hawoline.alonar.model.personage.money;
 
 import ru.hawoline.alonar.model.personage.effect.Effect;
 

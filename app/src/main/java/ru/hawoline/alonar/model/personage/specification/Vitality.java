@@ -10,6 +10,9 @@ public class Vitality implements Serializable {
 
     private static final long serialVersionUID = -990341370978716524L;
 
+    public static final int HP = 0;
+    public static final int MP = 1;
+
     public Vitality(VitalityType type, int max) {
         setVitality(type, new Pair<>(max, max));
     }
