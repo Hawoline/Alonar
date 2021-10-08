@@ -95,6 +95,7 @@ public abstract class Personage implements Serializable {
     }
 
     public void equip(Body body, @NonNull Equipment equipment) {
+        unequip(body);
         if (equipment.getRequiredBody() == body) {
             mEquipment.put(body, equipment);
             for (Effect effect: equipment.getEffects()) {
@@ -104,8 +105,11 @@ public abstract class Personage implements Serializable {
     }
 
     public void unequip(Body body) {
+        if (mEquipment.get(body) == null) {
+            return;
+        }
         for (Effect effect: mEquipment.get(body).getEffects()) {
-            mAttributes.get(effect).decrease(effect.getValue());
+            mAttributes.get(effect.getAttributeName()).decrease(effect.getValue());
         }
         mEquipment.remove(body);
     }
