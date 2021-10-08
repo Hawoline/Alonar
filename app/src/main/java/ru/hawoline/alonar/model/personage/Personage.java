@@ -1,11 +1,12 @@
 package ru.hawoline.alonar.model.personage;
 
 import androidx.annotation.NonNull;
+import ru.hawoline.alonar.model.personage.effect.Effect;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.specification.Vitality;
 import ru.hawoline.alonar.model.personage.specification.VitalityType;
-import ru.hawoline.alonar.model.personage.specification.attribute.Attribute;
+import ru.hawoline.alonar.model.personage.specification.attribute.PersonageAttribute;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import static ru.hawoline.alonar.model.personage.specification.Vitality.MP;
 
 public abstract class Personage implements Serializable {
     private ArrayList<Vitality> mVitality;
-    private HashMap<AttributeName, Attribute> mAttributes;
+    private HashMap<AttributeName, PersonageAttribute> mAttributes;
     private HashMap<Body, Equipment> mEquipment;
     private ArrayList<Slot> mSlots;
     private int mExperience;
@@ -32,6 +33,14 @@ public abstract class Personage implements Serializable {
         mEquipment = new HashMap<>();
         mExperience = 0;
         mArmor = 10;
+    }
+
+    private void addEquipmentEffectBonuses() {
+        for (Body body: mEquipment.keySet()) {
+            for (Effect effect: mEquipment.get(body).getEffects()) {
+                mAttributes.get(effect.getAttributeName()).increase(effect.getValue());
+            }
+        }
     }
 
     public int getExperience() {
@@ -58,22 +67,22 @@ public abstract class Personage implements Serializable {
     }
 
     public int getMp() {
-        return mVitality.get(MP).getResidualMax().getSecond();
+        return mVitality.get(Vitality.MP).getResidualMax().getSecond();
     }
     public void setMp(int mp) {
-        mVitality.get(MP).setValue(mp);
+        mVitality.get(Vitality.MP).setValue(mp);
     }
 
-    public void setAttribute(AttributeName attributeName, Attribute attributeValue) {
-        mAttributes.put(attributeName, attributeValue);
+    public void setAttribute(AttributeName attributeName, PersonageAttribute personageAttributeValue) {
+        mAttributes.put(attributeName, personageAttributeValue);
         if (attributeName == AttributeName.ENDURANCE) {
-            mVitality.get(Vitality.HP).setMaxValue(attributeValue.getMax() * 10);
+            mVitality.get(Vitality.HP).setMaxValue(personageAttributeValue.getMax() * 10);
         } else if (attributeName == AttributeName.INTELLIGENCE) {
-            mVitality.get(MP).setMaxValue(attributeValue.getMax() * 16);
+            mVitality.get(Vitality.MP).setMaxValue(personageAttributeValue.getMax() * 16);
         }
     }
 
-    public Attribute getAttribute(AttributeName attributeName) {
+    public PersonageAttribute getAttribute(AttributeName attributeName) {
         return mAttributes.get(attributeName);
     }
 
@@ -88,10 +97,16 @@ public abstract class Personage implements Serializable {
     public void equip(Body body, @NonNull Equipment equipment) {
         if (equipment.getRequiredBody() == body) {
             mEquipment.put(body, equipment);
+            for (Effect effect: equipment.getEffects()) {
+                mAttributes.get(effect.getAttributeName()).increase(effect.getValue());
+            }
         }
     }
 
     public void unequip(Body body) {
+        for (Effect effect: mEquipment.get(body).getEffects()) {
+            mAttributes.get(effect).decrease(effect.getValue());
+        }
         mEquipment.remove(body);
     }
 
