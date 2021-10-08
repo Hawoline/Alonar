@@ -88,6 +88,7 @@ public class PersonageUnitTest {
         hero.unequip(Body.BODY);
 
         TestCase.assertEquals(tempAttributesMaxes[2], hero.getAttribute(AttributeName.INTELLIGENCE).getMax());
+        TestCase.assertEquals(1, hero.getEquipment().size());
 
         hero.unequip(Body.HEAD);
     }
