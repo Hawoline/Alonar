@@ -16,6 +16,7 @@ import ru.hawoline.alonar.view.View;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MainPresenterImpl implements MainPresenter {
     private MainView mMainView;
@@ -24,7 +25,7 @@ public class MainPresenterImpl implements MainPresenter {
     private Personage mPersonage;
     private Location mPersonageLocation;
     private HashMap<Personage, Location> mPersonages;
-    private HashMap<Enemy, Location> mEnemies;
+    private ConcurrentHashMap<Enemy, Location> mEnemies;
     private EnemyAttackComputationUseCase mEnemyAttackComputationUseCase;
 
     public MainPresenterImpl() {
@@ -36,7 +37,7 @@ public class MainPresenterImpl implements MainPresenter {
         mPersonageLocation = new Location(1, 1);
         mPersonages.put(mPersonage, mPersonageLocation);
 
-        mEnemies = new HashMap<>();
+        mEnemies = new ConcurrentHashMap<>();
         for (int enemyIndex = 0; enemyIndex < 20; enemyIndex++) {
             Enemy enemy = Enemy.createEnemy("Rat");
             mEnemies.put(enemy, new Location(
@@ -126,7 +127,7 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public ArrayList<Enemy> findEnemiesAroundHero() {
         mEnemiesAroundHero.clear();
-        HashMap<Enemy, Location> enemies = mEnemies;
+        ConcurrentHashMap<Enemy, Location> enemies = mEnemies;
         Location personageLocation = getPersonageLocation();
         for (Enemy enemy: enemies.keySet()) {
             if (Math.abs(enemies.get(enemy).getX() - personageLocation.getX()) < 3

@@ -5,24 +5,29 @@ import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.util.Pair;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class EnemyAttackComputationUseCase implements Runnable {
-    private HashMap<Enemy, Location> mEnemies;
+    private ConcurrentHashMap<Enemy, Location> mEnemies;
     private Pair<Personage, Location> mHero;
     private Thread mThread;
 
-    public EnemyAttackComputationUseCase(HashMap<Enemy, Location> enemies, Pair<Personage, Location> hero) {
+    public EnemyAttackComputationUseCase(ConcurrentHashMap<Enemy, Location> enemies, Pair<Personage, Location> hero) {
         mEnemies = enemies;
         mHero = hero;
         mThread = new Thread(this);
         mThread.start();
+
+        Thread thread = new Thread(this);
     }
 
     @Override
     public void run() {
         while (mHero.getFirst().getHealth() >= 1 && !mEnemies.isEmpty()) {
 
+            if (Thread.interrupted()) {
+                break;
+            }
             for (Enemy enemy : mEnemies.keySet()) {
                 if (enemy.getHealth() < 1) {
                     mEnemies.remove(enemy);
@@ -39,7 +44,7 @@ public final class EnemyAttackComputationUseCase implements Runnable {
         }
     }
 
-    public void setEnemies(HashMap<Enemy, Location> enemies) {
+    public void setEnemies(ConcurrentHashMap<Enemy, Location> enemies) {
         mEnemies = enemies;
     }
 

@@ -6,14 +6,12 @@ import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.specification.Vitality;
 import ru.hawoline.alonar.model.personage.specification.VitalityType;
-import ru.hawoline.alonar.model.personage.specification.attribute.PersonageAttribute;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
+import ru.hawoline.alonar.model.personage.specification.attribute.PersonageAttribute;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static ru.hawoline.alonar.model.personage.specification.Vitality.MP;
 
 public abstract class Personage implements Serializable {
     private ArrayList<Vitality> mVitality;

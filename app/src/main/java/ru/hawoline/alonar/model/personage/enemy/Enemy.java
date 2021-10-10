@@ -20,12 +20,12 @@ public class Enemy extends Personage {
     private static final long serialVersionUID = -7276415188406948963L;
 
     private Enemy(String name) {
-//        super();
         mName = name;
         mCooldown = 4;
         setAttribute(AttributeName.ENDURANCE, new PersonageAttribute(100));
         ArrayList<Slot> slots = new ArrayList<>();
-        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4, false));
+        slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1,
+                new Range(3, 4), 4, false));
         setSlots(slots);
     }
 
@@ -50,9 +50,10 @@ public class Enemy extends Personage {
     }
 
     public boolean canAttack() {
-        boolean result = ((System.currentTimeMillis() - mTimeFromLastAttack) / 1000) > mCooldown;
+        long currentTime = System.currentTimeMillis();
+        boolean result = ((currentTime - mTimeFromLastAttack) / 1000) > mCooldown;
         if (result) {
-            mTimeFromLastAttack = System.currentTimeMillis();
+            mTimeFromLastAttack = currentTime;
         }
         return result;
     }
