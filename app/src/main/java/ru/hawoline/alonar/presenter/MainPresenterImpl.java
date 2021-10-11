@@ -150,7 +150,7 @@ public class MainPresenterImpl implements MainPresenter {
             int yDistance = personageLocation.getY() - enemyLocation.getY();
             int sum = Math.abs(xDistance) + Math.abs(yDistance);
             int diagonalSquaredDistance = xDistance * xDistance + yDistance * yDistance;
-            switch (slot.getDistance()) {
+            switch (distance) {
                 case 0:
                     if (xDistance == 0 && yDistance == 0) {
                         mEnemiesAroundHero.add(enemy);
