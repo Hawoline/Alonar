@@ -3,7 +3,7 @@ package ru.hawoline.alonar.model.personage;
 import ru.hawoline.alonar.model.Range;
 import ru.hawoline.alonar.model.personage.heroclass.*;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
-import ru.hawoline.alonar.model.personage.item.equipment.Quality;
+import ru.hawoline.alonar.model.personage.item.Quality;
 import ru.hawoline.alonar.model.personage.specification.attribute.PersonageAttribute;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
 import ru.hawoline.alonar.model.personage.spell.DamageSpell;

@@ -1,6 +1,6 @@
 package ru.hawoline.alonar.model.personage.item;
 
-import ru.hawoline.alonar.model.personage.item.equipment.Quality;
+import ru.hawoline.alonar.model.personage.item.state.ItemState;
 
 import java.io.Serializable;
 
@@ -8,6 +8,7 @@ public abstract class Item implements Serializable {
     protected String mName;
     protected int mRequiredLevel;
     protected Quality mQuality;
+    protected ItemState mState;
 
     private static final long serialVersionUID = 8340162005259757628L;
 
@@ -39,5 +40,13 @@ public abstract class Item implements Serializable {
 
     public void setQuality(Quality quality) {
         mQuality = quality;
+    }
+
+    public ItemState getState() {
+        return mState;
+    }
+
+    public void changeState(ItemState state) {
+        mState = state;
     }
 }

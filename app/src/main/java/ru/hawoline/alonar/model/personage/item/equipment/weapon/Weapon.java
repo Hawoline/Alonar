@@ -4,7 +4,7 @@ import ru.hawoline.alonar.model.Range;
 import ru.hawoline.alonar.model.personage.DamageSlot;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
-import ru.hawoline.alonar.model.personage.item.equipment.Quality;
+import ru.hawoline.alonar.model.personage.item.Quality;
 import ru.hawoline.alonar.util.Pair;
 
 public class Weapon extends Equipment implements DamageSlot {

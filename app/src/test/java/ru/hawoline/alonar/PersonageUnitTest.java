@@ -9,7 +9,7 @@ import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.PersonageFactory;
 import ru.hawoline.alonar.model.personage.heroclass.HeroClass;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
-import ru.hawoline.alonar.model.personage.item.equipment.Quality;
+import ru.hawoline.alonar.model.personage.item.Quality;
 import ru.hawoline.alonar.model.personage.item.equipment.clothing.Clothing;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
 import ru.hawoline.alonar.model.personage.specification.attribute.PersonageAttribute;

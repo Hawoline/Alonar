@@ -4,7 +4,7 @@ import ru.hawoline.alonar.model.Range;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.Slot;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
-import ru.hawoline.alonar.model.personage.item.equipment.Quality;
+import ru.hawoline.alonar.model.personage.item.Quality;
 import ru.hawoline.alonar.model.personage.specification.attribute.PersonageAttribute;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
 import ru.hawoline.alonar.model.personage.item.equipment.weapon.Knife;
