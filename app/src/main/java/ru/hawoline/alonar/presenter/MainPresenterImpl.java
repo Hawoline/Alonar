@@ -150,27 +150,22 @@ public class MainPresenterImpl implements MainPresenter {
             int yDistance = personageLocation.getY() - enemyLocation.getY();
             int sum = Math.abs(xDistance) + Math.abs(yDistance);
             int diagonalSquaredDistance = xDistance * xDistance + yDistance * yDistance;
-            switch (distance) {
-                case 0:
-                    if (xDistance == 0 && yDistance == 0) {
-                        mEnemiesAroundHero.add(enemy);
-                    }
-                    break;
-                case 3:
-                    if (sum < 2) {
-                        mEnemiesAroundHero.add(enemy);
-                    }
-                    break;
-                case 4:
-                    if (diagonalSquaredDistance == 2) {
-                        mEnemiesAroundHero.add(enemy);
-                    }
-                    break;
-                case 6:
-                    if (sum < 3) {
-                        mEnemiesAroundHero.add(enemy);
-                    }
-                    break;
+            if (distance == 0) {
+                if (xDistance == 0 && yDistance == 0) {
+                    mEnemiesAroundHero.add(enemy);
+                }
+            } else if (distance == 3) {
+                if (sum < 2) {
+                    mEnemiesAroundHero.add(enemy);
+                }
+            } else if (distance == 4) {
+                if (diagonalSquaredDistance == 2) {
+                    mEnemiesAroundHero.add(enemy);
+                }
+            } else if (distance == 6) {
+                if (sum < 3) {
+                    mEnemiesAroundHero.add(enemy);
+                }
             }
         }
 
