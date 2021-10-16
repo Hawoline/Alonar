@@ -46,7 +46,7 @@ public abstract class Item implements Serializable {
         return mState;
     }
 
-    public void changeState(ItemState state) {
+    public void setState(ItemState state) {
         mState = state;
     }
 }
