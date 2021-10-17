@@ -29,4 +29,12 @@ public class Bag {
 
         return result;
     }
+
+    public int getCapacity() {
+        return mCapacity;
+    }
+
+    public int getItemCount() {
+        return mItemCount;
+    }
 }

@@ -31,4 +31,14 @@ public class Inventory {
             }
         }
     }
+
+    public boolean hasFreeSpace() {
+        for (Bag bag: getBags()) {
+            if (bag.getCapacity() - bag.getItemCount() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

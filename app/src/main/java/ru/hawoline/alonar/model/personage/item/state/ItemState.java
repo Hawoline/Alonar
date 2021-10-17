@@ -6,15 +6,14 @@ import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 
 /**
  * Состояния:
- * 1. Валяется на карте;
+ * 1. На карте;
  * 2. В инвентаре;
- * 3. В трупе;
  *
  * Для экипировки еще:
- * 4. На персонаже;
+ * 3. На персонаже;
  *
  * Для расходников еще:
- * 4. Использовать
+ * 4. Использован;
  *
  * Переходы:
  * 1. (Валяется на дороге || в трупе(группа предметов)) <-> Инвентарь <-> Экипирован
@@ -24,7 +23,8 @@ import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
  * 1. Положить в инвентарь;
  * 2. Выбросить n-ое количество предметов;
  * 3. Надеть(для снаряжения);
- * 4. Использовать(для зелий и других расходников);
+ * 4. Снять снаряжение в инвентарь(для снаряжения);
+ * 5. Использовать(для зелий и других расходников);
  */
 public abstract class ItemState {
     protected Item mItem;
@@ -35,5 +35,4 @@ public abstract class ItemState {
 
     public abstract ItemStateName onAddToInventory(Inventory inventory);
     public abstract ItemStateName onThrowAway(Inventory inventory);
-    public abstract ItemStateName onUse();
 }
