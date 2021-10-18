@@ -23,4 +23,9 @@ public class InInventoryItemState extends ItemState {
         mItem.setState(new OnMapItemState(mItem));
         return ItemStateName.ON_MAP;
     }
+
+    @Override
+    public ItemStateName getItemStateName() {
+        return ItemStateName.IN_INVENTORY;
+    }
 }

@@ -24,12 +24,14 @@ public class Inventory {
             bag.removeItem(item);
         }
     }
-    public void removeItem(Item item) {
+    public boolean removeItem(Item item) {
         for (Bag bag: getBags()) {
             if (bag.removeItem(item)) {
-                break;
+                return true;
             }
         }
+
+        return false;
     }
 
     public boolean hasFreeSpace() {

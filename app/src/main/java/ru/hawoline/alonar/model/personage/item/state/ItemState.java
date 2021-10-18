@@ -35,4 +35,5 @@ public abstract class ItemState {
 
     public abstract ItemStateName onAddToInventory(Inventory inventory);
     public abstract ItemStateName onThrowAway(Inventory inventory);
+    public abstract ItemStateName getItemStateName();
 }
