@@ -10,13 +10,17 @@ public class OnMapItemState extends ItemState {
 
     @Override
     public ItemStateName onAddToInventory(Inventory inventory) {
-        mItem.setState(new InInventoryItemState(mItem, inventory));
-        return ItemStateName.IN_INVENTORY;
+        if (inventory.hasFreeSpace()) {
+            getItem().setState(new InInventoryItemState(getItem(), inventory));
+            return ItemStateName.IN_INVENTORY;
+        }
+
+        return getItemStateName();
     }
 
     @Override
     public ItemStateName onThrowAway(Inventory inventory) {
-        return ItemStateName.ON_MAP;
+        return getItemStateName();
     }
 
     @Override

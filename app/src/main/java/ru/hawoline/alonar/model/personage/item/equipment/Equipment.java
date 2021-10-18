@@ -1,8 +1,11 @@
 package ru.hawoline.alonar.model.personage.item.equipment;
 
+import androidx.annotation.NonNull;
 import ru.hawoline.alonar.model.personage.effect.Effect;
 import ru.hawoline.alonar.model.personage.item.Item;
 import ru.hawoline.alonar.model.personage.item.Quality;
+import ru.hawoline.alonar.model.personage.item.state.EquipmentState;
+import ru.hawoline.alonar.model.personage.item.state.ItemState;
 import ru.hawoline.alonar.model.personage.money.Gem;
 import ru.hawoline.alonar.util.Pair;
 
@@ -44,6 +47,7 @@ public abstract class Equipment extends Item {
         mGems.add(gem);
     }
 
+    @NonNull
     public ArrayList<Effect> getEffects() {
         return mEffects;
     }

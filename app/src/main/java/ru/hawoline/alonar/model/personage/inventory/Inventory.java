@@ -21,7 +21,7 @@ public class Inventory {
 
     public void addItem(Item item) {
         for (Bag bag: getBags()) {
-            bag.removeItem(item);
+            bag.addItem(item);
         }
     }
     public boolean removeItem(Item item) {

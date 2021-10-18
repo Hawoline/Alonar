@@ -19,8 +19,8 @@ public class InInventoryItemState extends ItemState {
 
     @Override
     public ItemStateName onThrowAway(Inventory inventory) {
-        inventory.removeItem(mItem);
-        mItem.setState(new OnMapItemState(mItem));
+        inventory.removeItem(getItem());
+        getItem().setState(new OnMapItemState(getItem()));
         return ItemStateName.ON_MAP;
     }
 

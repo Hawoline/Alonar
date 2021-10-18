@@ -9,6 +9,8 @@ public class Clothing extends Equipment {
     private int mArmor;
     private ClothingType mClothingType;
 
+    private static final long serialVersionUID = -6994483391440650649L;
+
     public Clothing(String name, int requiredLevel, Quality quality, Pair<Integer, Integer> strength, Body requiredBody) {
         super(name, requiredLevel, quality, strength, requiredBody);
         setClothingType(ClothingType.RAG);

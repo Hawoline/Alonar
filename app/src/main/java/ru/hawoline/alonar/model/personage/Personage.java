@@ -2,6 +2,7 @@ package ru.hawoline.alonar.model.personage;
 
 import androidx.annotation.NonNull;
 import ru.hawoline.alonar.model.personage.effect.Effect;
+import ru.hawoline.alonar.model.personage.inventory.Inventory;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.specification.Vitality;
@@ -17,6 +18,7 @@ public abstract class Personage implements Serializable {
     private ArrayList<Vitality> mVitality;
     private HashMap<AttributeName, PersonageAttribute> mAttributes;
     private HashMap<Body, Equipment> mEquipment;
+    private Inventory mInventory;
     private ArrayList<Slot> mSlots;
     private int mExperience;
     private int mArmor; // In percent. Max is 80%
@@ -90,6 +92,14 @@ public abstract class Personage implements Serializable {
 
     public void setEquipment(HashMap<Body, Equipment> equipment) {
         mEquipment = equipment;
+    }
+
+    public Inventory getInventory() {
+        return mInventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        mInventory = inventory;
     }
 
     public void equip(Body body, @NonNull Equipment equipment) {

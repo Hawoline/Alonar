@@ -1,8 +1,8 @@
 package ru.hawoline.alonar.model.personage.item.state;
 
+import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.inventory.Inventory;
 import ru.hawoline.alonar.model.personage.item.Item;
-import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 
 /**
  * Состояния:
@@ -27,7 +27,7 @@ import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
  * 5. Использовать(для зелий и других расходников);
  */
 public abstract class ItemState {
-    protected Item mItem;
+    private Item mItem;
 
     public ItemState(Item item) {
         mItem = item;
@@ -35,5 +35,14 @@ public abstract class ItemState {
 
     public abstract ItemStateName onAddToInventory(Inventory inventory);
     public abstract ItemStateName onThrowAway(Inventory inventory);
+    protected ItemStateName onEquip(Inventory inventory, Personage personage) {
+        return getItemStateName();
+    }
+    protected ItemStateName onUnequip(Inventory inventory, Personage personage) {
+        return getItemStateName();
+    }
     public abstract ItemStateName getItemStateName();
+    public Item getItem() {
+        return mItem;
+    }
 }

@@ -4,11 +4,11 @@ import ru.hawoline.alonar.model.personage.item.state.ItemState;
 
 import java.io.Serializable;
 
-public abstract class Item implements Serializable {
+public class Item implements Serializable {
     protected String mName;
     protected int mRequiredLevel;
     protected Quality mQuality;
-    protected ItemState mState;
+    private ItemState mState;
 
     private static final long serialVersionUID = 8340162005259757628L;
 
