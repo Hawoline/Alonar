@@ -35,10 +35,10 @@ public abstract class ItemState {
 
     public abstract ItemStateName onAddToInventory(Inventory inventory);
     public abstract ItemStateName onThrowAway(Inventory inventory);
-    protected ItemStateName onEquip(Inventory inventory, Personage personage) {
+    protected ItemStateName onEquip(Personage personage) {
         return getItemStateName();
     }
-    protected ItemStateName onUnequip(Inventory inventory, Personage personage) {
+    protected ItemStateName onUnequip(Personage personage) {
         return getItemStateName();
     }
     public abstract ItemStateName getItemStateName();

@@ -9,6 +9,9 @@ public class Inventory {
 
     public Inventory() {
         mBags = new ArrayList<>();
+        mBags.add(new Bag(new ArrayList<>(), 4));
+        mBags.add(new Bag(new ArrayList<>(), 4));
+        mBags.add(new Bag(new ArrayList<>(), 4));
     }
 
     public ArrayList<Bag> getBags() {

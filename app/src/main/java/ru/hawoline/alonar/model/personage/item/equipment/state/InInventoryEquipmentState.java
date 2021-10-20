@@ -1,8 +1,9 @@
-package ru.hawoline.alonar.model.personage.item.state;
+package ru.hawoline.alonar.model.personage.item.equipment.state;
 
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.inventory.Inventory;
 import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
+import ru.hawoline.alonar.model.personage.item.state.ItemStateName;
 
 public class InInventoryEquipmentState extends EquipmentState {
 
@@ -27,8 +28,8 @@ public class InInventoryEquipmentState extends EquipmentState {
     }
 
     @Override
-    public ItemStateName onEquip(Inventory inventory, Personage personage) {
-        if (inventory.removeItem(getItem())) {
+    public ItemStateName onEquip(Personage personage) {
+        if (personage.getInventory().removeItem(getItem())) {
             personage.equip(getItem().getRequiredBody(), getItem());
             getItem().setState(new OnBodyEquipmentState(getItem(), personage));
             return ItemStateName.ON_BODY;
@@ -38,7 +39,7 @@ public class InInventoryEquipmentState extends EquipmentState {
     }
 
     @Override
-    public ItemStateName onUnequip(Inventory inventory, Personage personage) {
+    public ItemStateName onUnequip(Personage personage) {
         return getItemStateName();
     }
 

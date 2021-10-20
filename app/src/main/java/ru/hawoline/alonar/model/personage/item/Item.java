@@ -4,7 +4,7 @@ import ru.hawoline.alonar.model.personage.item.state.ItemState;
 
 import java.io.Serializable;
 
-public class Item implements Serializable {
+public abstract class Item implements Serializable {
     protected String mName;
     protected int mRequiredLevel;
     protected Quality mQuality;

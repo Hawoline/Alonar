@@ -3,17 +3,14 @@ package ru.hawoline.alonar;
 import junit.framework.TestCase;
 import org.junit.Test;
 import ru.hawoline.alonar.model.personage.DamageSlot;
-import ru.hawoline.alonar.model.personage.effect.Effect;
-import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.PersonageFactory;
+import ru.hawoline.alonar.model.personage.effect.Effect;
+import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.model.personage.heroclass.HeroClass;
-import ru.hawoline.alonar.model.personage.item.Item;
-import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.Quality;
-import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
+import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.equipment.clothing.Clothing;
-import ru.hawoline.alonar.model.personage.item.state.OnMapItemState;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
 import ru.hawoline.alonar.model.personage.specification.attribute.PersonageAttribute;
 import ru.hawoline.alonar.model.personage.spell.DamageSpell;
@@ -46,14 +43,6 @@ public class PersonageUnitTest {
         TestCase.assertEquals(997, enemy.getHealth());
 
         TestCase.assertEquals(4, ((DamageSlot) hero.getSlots().get(0)).getDamage());
-    }
-
-    @Test
-    public void testItemStates() {
-        Personage personage = PersonageFactory.createPersonage(HeroClass.MAGE);
-        Item item = new Item("Item", 1, Quality.NORMAL);
-        Equipment equipment = new Clothing("Daedric helmet", 1, Quality.LEGENDARY, new Pair<>(100, 100), Body.HEAD);
-        item.setState(new OnMapItemState(item));
     }
 
     @Test

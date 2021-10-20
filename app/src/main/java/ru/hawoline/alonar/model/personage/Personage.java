@@ -33,6 +33,7 @@ public abstract class Personage implements Serializable {
         mEquipment = new HashMap<>();
         mExperience = 0;
         mArmor = 10;
+        mInventory = new Inventory();
     }
 
     private void addEquipmentEffectBonuses() {

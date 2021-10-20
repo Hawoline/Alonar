@@ -12,7 +12,7 @@ public class Bag {
     public Bag(ArrayList<Item> items, int capacity) {
         mCapacity = capacity;
         mItems = items;
-        mItemCount = 0;
+        mItemCount = items.size();
     }
 
     public void addItem(Item item) {
