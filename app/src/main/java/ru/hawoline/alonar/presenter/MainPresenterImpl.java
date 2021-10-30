@@ -2,6 +2,7 @@ package ru.hawoline.alonar.presenter;
 
 import android.content.Context;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 import ru.hawoline.alonar.model.map.LandscapeMap;
 import ru.hawoline.alonar.model.map.Map;
 import ru.hawoline.alonar.model.personage.*;
@@ -16,6 +17,7 @@ import ru.hawoline.alonar.view.View;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MainPresenterImpl implements MainPresenter {
@@ -131,8 +133,8 @@ public class MainPresenterImpl implements MainPresenter {
         ConcurrentHashMap<Enemy, Location> enemies = mEnemies;
         Location personageLocation = getPersonageLocation();
         for (Enemy enemy: enemies.keySet()) {
-            if (Math.abs(enemies.get(enemy).getX() - personageLocation.getX()) < 3
-                    && Math.abs(enemies.get(enemy).getY() - personageLocation.getY()) < 3) {
+            if (Math.abs(Objects.requireNonNull(enemies.get(enemy)).getX() - personageLocation.getX()) < 3
+                    && Math.abs(Objects.requireNonNull(enemies.get(enemy)).getY() - personageLocation.getY()) < 3) {
                 mEnemiesAroundHero.add(enemy);
             }
         }
@@ -146,7 +148,8 @@ public class MainPresenterImpl implements MainPresenter {
         Location personageLocation = getPersonageLocation();
         int distance = slot.getDistance();
         for (Enemy enemy: mEnemies.keySet()) {
-            Location enemyLocation = mEnemies.get(enemy);
+            @NonNull
+            Location enemyLocation = Objects.requireNonNull(mEnemies.get(enemy));
             int xDistance = personageLocation.getX() - enemyLocation.getX();
             int yDistance = personageLocation.getY() - enemyLocation.getY();
             int sum = Math.abs(xDistance) + Math.abs(yDistance);
