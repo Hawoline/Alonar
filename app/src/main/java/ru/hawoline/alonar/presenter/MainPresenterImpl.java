@@ -63,17 +63,18 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void saveInstance(Bundle state) {
         try {
-            FileOutputStream heroFileOutputStream = mMainView.getContext().openFileOutput("Hero.out", Context.MODE_PRIVATE);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(heroFileOutputStream);
-            objectOutputStream.writeObject(mPersonage);
-            objectOutputStream.close();
-            FileOutputStream heroLocationFileOutputStream = mMainView.getContext().openFileOutput("HeroLocation.out", Context.MODE_PRIVATE);
-            ObjectOutputStream heroLocationOutputStream = new ObjectOutputStream(heroLocationFileOutputStream);
-            heroLocationOutputStream.writeObject(mPersonageLocation);
-            heroLocationOutputStream.close();
+            saveObject(mPersonage, "Hero.out");
+            saveObject(mPersonageLocation, "HeroLocation.out");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void saveObject(Object object, String filename) throws IOException {
+        FileOutputStream heroFileOutputStream = mMainView.getContext().openFileOutput(filename, Context.MODE_PRIVATE);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(heroFileOutputStream);
+        objectOutputStream.writeObject(object);
+        objectOutputStream.close();
     }
 
     @Override
