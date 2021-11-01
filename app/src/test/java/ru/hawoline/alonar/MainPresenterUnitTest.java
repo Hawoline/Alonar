@@ -1,15 +1,13 @@
 package ru.hawoline.alonar;
 
-import android.util.Log;
 import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 import ru.hawoline.alonar.model.personage.Location;
-import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.presenter.MainPresenterImpl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -17,26 +15,25 @@ import java.util.HashMap;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class MainPresenterUnitTest {
+    private MainPresenterImpl mMainPresenter;
 
-    @Test
+    @Before
     public void testEnemiesAroundHero() {
-        MainPresenterImpl mainPresenter = new MainPresenterImpl();
-        mainPresenter.findEnemiesAroundHero();
+        mMainPresenter = new MainPresenterImpl();
     }
 
     @Test
     public void testEnemyAttacks() {
-        MainPresenterImpl mainPresenter = new MainPresenterImpl();
         do {
-            mainPresenter.onPersonageMove(1, 1);
-        } while (mainPresenter.findEnemiesAroundHero().isEmpty());
+            mMainPresenter.onPersonageMove(1, 1);
+        } while (mMainPresenter.findEnemiesAroundHero().isEmpty());
 
-        ArrayList<Enemy> enemies = mainPresenter.findEnemiesAroundHero();
-        Location enemyLocation = mainPresenter.getEnemyLocation(enemies.get(0));
-        mainPresenter.getPersonageLocation().setX(enemyLocation.getX());
-        mainPresenter.getPersonageLocation().setY(enemyLocation.getY());
-        while(mainPresenter.getPersonage().getHealth() > 0) {
-            System.out.println(mainPresenter.getPersonage().getHealth());
+        ArrayList<Enemy> enemies = mMainPresenter.findEnemiesAroundHero();
+        Location enemyLocation = mMainPresenter.getEnemyLocation(enemies.get(0));
+        mMainPresenter.getPersonageLocation().setX(enemyLocation.getX());
+        mMainPresenter.getPersonageLocation().setY(enemyLocation.getY());
+        while(mMainPresenter.getPersonage().getHealth() > 0) {
+            System.out.println(mMainPresenter.getPersonage().getHealth());
             try {
                 Thread.sleep(4000);
             } catch (InterruptedException e) {
@@ -44,8 +41,8 @@ public class MainPresenterUnitTest {
             }
         }
 
-        TestCase.assertEquals(1, mainPresenter.getPersonageLocation().getX());
-        TestCase.assertEquals(1, mainPresenter.getPersonageLocation().getY());
-        TestCase.assertEquals(100, mainPresenter.getPersonage().getHealth());
+        TestCase.assertEquals(1, mMainPresenter.getPersonageLocation().getX());
+        TestCase.assertEquals(1, mMainPresenter.getPersonageLocation().getY());
+        TestCase.assertEquals(100, mMainPresenter.getPersonage().getHealth());
     }
 }

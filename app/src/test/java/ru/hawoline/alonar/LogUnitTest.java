@@ -1,19 +1,21 @@
 package ru.hawoline.alonar;
 
 import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 import ru.hawoline.alonar.model.gamelog.Log;
 import ru.hawoline.alonar.model.gamelog.GameLog;
 
 public class LogUnitTest {
-    Log mLog;
+    private Log mLog;
 
-    private void init() {
+    @Before
+    public void init() {
         mLog = GameLog.getInstance();
     }
+
     @Test
     public void testLog() {
-        init();
         mLog.putToLog("hahahaha");
         TestCase.assertEquals("hahahaha", mLog.getCurrent());
         for (int i = 0; i < 9; i++) {
@@ -24,7 +26,6 @@ public class LogUnitTest {
 
     @Test
     public void testGettingLog() {
-        init();
         for (int i = 0; i < 15; i++) {
             mLog.putToLog(String.valueOf(i));
         }
