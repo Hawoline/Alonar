@@ -14,19 +14,15 @@ public class Inventory {
         mBags.add(new Bag(new ArrayList<>(), 4));
     }
 
-    public ArrayList<Bag> getBags() {
-        return mBags;
-    }
-
-    public void setBags(ArrayList<Bag> bags) {
-        mBags = bags;
-    }
-
     public void addItem(Item item) {
         for (Bag bag: getBags()) {
-            bag.addItem(item);
+            if (bag.getItemCount() < bag.getCapacity()) {
+                bag.addItem(item);
+                return;
+            }
         }
     }
+
     public boolean removeItem(Item item) {
         for (Bag bag: getBags()) {
             if (bag.removeItem(item)) {
@@ -39,11 +35,37 @@ public class Inventory {
 
     public boolean hasFreeSpace() {
         for (Bag bag: getBags()) {
-            if (bag.getCapacity() - bag.getItemCount() > 0) {
+            if (bag.getCapacity() > bag.getItemCount()) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    public int getItemCount() {
+        int sum = 0;
+        for (Bag bag: getBags()) {
+            sum += bag.getItemCount();
+        }
+
+        return sum;
+    }
+
+    public int getCapacity() {
+        int sum = 0;
+        for (Bag bag: getBags()) {
+            sum += bag.getCapacity();
+        }
+
+        return sum;
+    }
+
+    public ArrayList<Bag> getBags() {
+        return mBags;
+    }
+
+    public void setBags(ArrayList<Bag> bags) {
+        mBags = bags;
     }
 }

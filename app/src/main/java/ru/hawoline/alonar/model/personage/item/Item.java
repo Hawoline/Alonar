@@ -1,6 +1,7 @@
 package ru.hawoline.alonar.model.personage.item;
 
 import ru.hawoline.alonar.model.personage.item.state.ItemState;
+import ru.hawoline.alonar.model.personage.item.state.OnMapItemState;
 
 import java.io.Serializable;
 
@@ -16,6 +17,7 @@ public abstract class Item implements Serializable {
         mName = name;
         mRequiredLevel = requiredLevel;
         mQuality = quality;
+        setState(new OnMapItemState(this));
     }
 
     public String getName() {

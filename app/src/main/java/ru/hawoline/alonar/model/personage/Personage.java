@@ -3,6 +3,7 @@ package ru.hawoline.alonar.model.personage;
 import androidx.annotation.NonNull;
 import ru.hawoline.alonar.model.personage.effect.Effect;
 import ru.hawoline.alonar.model.personage.inventory.Inventory;
+import ru.hawoline.alonar.model.personage.item.Item;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.specification.Vitality;
@@ -121,6 +122,14 @@ public abstract class Personage implements Serializable {
             mAttributes.get(effect.getAttributeName()).decrease(effect.getValue());
         }
         mEquipment.remove(body);
+    }
+
+    public void takeItem(Item item) {
+        item.getState().onAddToInventory(mInventory);
+    }
+
+    public void throwAwayItem(Item item) {
+        item.getState().onThrowAway(mInventory);
     }
 
     public ArrayList<Slot> getSlots() {
