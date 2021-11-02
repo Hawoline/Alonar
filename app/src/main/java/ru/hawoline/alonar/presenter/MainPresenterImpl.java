@@ -44,7 +44,7 @@ public class MainPresenterImpl implements MainPresenter {
             Enemy enemy = Enemy.createEnemy("Rat");
             mEnemies.put(enemy, new Location(
                     (int) Math.floor(Math.random() * (mGameMap.getSize() - 2) + 1),
-                    (int) Math.floor(Math.random() * mGameMap.getSize()))
+                    (int) Math.floor(Math.random() * (mGameMap.getSize() - 2) + 1))
             );
         }
 
@@ -122,7 +122,7 @@ public class MainPresenterImpl implements MainPresenter {
         Location personageLocation = getPersonageLocation();
         int newXCoordinate = personageLocation.getX() + x;
         int newYCoordinate = personageLocation.getY() + y;
-        if (mGameMap.getSize() > newXCoordinate && mGameMap.getSize() > newYCoordinate || newXCoordinate > -1 || newYCoordinate > -1) {
+        if (mGameMap.getSize() - 1 > newXCoordinate && mGameMap.getSize() - 1 > newYCoordinate && newXCoordinate > 0 && newYCoordinate > 0) {
             personageLocation.move(x, y);
         }
     }
@@ -144,9 +144,14 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public ArrayList<Enemy> findEnemiesAroundHero(int slotIndex) {
         mEnemiesAroundHero.clear();
-        DamageSlot slot = (DamageSlot) mPersonage.getSlots().get(slotIndex);
+        Slot slot = mPersonage.getSlots().get(slotIndex);
+
+        if (!(slot instanceof DamageSlot)) {
+            return mEnemiesAroundHero;
+        }
+        DamageSlot damageSlot = (DamageSlot) slot;
         Location personageLocation = getPersonageLocation();
-        int distance = slot.getDistance();
+        int distance = damageSlot.getDistance();
         for (Enemy enemy: mEnemies.keySet()) {
             @NonNull
             Location enemyLocation = Objects.requireNonNull(mEnemies.get(enemy));

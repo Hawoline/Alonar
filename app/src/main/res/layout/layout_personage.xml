@@ -4,23 +4,23 @@
         xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#282828"
+        android:background="@color/background"
 >
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#F0E68C" />
+            android:background="@color/khaki" />
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/personage"
             android:layout_gravity="center"
             android:textSize="14sp"
-            android:textColor="#bdb76b" />
+            android:textColor="@color/dark_khaki" />
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#F0E68C" />
+            android:background="@color/khaki" />
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

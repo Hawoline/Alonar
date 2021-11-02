@@ -8,5 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="khaki">#F0E68C</color>
-    <color name="dark_khaki">#bdb76b</color>
+    <color name="dark_khaki">#BDB76B</color>
+    <color name="background">#282828</color>
 </resources>
