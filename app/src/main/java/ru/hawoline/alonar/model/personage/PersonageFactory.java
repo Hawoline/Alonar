@@ -50,6 +50,7 @@ public class PersonageFactory {
         slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4, false));
         slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1, new Range(3, 4), 4, false));
         personage.setSlots(slots);
+
         return personage;
     }
 }

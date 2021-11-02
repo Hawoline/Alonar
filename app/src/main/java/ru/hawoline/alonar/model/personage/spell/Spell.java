@@ -16,6 +16,8 @@ public abstract class Spell implements Slot {
     private int mRestoreTime;
     private int mCurrentRestoreTime;
 
+    private static final long serialVersionUID = 3070102216000128252L;
+
     public Spell(String name, int distance, int requiredMana, int restoreTime) {
         mName = name;
         mDistance = distance;

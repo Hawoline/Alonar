@@ -9,4 +9,6 @@ public interface DamageSlot extends Slot {
      * 6 - two cell distance
      */
     int getDistance();
+
+    int getRequiredMana();
 }

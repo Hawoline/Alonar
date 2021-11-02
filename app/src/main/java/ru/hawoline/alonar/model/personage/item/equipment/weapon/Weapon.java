@@ -31,6 +31,11 @@ public class Weapon extends Equipment implements DamageSlot {
         return mDistance;
     }
 
+    @Override
+    public int getRequiredMana() {
+        return 0;
+    }
+
     public void setDistance(int distance) {
         mDistance = distance;
     }

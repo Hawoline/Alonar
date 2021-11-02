@@ -7,6 +7,8 @@ public class DamageSpell extends Spell implements DamageSlot {
     private int mDamage;
     private Range mDamageRange;
 
+    private static final long serialVersionUID = -7669810234865246632L;
+
     public DamageSpell(String name, int distance, int requiredMana, int restoreTime, Range damageRange) {
         super(name, distance, requiredMana, restoreTime);
         this.mDamageRange = damageRange;

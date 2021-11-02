@@ -38,6 +38,7 @@ public class PersonageUnitTest {
 
         DamageComputationUseCase.compute(mHero, enemy, 1);
         TestCase.assertTrue(enemy.getHealth() < 1000 - 196 && enemy.getHealth() > 1000 - 237);
+        TestCase.assertEquals(1550, mHero.getMp());
     }
 
     @Test
@@ -47,8 +48,9 @@ public class PersonageUnitTest {
         TestCase.assertEquals(1000, enemy.getHealth());
         DamageComputationUseCase.compute(mHero, enemy, 0);
         TestCase.assertEquals(997, enemy.getHealth());
+        TestCase.assertEquals(1600, mHero.getMp());
 
-        TestCase.assertEquals(4, ((DamageSlot) mHero.getSlots().get(0)).getDamage());
+        TestCase.assertEquals(3, ((DamageSlot) mHero.getSlots().get(0)).getDamage());
     }
 
     @Test

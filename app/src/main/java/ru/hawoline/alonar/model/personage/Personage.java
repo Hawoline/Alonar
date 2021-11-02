@@ -72,7 +72,9 @@ public abstract class Personage implements Serializable {
         return mVitality.get(Vitality.MP).getResidualMax().getSecond();
     }
     public void setMp(int mp) {
-        mVitality.get(Vitality.MP).setValue(mp);
+        if (mp > -1) {
+            mVitality.get(Vitality.MP).setValue(mp);
+        }
     }
 
     public void setAttribute(AttributeName attributeName, PersonageAttribute personageAttributeValue) {
