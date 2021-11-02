@@ -40,7 +40,7 @@ public class MainPresenterImpl implements MainPresenter {
         mPersonages.put(mPersonage, mPersonageLocation);
 
         mEnemies = new ConcurrentHashMap<>();
-        for (int enemyIndex = 0; enemyIndex < 20; enemyIndex++) {
+        for (int enemyIndex = 0; enemyIndex < 40; enemyIndex++) {
             Enemy enemy = Enemy.createEnemy("Rat");
             mEnemies.put(enemy, new Location(
                     (int) Math.floor(Math.random() * (mGameMap.getSize() - 2) + 1),

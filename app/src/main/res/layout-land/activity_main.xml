@@ -8,22 +8,16 @@
         android:background="@color/background"
 >
     <LinearLayout
+            android:id="@+id/main_gamelogs_linearlayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:orientation="vertical"
+            android:visibility="gone"
     >
-        <LinearLayout
-                android:id="@+id/main_gamelogs_linearlayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:orientation="vertical"
-                android:visibility="gone"
-        >
-        </LinearLayout>
     </LinearLayout>
     <View
             android:layout_width="1dp"
@@ -75,46 +69,103 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/khaki"/>
-
-        <TextView
-                android:id="@+id/main_chooseenemy_textview"
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/choose_target_enemy"
-                android:textColor="@color/text_color"
-                android:gravity="center_horizontal"
-                android:visibility="gone"
-        />
-        <LinearLayout
-                android:id="@+id/main_enemies_linearlayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                android:visibility="gone"
+                android:orientation="horizontal"
         >
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <GridLayout
-                    android:id="@+id/main_map_gridlayout"
-                    android:layout_width="wrap_content"
+            <LinearLayout
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-            >
-                <ImageView
-                        android:id="@+id/hero_imageview"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+                <TextView
+                        android:id="@+id/main_chooseenemy_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/choose_target_enemy"
+                        android:textColor="@color/text_color"
+                        android:gravity="center_horizontal"
+                        android:visibility="gone"
+                />
+                <LinearLayout
+                        android:id="@+id/main_enemies_linearlayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_row="2"
-                        android:layout_column="2"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                >
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <GridLayout
+                            android:id="@+id/main_map_gridlayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end"
+                    >
+                        <ImageView
+                                android:id="@+id/hero_imageview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_row="2"
+                                android:layout_column="2"
+                        />
+                    </GridLayout>
+                </LinearLayout>
+                <ProgressBar
+                        android:id="@+id/main_herotransition_progressbar"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="10dp"
                 />
 
-            </GridLayout>
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                >
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:text="@string/bag"/>
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/point"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:text="@string/person"/>
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/point"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:text="@string/quest"/>
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/point"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:text="@string/map"/>
+                </LinearLayout>
+            </LinearLayout>
             <LinearLayout
                     android:id="@+id/main_slots_linearlayout"
                     android:layout_width="wrap_content"
@@ -173,53 +224,6 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/frost_ring"/>
             </LinearLayout>
-        </LinearLayout>
-        <ProgressBar
-                android:id="@+id/main_herotransition_progressbar"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="10dp"
-        />
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-        >
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:text="@string/bag"/>
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/point"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:text="@string/person"/>
-
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/point"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:text="@string/quest"/>
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/point"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:text="@string/map"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
