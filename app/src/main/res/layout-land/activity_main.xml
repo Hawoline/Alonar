@@ -100,21 +100,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-        <GridLayout
-                android:id="@+id/main_map_gridlayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-        >
-            <ImageView
-                    android:id="@+id/hero_imageview"
+            <GridLayout
+                    android:id="@+id/main_map_gridlayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="2"
-                    android:layout_column="2"
-            />
+                    android:layout_gravity="center_vertical|end"
+            >
+                <ImageView
+                        android:id="@+id/hero_imageview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="2"
+                        android:layout_column="2"
+                />
 
-        </GridLayout>
+            </GridLayout>
             <LinearLayout
                     android:id="@+id/main_slots_linearlayout"
                     android:layout_width="wrap_content"
