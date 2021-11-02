@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -13,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
+import org.w3c.dom.Text;
 import ru.hawoline.alonar.R;
 import ru.hawoline.alonar.model.gamelog.GameLog;
 import ru.hawoline.alonar.model.map.LandscapeMap;
@@ -240,6 +243,7 @@ public class MainActivity extends Activity implements MainView {
     private void createEnemyTextView(Enemy enemy, int slotIndex) {
         TextView enemyNameTextView = new TextView(getContext());
         enemyNameTextView.setText(enemy.getName());
+        setTextColor(enemyNameTextView, R.color.text_color);
         enemyNameTextView.setId(View.generateViewId());
         enemyNameTextView.setGravity(Gravity.CENTER_HORIZONTAL);
         enemyNameTextView.setOnClickListener(v -> {
@@ -265,9 +269,18 @@ public class MainActivity extends Activity implements MainView {
         for (String s : log) {
             TextView logTextView = new TextView(getContext());
             logTextView.setText(s);
+            setTextColor(logTextView, R.color.text_color);
             logTextView.setId(View.generateViewId());
             mGameLogLayout.addView(logTextView);
         }
         mGameLogLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void setTextColor(TextView textView, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            textView.setTextColor(getResources().getColor(color, getTheme()));
+        } else {
+            textView.setTextColor(getResources().getColor(color));
+        }
     }
 }

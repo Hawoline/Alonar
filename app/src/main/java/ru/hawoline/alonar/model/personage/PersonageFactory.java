@@ -29,7 +29,7 @@ public class PersonageFactory {
         } else {
             personage = new Warrior();
         }
-        personage.setAttribute(AttributeName.ENDURANCE, new PersonageAttribute(5));
+        personage.setAttribute(AttributeName.ENDURANCE, new PersonageAttribute(10));
         personage.setAttribute(AttributeName.STRENGTH, new PersonageAttribute(5));
         personage.setAttribute(AttributeName.INTELLIGENCE, new PersonageAttribute(100));
         personage.setAttribute(AttributeName.AGILITY, new PersonageAttribute(5));

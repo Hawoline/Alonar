@@ -9,6 +9,8 @@ import ru.hawoline.alonar.model.personage.item.state.ItemStateName;
 public abstract class EquipmentState extends ItemState {
     private Equipment mEquipment;
 
+    private static final long serialVersionUID = -4548388089537561490L;
+
     public EquipmentState(Equipment equipment) {
         super(equipment);
         mEquipment =  equipment;

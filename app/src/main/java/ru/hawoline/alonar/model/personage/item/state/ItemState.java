@@ -4,6 +4,8 @@ import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.inventory.Inventory;
 import ru.hawoline.alonar.model.personage.item.Item;
 
+import java.io.Serializable;
+
 /**
  * Состояния:
  * 1. На карте;
@@ -26,8 +28,10 @@ import ru.hawoline.alonar.model.personage.item.Item;
  * 4. Снять снаряжение в инвентарь(для снаряжения);
  * 5. Использовать(для зелий и других расходников);
  */
-public abstract class ItemState {
+public abstract class ItemState implements Serializable {
     private Item mItem;
+
+    private static final long serialVersionUID = -8517844277677356396L;
 
     public ItemState(Item item) {
         mItem = item;

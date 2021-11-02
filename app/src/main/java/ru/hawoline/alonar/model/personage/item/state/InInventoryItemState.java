@@ -6,6 +6,8 @@ import ru.hawoline.alonar.model.personage.item.Item;
 public class InInventoryItemState extends ItemState {
     private Inventory mInventory;
 
+    private static final long serialVersionUID = -876673251697517353L;
+
     public InInventoryItemState(Item item, Inventory inventory) {
         super(item);
         mInventory = inventory;

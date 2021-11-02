@@ -10,4 +10,5 @@
     <color name="khaki">#F0E68C</color>
     <color name="dark_khaki">#BDB76B</color>
     <color name="background">#282828</color>
+    <color name="text_color">#e6e3b9</color>
 </resources>

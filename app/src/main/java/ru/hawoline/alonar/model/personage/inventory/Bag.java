@@ -2,12 +2,15 @@ package ru.hawoline.alonar.model.personage.inventory;
 
 import ru.hawoline.alonar.model.personage.item.Item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Bag {
+public class Bag implements Serializable {
     private ArrayList<Item> mItems;
     private int mCapacity;
     private int mItemCount;
+
+    private static final long serialVersionUID = -3153572391865397165L;
 
     public Bag(ArrayList<Item> items, int capacity) {
         mCapacity = capacity;

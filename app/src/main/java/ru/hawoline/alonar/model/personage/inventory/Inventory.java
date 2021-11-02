@@ -2,10 +2,13 @@ package ru.hawoline.alonar.model.personage.inventory;
 
 import ru.hawoline.alonar.model.personage.item.Item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Inventory {
+public class Inventory implements Serializable {
     private ArrayList<Bag> mBags;
+
+    private static final long serialVersionUID = 2291999000673748025L;
 
     public Inventory() {
         mBags = new ArrayList<>();
