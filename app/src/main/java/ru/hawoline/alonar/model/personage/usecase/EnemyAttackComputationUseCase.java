@@ -17,8 +17,6 @@ public final class EnemyAttackComputationUseCase implements Runnable {
         mHero = hero;
         mThread = new Thread(this);
         mThread.start();
-
-        Thread thread = new Thread(this);
     }
 
     @Override

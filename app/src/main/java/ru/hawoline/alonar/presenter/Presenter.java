@@ -1,10 +1,10 @@
 package ru.hawoline.alonar.presenter;
 
 import android.os.Bundle;
-import ru.hawoline.alonar.view.View;
+import ru.hawoline.alonar.view.AppView;
 
-public interface Presenter {
-    void attachView(View view);
+public interface Presenter<T extends AppView> {
+    void attachView(T view);
 
     void detachView();
 
