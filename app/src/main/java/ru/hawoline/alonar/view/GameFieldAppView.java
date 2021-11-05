@@ -74,17 +74,6 @@ public class GameFieldAppView implements GameFieldView {
                 mMapGridLayout.addView(mMapImageViews[row][column], row * 5 + column);
             }
         }
-
-        for (int i = 0; i < VISIBLE_CELLS; i++) {
-            final int y = i - 2;
-            for (int j = 0; j < VISIBLE_CELLS; j++) {
-                final int x = j - 2;
-                mMapImageViews[i][j].setOnClickListener(v -> {
-                    mGameFieldPresenter.onPersonageMove(x, y);
-                    render();
-                });
-            }
-        }
         mHeroImageView = mLayout.findViewById(R.id.hero_imageview);
 
         mEnemiesListLayout = mLayout.findViewById(R.id.main_enemies_linearlayout);
@@ -100,6 +89,16 @@ public class GameFieldAppView implements GameFieldView {
 
     @Override
     public void setOnClickListeners() {
+        for (int i = 0; i < VISIBLE_CELLS; i++) {
+            final int y = i - 2;
+            for (int j = 0; j < VISIBLE_CELLS; j++) {
+                final int x = j - 2;
+                mMapImageViews[i][j].setOnClickListener(v -> {
+                    mGameFieldPresenter.onPersonageMove(x, y);
+                    render();
+                });
+            }
+        }
         mSlots[0].setOnClickListener(view -> showEnemiesList(0));
         mSlots[1].setOnClickListener(view -> showEnemiesList(1));
     }

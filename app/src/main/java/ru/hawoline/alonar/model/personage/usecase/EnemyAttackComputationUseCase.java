@@ -1,6 +1,5 @@
 package ru.hawoline.alonar.model.personage.usecase;
 
-import android.util.Log;
 import ru.hawoline.alonar.model.personage.Location;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.enemy.Enemy;
@@ -26,6 +25,13 @@ public final class EnemyAttackComputationUseCase implements Runnable {
 
     @Override
     public void run() {
+        for (;;) {
+            computeEnemyAttacks();
+            waitHeroHealthRestoration();
+        }
+    }
+
+    private void computeEnemyAttacks() {
         while (mHero.getFirst().getHealth() >= 1 && !mEnemies.isEmpty()) {
             if (Thread.interrupted()) {
                 return;
@@ -44,6 +50,15 @@ public final class EnemyAttackComputationUseCase implements Runnable {
         }
     }
 
+    private void waitHeroHealthRestoration() {
+        try {
+            while (mHero.getFirst().getHealth() < 1) {
+                Thread.sleep(1000 / UPDATE_TIME);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     private boolean checkUpdateTime() {
         long currentUpdateTime = System.currentTimeMillis();
         if (currentUpdateTime - lastUpdate <= 1000 / UPDATE_TIME) {
