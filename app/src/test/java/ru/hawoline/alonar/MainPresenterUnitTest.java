@@ -1,6 +1,8 @@
 package ru.hawoline.alonar;
 
+import android.util.Log;
 import junit.framework.TestCase;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.hawoline.alonar.model.personage.Location;
@@ -10,17 +12,14 @@ import ru.hawoline.alonar.presenter.GameFieldPresenterImpl;
 
 import java.util.ArrayList;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
 public class MainPresenterUnitTest {
     private GameFieldPresenter mGameFieldPresenter;
+    private long counter;
 
     @Before
-    public void testEnemiesAroundHero() {
+    public void initPresenter() {
         mGameFieldPresenter = new GameFieldPresenterImpl();
+        counter = 0;
     }
 
     @Test
@@ -47,5 +46,42 @@ public class MainPresenterUnitTest {
         TestCase.assertEquals(1, mGameFieldPresenter.getPersonageLocation().getX());
         TestCase.assertEquals(1, mGameFieldPresenter.getPersonageLocation().getY());
         TestCase.assertEquals(100, mGameFieldPresenter.getPersonage().getHealth());
+    }
+
+    @Test
+    public void checkFalseAttacks() {
+        long startTime = System.currentTimeMillis();
+        while (System.currentTimeMillis() - startTime < 3600 * 1000) {
+            int randomPersonageMovementX = (int) (Math.random() * 5) - 2;
+            int randomPersonageMovementY = (int) (Math.random() * 5) - 2;
+            boolean isEnemyCloseToHero = false;
+            for (Enemy enemy: mGameFieldPresenter.findEnemiesAroundHero()) {
+                Location enemyLocation = mGameFieldPresenter.getEnemyLocation(enemy);
+                Location heroLocation = mGameFieldPresenter.getPersonageLocation();
+                if (heroLocation.getX() + randomPersonageMovementX == enemyLocation.getX() && heroLocation.getY() + randomPersonageMovementY == enemyLocation.getY()) {
+                    isEnemyCloseToHero = true;
+                    break;
+                }
+            }
+
+            if (!isEnemyCloseToHero) {
+                mGameFieldPresenter.onPersonageMove(randomPersonageMovementX, randomPersonageMovementY);
+                TestCase.assertEquals(100, mGameFieldPresenter.getPersonage().getHealth());
+                counter++;
+            }
+        }
+    }
+
+    @After
+    public void showHeroAndEnemyLocations() {
+        for (Enemy enemy: mGameFieldPresenter.findEnemiesAroundHero()) {
+            Location enemyLocation = mGameFieldPresenter.getEnemyLocation(enemy);
+            System.out.println("Enemy location: " + enemyLocation.getX() + " " + enemyLocation.getY());
+        }
+
+        Location heroLocation = mGameFieldPresenter.getPersonageLocation();
+        System.out.println("\nHero location: " + heroLocation.getX() + " " + heroLocation.getY());
+
+        System.out.println("Iterations: " + counter);
     }
 }

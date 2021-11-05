@@ -1,6 +1,7 @@
 package ru.hawoline.alonar.model.personage;
 
 import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Location implements Serializable {
     private int mX;
@@ -20,19 +21,19 @@ public class Location implements Serializable {
         mDirection = DIRECTION_RIGHT;
     }
 
-    public int getX() {
+    public synchronized int getX() {
         return mX;
     }
 
-    public void setX(int x) {
+    public synchronized void setX(int x) {
         mX = x;
     }
 
-    public int getY() {
+    public synchronized int getY() {
         return mY;
     }
 
-    public void setY(int y) {
+    public synchronized void setY(int y) {
         mY = y;
     }
 
@@ -40,7 +41,7 @@ public class Location implements Serializable {
         return mDirection;
     }
 
-    public void move(int xStep, int yStep) {
+    public synchronized void move(int xStep, int yStep) {
         if (mY + yStep >= 0) {
             if (yStep > 0) {
                 mDirection = DIRECTION_BACK;

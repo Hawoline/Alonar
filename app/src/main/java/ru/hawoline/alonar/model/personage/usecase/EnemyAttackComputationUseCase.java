@@ -1,5 +1,6 @@
 package ru.hawoline.alonar.model.personage.usecase;
 
+import android.util.Log;
 import ru.hawoline.alonar.model.personage.Location;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.enemy.Enemy;
@@ -11,34 +12,54 @@ public final class EnemyAttackComputationUseCase implements Runnable {
     private ConcurrentHashMap<Enemy, Location> mEnemies;
     private Pair<Personage, Location> mHero;
     private Thread mThread;
+    private long lastUpdate;
+
+    private final int UPDATE_TIME = 60;
 
     public EnemyAttackComputationUseCase(ConcurrentHashMap<Enemy, Location> enemies, Pair<Personage, Location> hero) {
         mEnemies = enemies;
         mHero = hero;
         mThread = new Thread(this);
         mThread.start();
+        lastUpdate = System.currentTimeMillis();
     }
 
     @Override
     public void run() {
         while (mHero.getFirst().getHealth() >= 1 && !mEnemies.isEmpty()) {
-
             if (Thread.interrupted()) {
-                break;
+                return;
             }
+            if (!checkUpdateTime()) {
+                continue;
+            }
+
             for (Enemy enemy : mEnemies.keySet()) {
                 if (enemy.getHealth() < 1) {
                     mEnemies.remove(enemy);
                     continue;
                 }
-                Location enemyLocation = mEnemies.get(enemy);
-                Location heroLocation = mHero.getSecond();
-                if (enemyLocation.getX() == heroLocation.getX() && enemyLocation.getY() == heroLocation.getY()) {
-                    if (enemy.canAttack()) {
-                        DamageComputationUseCase.compute(enemy, mHero.getFirst(), 0);
-                    }
-                }
+                attack(enemy, mHero.getSecond(), mEnemies.get(enemy));
             }
+        }
+    }
+
+    private boolean checkUpdateTime() {
+        long currentUpdateTime = System.currentTimeMillis();
+        if (currentUpdateTime - lastUpdate <= 1000 / UPDATE_TIME) {
+            return false;
+        }
+        lastUpdate = currentUpdateTime;
+        return true;
+    }
+
+    private synchronized void attack(Enemy enemy, Location personageLocation, Location enemyLocation) {
+        if (enemy.canAttack()) {
+            if (enemyLocation.getX() != personageLocation.getX() || enemyLocation.getY() != personageLocation.getY()) {
+                return;
+            }
+            DamageComputationUseCase.compute(enemy, mHero.getFirst(), 0);
+            enemy.attack();
         }
     }
 

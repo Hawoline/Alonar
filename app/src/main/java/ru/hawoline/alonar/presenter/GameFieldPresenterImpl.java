@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameFieldPresenterImpl implements GameFieldPresenter {
     private GameFieldView mView;
@@ -79,14 +80,6 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
                     (int) Math.floor(Math.random() * (mGameMap.getSize() - 2) + 1))
             );
         }
-
-//        for (int y = 0; y < mGameMap.getSize(); y++) {
-//            for (int x = 0; x < mGameMap.getSize(); x++) {
-//                if (mEnemiesMap[y][x] == 1) {
-//                    mEnemies.put(Enemy.createEnemy("Rat"), new Location(x, y));
-//                }
-//            }
-//        }
         mEnemyAttackComputationUseCase =
                 new EnemyAttackComputationUseCase(mEnemies, new Pair<>(mPersonage, mPersonageLocation));
     }
@@ -157,7 +150,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
     }
 
     @Override
-    public void onPersonageMove(int x, int y) {
+    public synchronized void onPersonageMove(int x, int y) {
         Location personageLocation = getPersonageLocation();
         int newXCoordinate = personageLocation.getX() + x;
         int newYCoordinate = personageLocation.getY() + y;

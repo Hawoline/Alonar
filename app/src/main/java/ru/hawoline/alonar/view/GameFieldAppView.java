@@ -74,6 +74,7 @@ public class GameFieldAppView implements GameFieldView {
                 mMapGridLayout.addView(mMapImageViews[row][column], row * 5 + column);
             }
         }
+
         for (int i = 0; i < VISIBLE_CELLS; i++) {
             final int y = i - 2;
             for (int j = 0; j < VISIBLE_CELLS; j++) {
@@ -144,13 +145,9 @@ public class GameFieldAppView implements GameFieldView {
     }
 
     private int getLandscapeDrawableId(int landscapeType) {
-        int drawableId;
+        int drawableId = R.drawable.mountains;
         if (landscapeType == LandscapeMap.GRASS) {
             drawableId = R.drawable.green;
-        } else if (landscapeType == LandscapeMap.MOUNTAIN) {
-            drawableId = R.drawable.mountains;
-        } else {
-            drawableId = R.drawable.mountains;
         }
         return drawableId;
     }
@@ -236,10 +233,6 @@ public class GameFieldAppView implements GameFieldView {
         } else {
             textView.setTextColor(resources.getColor(color));
         }
-    }
-
-    public LinearLayout getLayout() {
-        return mLayout;
     }
 
     @Override

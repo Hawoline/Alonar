@@ -52,9 +52,17 @@ public class Enemy extends Personage {
     public boolean canAttack() {
         long currentTime = System.currentTimeMillis();
         boolean result = ((currentTime - mTimeFromLastAttack) / 1000) > mCooldown;
+        return result;
+    }
+
+    public boolean attack() {
+        long currentTime = System.currentTimeMillis();
+
+        boolean result = canAttack();
         if (result) {
             mTimeFromLastAttack = currentTime;
         }
+
         return result;
     }
 }
