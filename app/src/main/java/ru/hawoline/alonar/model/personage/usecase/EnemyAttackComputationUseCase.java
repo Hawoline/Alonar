@@ -25,40 +25,42 @@ public final class EnemyAttackComputationUseCase implements Runnable {
 
     @Override
     public void run() {
-        for (;;) {
-            computeEnemyAttacks();
-            waitHeroHealthRestoration();
+        try {
+            for (; ; ) {
+                computeEnemyAttacks();
+                waitHeroHealthRestoration();
+            }
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
         }
     }
 
     private void computeEnemyAttacks() {
         while (mHero.getFirst().getHealth() >= 1 && !mEnemies.isEmpty()) {
-            if (Thread.interrupted()) {
-                return;
-            }
             if (!checkUpdateTime()) {
                 continue;
             }
 
-            for (Enemy enemy : mEnemies.keySet()) {
-                if (enemy.getHealth() < 1) {
-                    mEnemies.remove(enemy);
-                    continue;
-                }
-                attack(enemy, mHero.getSecond(), mEnemies.get(enemy));
-            }
+            performEnemyAttacks();
         }
     }
 
-    private void waitHeroHealthRestoration() {
-        try {
-            while (mHero.getFirst().getHealth() < 1) {
-                Thread.sleep(1000 / UPDATE_TIME);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    private void waitHeroHealthRestoration() throws InterruptedException {
+        while (mHero.getFirst().getHealth() < 1) {
+            Thread.sleep(1000 / UPDATE_TIME);
         }
     }
+
+    private void performEnemyAttacks() {
+        for (Enemy enemy : mEnemies.keySet()) {
+            if (enemy.getHealth() < 1) {
+                mEnemies.remove(enemy);
+                continue;
+            }
+            performAttack(enemy, mHero.getSecond(), mEnemies.get(enemy));
+        }
+    }
+
     private boolean checkUpdateTime() {
         long currentUpdateTime = System.currentTimeMillis();
         if (currentUpdateTime - lastUpdate <= 1000 / UPDATE_TIME) {
@@ -68,7 +70,7 @@ public final class EnemyAttackComputationUseCase implements Runnable {
         return true;
     }
 
-    private synchronized void attack(Enemy enemy, Location personageLocation, Location enemyLocation) {
+    private synchronized void performAttack(Enemy enemy, Location personageLocation, Location enemyLocation) {
         if (enemy.canAttack()) {
             if (enemyLocation.getX() != personageLocation.getX() || enemyLocation.getY() != personageLocation.getY()) {
                 return;
