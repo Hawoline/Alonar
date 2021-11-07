@@ -69,9 +69,7 @@ public class GameFieldAppView implements GameFieldView {
         mMapImageViews = new ImageView[VISIBLE_CELLS][VISIBLE_CELLS];
         for (int row = 0; row < VISIBLE_CELLS; row++) {
             for (int column = 0; column < VISIBLE_CELLS; column++) {
-                mMapImageViews[row][column] = new ImageView(getContext());
-                mMapImageViews[row][column].setId(android.view.View.generateViewId());
-                mMapGridLayout.addView(mMapImageViews[row][column], row * 5 + column);
+                createMapImageViews(row, column);
             }
         }
         mHeroImageView = mLayout.findViewById(R.id.hero_imageview);
@@ -110,6 +108,28 @@ public class GameFieldAppView implements GameFieldView {
         if (mParentGameLogLayout != null) {
             createLogTextViews();
         }
+    }
+
+    private void createMapImageViews(int row, int column) {
+        mMapImageViews[row][column] = new ImageView(getContext());
+        int borderSizeOfMapGridLayout = getContext().getResources().getDimensionPixelSize(R.dimen.border_size);
+        int firstTopPadding = 0;
+        int firstLeftPadding = 0;
+        int lastBottomPadding = 0;
+        int lastRightPadding = 0;
+        if (row == 0) {
+            firstTopPadding = borderSizeOfMapGridLayout;
+        } else if (row == VISIBLE_CELLS - 1) {
+            lastBottomPadding = borderSizeOfMapGridLayout;
+        }
+        if (column == 0) {
+            firstLeftPadding = borderSizeOfMapGridLayout;
+        } else if (column == VISIBLE_CELLS - 1) {
+            lastRightPadding = borderSizeOfMapGridLayout;
+        }
+        mMapImageViews[row][column].setPadding(firstLeftPadding, firstTopPadding, lastRightPadding, lastBottomPadding);
+        mMapImageViews[row][column].setId(android.view.View.generateViewId());
+        mMapGridLayout.addView(mMapImageViews[row][column], row * 5 + column);
     }
 
     public void drawMap() {
