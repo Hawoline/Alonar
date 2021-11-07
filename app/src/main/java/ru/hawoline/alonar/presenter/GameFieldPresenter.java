@@ -20,7 +20,12 @@ public interface GameFieldPresenter extends Presenter<GameFieldView> {
 
     ArrayList<Enemy> findEnemiesAroundHero(int slotIndex);
 
-    void enemyAttacked(Enemy enemy, int slotIndex);
+    ArrayList<Enemy> getNearbyEnemies();
+
+    void attackEnemy(Enemy enemy, int slotIndex);
+
+    boolean checkAttackDistanceFromHeroToEnemy(Enemy enemy, int slotIndex);
 
     Location getEnemyLocation(Enemy enemy);
+
 }

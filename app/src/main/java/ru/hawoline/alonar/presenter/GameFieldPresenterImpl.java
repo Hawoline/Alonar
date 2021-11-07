@@ -24,6 +24,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
     private GameFieldView mView;
     private Map mGameMap;
     private ArrayList<Enemy> mEnemiesAroundHero;
+    private ArrayList<Enemy> mNearbyEnemies;
     private Personage mPersonage;
     private Location mPersonageLocation;
     private HashMap<Personage, Location> mPersonages;
@@ -65,7 +66,9 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
 
     public GameFieldPresenterImpl() {
         mGameMap = new LandscapeMap(30);
+
         mEnemiesAroundHero = new ArrayList<>();
+        mNearbyEnemies = new ArrayList<>();
 
         mPersonages = new HashMap<>();
         mPersonage = PersonageFactory.createPersonage(HeroClass.MAGE);
@@ -73,7 +76,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         mPersonages.put(mPersonage, mPersonageLocation);
 
         mEnemies = new ConcurrentHashMap<>();
-        for (int enemyIndex = 0; enemyIndex < 40; enemyIndex++) {
+        for (int enemyIndex = 0; enemyIndex < 80; enemyIndex++) {
             Enemy enemy = Enemy.createEnemy("Rat");
             mEnemies.put(enemy, new Location(
                     (int) Math.floor(Math.random() * (mGameMap.getSize() - 2) + 1),
@@ -215,12 +218,33 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
     }
 
     @Override
-    public void enemyAttacked(Enemy enemy, int slotIndex) {
+    public ArrayList<Enemy> getNearbyEnemies() {
+        mNearbyEnemies.clear();
+        for (Enemy enemy: mEnemies.keySet()) {
+            Location enemyLocation = mEnemies.get(enemy);
+            Location heroLocation = mPersonageLocation;
+
+            if (enemyLocation.getX() == heroLocation.getX() && enemyLocation.getY() == heroLocation.getY()) {
+                mNearbyEnemies.add(enemy);
+            }
+        }
+
+        return mNearbyEnemies;
+    }
+
+    @Override
+    public void attackEnemy(Enemy enemy, int slotIndex) {
         DamageComputationUseCase.compute(getPersonage(), enemy, slotIndex);
         if (enemy.getHealth() < 1) {
             mEnemies.remove(enemy);
             mView.removeEnemyTextView();
         }
+    }
+
+    @Override
+    public boolean checkAttackDistanceFromHeroToEnemy(Enemy enemy, int slotIndex) {
+        // TODO доделать
+        return false;
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 import androidx.core.content.res.ResourcesCompat;
+import org.w3c.dom.Text;
 import ru.hawoline.alonar.R;
 import ru.hawoline.alonar.model.gamelog.GameLog;
 import ru.hawoline.alonar.model.map.LandscapeMap;
@@ -33,6 +34,7 @@ public class GameFieldAppView implements GameFieldView {
     private ImageView[] mSlots;
     private TextView mHealthTextView;
     private TextView mMpTextView;
+    private LinearLayout mNearbyEnemiesLayout;
 
     private LinearLayout mParentGameLogLayout;
 
@@ -66,6 +68,8 @@ public class GameFieldAppView implements GameFieldView {
         mChooseEnemyTextView = mLayout.findViewById(R.id.main_chooseenemy_textview);
         mHealthTextView = mLayout.findViewById(R.id.main_hp_textview);
         mMpTextView = mLayout.findViewById(R.id.main_mp_textview);
+        mNearbyEnemiesLayout = mLayout.findViewById(R.id.gamefield_nearbyenemies_layout);
+
         mMapImageViews = new ImageView[VISIBLE_CELLS][VISIBLE_CELLS];
         for (int row = 0; row < VISIBLE_CELLS; row++) {
             for (int column = 0; column < VISIBLE_CELLS; column++) {
@@ -93,6 +97,7 @@ public class GameFieldAppView implements GameFieldView {
                 final int x = j - 2;
                 mMapImageViews[i][j].setOnClickListener(v -> {
                     mGameFieldPresenter.onPersonageMove(x, y);
+                    showNearbyEnemies();
                     render();
                 });
             }
@@ -202,6 +207,7 @@ public class GameFieldAppView implements GameFieldView {
         }
     }
 
+    @Override
     public void showEnemiesList(int slotIndex) {
         removeEnemyTextViews();
 
@@ -211,7 +217,7 @@ public class GameFieldAppView implements GameFieldView {
             mEnemiesListLayout.setVisibility(View.GONE);
             mChooseEnemyTextView.setVisibility(View.GONE);
             if (enemies.size() == 1) {
-                mGameFieldPresenter.enemyAttacked(enemies.get(0), slotIndex);
+                mGameFieldPresenter.attackEnemy(enemies.get(0), slotIndex);
                 render();
             }
         } else {
@@ -231,7 +237,7 @@ public class GameFieldAppView implements GameFieldView {
         enemyNameTextView.setGravity(Gravity.CENTER_HORIZONTAL);
         enemyNameTextView.setOnClickListener(v -> {
             mRemovableViewId = v.getId();
-            mGameFieldPresenter.enemyAttacked(enemy, slotIndex);
+            mGameFieldPresenter.attackEnemy(enemy, slotIndex);
             render();
         });
         mEnemiesListLayout.addView(enemyNameTextView);
@@ -270,5 +276,21 @@ public class GameFieldAppView implements GameFieldView {
             mParentGameLogLayout.addView(logTextView);
         }
         mParentGameLogLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void showNearbyEnemies() {
+        mNearbyEnemiesLayout.removeAllViews();
+        ArrayList<Enemy> nearbyEnemies = mGameFieldPresenter.getNearbyEnemies();
+        for (Enemy enemy: nearbyEnemies) {
+            showNearbyEnemy(enemy);
+        }
+    }
+
+    private void showNearbyEnemy(Enemy enemy) {
+        TextView textView = new TextView(getContext());
+        textView.setText(enemy.getName());
+        setTextColor(textView, R.color.text_color);
+        textView.setId(View.generateViewId());
+        mNearbyEnemiesLayout.addView(textView);
     }
 }
