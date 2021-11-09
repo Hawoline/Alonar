@@ -1,16 +1,16 @@
 package ru.hawoline.alonar.presenter;
 
 import android.os.Bundle;
-import ru.hawoline.alonar.view.MainAppView;
+import ru.hawoline.alonar.view.MainView;
 
 public class MainPresenterImpl implements MainPresenter {
-    private MainAppView mMainView;
+    private MainView mMainView;
 
     public MainPresenterImpl() {
     }
 
     @Override
-    public void attachView(MainAppView view) {
+    public void attachView(MainView view) {
         this.mMainView = view;
     }
 

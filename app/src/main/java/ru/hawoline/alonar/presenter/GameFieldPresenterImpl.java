@@ -76,7 +76,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         mPersonages.put(mPersonage, mPersonageLocation);
 
         mEnemies = new ConcurrentHashMap<>();
-        for (int enemyIndex = 0; enemyIndex < 80; enemyIndex++) {
+        for (int enemyIndex = 0; enemyIndex < 40; enemyIndex++) {
             Enemy enemy = Enemy.createEnemy("Rat");
             mEnemies.put(enemy, new Location(
                     (int) Math.floor(Math.random() * (mGameMap.getSize() - 2) + 1),
@@ -121,6 +121,8 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        mEnemyAttackComputationUseCase.setEnemies(mEnemies);
+        mEnemyAttackComputationUseCase.setHero(new Pair<>(mPersonage, mPersonageLocation));
     }
 
 

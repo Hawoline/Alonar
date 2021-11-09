@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 import androidx.core.content.res.ResourcesCompat;
-import org.w3c.dom.Text;
 import ru.hawoline.alonar.R;
 import ru.hawoline.alonar.model.gamelog.GameLog;
 import ru.hawoline.alonar.model.map.LandscapeMap;
@@ -22,7 +21,7 @@ import ru.hawoline.alonar.presenter.GameFieldPresenterImpl;
 
 import java.util.ArrayList;
 
-public class GameFieldAppView implements GameFieldView {
+public class GameFieldViewImpl implements GameFieldView {
     private LinearLayout mLayout;
 
     private LinearLayout mSlotsLayout;
@@ -45,12 +44,12 @@ public class GameFieldAppView implements GameFieldView {
 
     private final int VISIBLE_CELLS = 5;
 
-    public GameFieldAppView(Context context, LayoutInflater layoutInflater, FrameLayout root) {
+    public GameFieldViewImpl(Context context, LayoutInflater layoutInflater, FrameLayout root) {
         mContext = context;
         mLayout = layoutInflater.inflate(R.layout.layout_gamefield, root).findViewById(R.id.gamefield_layout);
         mGameFieldPresenter = new GameFieldPresenterImpl();
         mGameFieldPresenter.attachView(this);
-        findViews();
+        initViews();
         setOnClickListeners();
         render();
     }
@@ -61,7 +60,7 @@ public class GameFieldAppView implements GameFieldView {
     }
 
     @Override
-    public void findViews() {
+    public void initViews() {
         mMapGridLayout = mLayout.findViewById(R.id.main_map_gridlayout);
         mMapGridLayout.setRowCount(VISIBLE_CELLS);
         mMapGridLayout.setColumnCount(VISIBLE_CELLS);
@@ -137,6 +136,7 @@ public class GameFieldAppView implements GameFieldView {
         mMapGridLayout.addView(mMapImageViews[row][column], row * 5 + column);
     }
 
+    @Override
     public void drawMap() {
         int[][] map = mGameFieldPresenter.getGameMap();
         int mapSize = map.length;
@@ -292,5 +292,10 @@ public class GameFieldAppView implements GameFieldView {
         setTextColor(textView, R.color.text_color);
         textView.setId(View.generateViewId());
         mNearbyEnemiesLayout.addView(textView);
+    }
+
+    @Override
+    public GameFieldPresenter getGameFieldPresenter() {
+        return mGameFieldPresenter;
     }
 }

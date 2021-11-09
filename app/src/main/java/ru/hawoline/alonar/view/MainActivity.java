@@ -14,7 +14,7 @@ import ru.hawoline.alonar.model.gamelog.GameLog;
 import ru.hawoline.alonar.presenter.MainPresenter;
 import ru.hawoline.alonar.presenter.MainPresenterImpl;
 
-public class MainActivity extends Activity implements MainAppView {
+public class MainActivity extends Activity implements MainView {
     private MainPresenter mMainPresenter;
     private LinearLayout mGameLogLayout;
     private FrameLayout mContainerLayout;
@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements MainAppView {
         mMainPresenter = new MainPresenterImpl();
         mMainPresenter.attachView(this);
 
-        findViews();
+        initViews();
         setOnClickListeners();
     }
 
@@ -40,17 +40,20 @@ public class MainActivity extends Activity implements MainAppView {
     @Override
     protected void onResume() {
         super.onResume();
+        mGameFieldView.render();
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         mMainPresenter.saveInstance(outState);
+        mGameFieldView.getGameFieldPresenter().saveInstance(outState);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         mMainPresenter.restoreInstance(savedInstanceState);
+        mGameFieldView.getGameFieldPresenter().restoreInstance(savedInstanceState);
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -65,10 +68,10 @@ public class MainActivity extends Activity implements MainAppView {
     }
 
     @Override
-    public void findViews() {
+    public void initViews() {
         mGameLogLayout = findViewById(R.id.main_gamelogs_linearlayout);
         mContainerLayout = findViewById(R.id.main_container_layout);
-        mGameFieldView = new GameFieldAppView(this, getLayoutInflater(), mContainerLayout);
+        mGameFieldView = new GameFieldViewImpl(this, getLayoutInflater(), mContainerLayout);
         mGameFieldView.setParentGameLogLayout(mGameLogLayout);
     }
 

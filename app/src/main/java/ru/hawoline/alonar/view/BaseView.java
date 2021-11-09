@@ -2,10 +2,10 @@ package ru.hawoline.alonar.view;
 
 import android.content.Context;
 
-public interface AppView {
+public interface BaseView {
     Context getContext();
 
-    void findViews();
+    void initViews();
 
     void setOnClickListeners();
 }
