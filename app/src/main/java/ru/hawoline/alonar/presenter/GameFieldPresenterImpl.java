@@ -76,7 +76,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         mPersonages.put(mPersonage, mPersonageLocation);
 
         mEnemies = new ConcurrentHashMap<>();
-        for (int enemyIndex = 0; enemyIndex < 40; enemyIndex++) {
+        for (int enemyIndex = 0; enemyIndex < 80; enemyIndex++) {
             Enemy enemy = Enemy.createEnemy("Rat");
             mEnemies.put(enemy, new Location(
                     (int) Math.floor(Math.random() * (mGameMap.getSize() - 2) + 1),
@@ -236,6 +236,11 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
 
     @Override
     public void attackEnemy(Enemy enemy, int slotIndex) {
+        if (!checkAttackDistanceFromHeroToEnemy(enemy, slotIndex)) {
+            mEnemiesAroundHero.remove(enemy);
+            mView.removeEnemyTextView();
+            return;
+        }
         DamageComputationUseCase.compute(getPersonage(), enemy, slotIndex);
         if (enemy.getHealth() < 1) {
             mEnemies.remove(enemy);
@@ -245,8 +250,33 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
 
     @Override
     public boolean checkAttackDistanceFromHeroToEnemy(Enemy enemy, int slotIndex) {
-        // TODO доделать
-        return false;
+        DamageSlot damageSlot = (DamageSlot) mPersonage.getSlots().get(slotIndex);
+
+        int damageSlotDistance = damageSlot.getDistance();
+        int xDistanceBetweenHeroAndEnemy = mPersonageLocation.getX() - mEnemies.get(enemy).getX();
+        int yDistanceBetweenHeroAndEnemy = mPersonageLocation.getY() - mEnemies.get(enemy).getY();
+        int sum = Math.abs(xDistanceBetweenHeroAndEnemy) + Math.abs(yDistanceBetweenHeroAndEnemy);
+        int diagonalSquaredDistance = xDistanceBetweenHeroAndEnemy * xDistanceBetweenHeroAndEnemy + yDistanceBetweenHeroAndEnemy * yDistanceBetweenHeroAndEnemy;
+
+        boolean heroCanAttack = false;
+        if (damageSlotDistance == 0) {
+            if (xDistanceBetweenHeroAndEnemy == 0 && yDistanceBetweenHeroAndEnemy == 0) {
+                heroCanAttack = true;
+            }
+        } else if (damageSlotDistance == 3) {
+            if (sum < 2) {
+                heroCanAttack = true;
+            }
+        } else if (damageSlotDistance == 4) {
+            if (diagonalSquaredDistance == 2) {
+                heroCanAttack = true;
+            }
+        } else if (damageSlotDistance == 6) {
+            if (sum < 3) {
+                heroCanAttack = true;
+            }
+        }
+        return heroCanAttack;
     }
 
     @Override
