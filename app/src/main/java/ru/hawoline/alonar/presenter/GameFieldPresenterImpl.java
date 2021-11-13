@@ -248,7 +248,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
     }
 
     public boolean checkDistance(Location firstPersonageLocation, Location secondPersonageLocation, int requiredDistance) {
-        int xDistanceBetweenPersonages = firstPersonageLocation.getY() - secondPersonageLocation.getX();
+        int xDistanceBetweenPersonages = firstPersonageLocation.getX() - secondPersonageLocation.getX();
         int yDistanceBetweenPersonages = firstPersonageLocation.getY() - secondPersonageLocation.getY();
         int sum = Math.abs(xDistanceBetweenPersonages) + Math.abs(yDistanceBetweenPersonages);
         int diagonalSquaredDistance = xDistanceBetweenPersonages * xDistanceBetweenPersonages
