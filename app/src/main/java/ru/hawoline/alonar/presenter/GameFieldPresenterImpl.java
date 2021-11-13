@@ -193,26 +193,8 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         for (Enemy enemy: mEnemies.keySet()) {
             @NonNull
             Location enemyLocation = Objects.requireNonNull(mEnemies.get(enemy));
-            int xDistance = personageLocation.getX() - enemyLocation.getX();
-            int yDistance = personageLocation.getY() - enemyLocation.getY();
-            int sum = Math.abs(xDistance) + Math.abs(yDistance);
-            int diagonalSquaredDistance = xDistance * xDistance + yDistance * yDistance;
-            if (distance == 0) {
-                if (xDistance == 0 && yDistance == 0) {
-                    mEnemiesAroundHero.add(enemy);
-                }
-            } else if (distance == 3) {
-                if (sum < 2) {
-                    mEnemiesAroundHero.add(enemy);
-                }
-            } else if (distance == 4) {
-                if (diagonalSquaredDistance == 2) {
-                    mEnemiesAroundHero.add(enemy);
-                }
-            } else if (distance == 6) {
-                if (sum < 3) {
-                    mEnemiesAroundHero.add(enemy);
-                }
+            if (checkDistance(personageLocation, enemyLocation, distance)) {
+                mEnemiesAroundHero.add(enemy);
             }
         }
 
@@ -250,33 +232,49 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
 
     @Override
     public boolean checkAttackDistanceFromHeroToEnemy(Enemy enemy, int slotIndex) {
-        DamageSlot damageSlot = (DamageSlot) mPersonage.getSlots().get(slotIndex);
-
+        Slot slot = mPersonage.getSlots().get(slotIndex);
+        if (!(slot instanceof DamageSlot)) {
+            return false;
+        }
+        DamageSlot damageSlot = (DamageSlot) slot;
         int damageSlotDistance = damageSlot.getDistance();
-        int xDistanceBetweenHeroAndEnemy = mPersonageLocation.getX() - mEnemies.get(enemy).getX();
-        int yDistanceBetweenHeroAndEnemy = mPersonageLocation.getY() - mEnemies.get(enemy).getY();
-        int sum = Math.abs(xDistanceBetweenHeroAndEnemy) + Math.abs(yDistanceBetweenHeroAndEnemy);
-        int diagonalSquaredDistance = xDistanceBetweenHeroAndEnemy * xDistanceBetweenHeroAndEnemy + yDistanceBetweenHeroAndEnemy * yDistanceBetweenHeroAndEnemy;
 
-        boolean heroCanAttack = false;
-        if (damageSlotDistance == 0) {
-            if (xDistanceBetweenHeroAndEnemy == 0 && yDistanceBetweenHeroAndEnemy == 0) {
-                heroCanAttack = true;
+        Location enemyLocation = mEnemies.get(enemy);
+        if (enemyLocation == null) {
+            return false;
+        }
+
+        return checkDistance(mPersonageLocation, enemyLocation, damageSlotDistance);
+    }
+
+    public boolean checkDistance(Location firstPersonageLocation, Location secondPersonageLocation, int requiredDistance) {
+        int xDistanceBetweenPersonages = firstPersonageLocation.getY() - secondPersonageLocation.getX();
+        int yDistanceBetweenPersonages = firstPersonageLocation.getY() - secondPersonageLocation.getY();
+        int sum = Math.abs(xDistanceBetweenPersonages) + Math.abs(yDistanceBetweenPersonages);
+        int diagonalSquaredDistance = xDistanceBetweenPersonages * xDistanceBetweenPersonages
+                + yDistanceBetweenPersonages * yDistanceBetweenPersonages;
+
+        boolean distanceIsCloserOrEqualToRequired = false;
+
+        if (requiredDistance == 0) {
+            if (xDistanceBetweenPersonages == 0 && yDistanceBetweenPersonages == 0) {
+                distanceIsCloserOrEqualToRequired = true;
             }
-        } else if (damageSlotDistance == 3) {
+        } else if (requiredDistance == 3) {
             if (sum < 2) {
-                heroCanAttack = true;
+                distanceIsCloserOrEqualToRequired = true;
             }
-        } else if (damageSlotDistance == 4) {
+        } else if (requiredDistance == 4) {
             if (diagonalSquaredDistance == 2) {
-                heroCanAttack = true;
+                distanceIsCloserOrEqualToRequired = true;
             }
-        } else if (damageSlotDistance == 6) {
+        } else if (requiredDistance == 6) {
             if (sum < 3) {
-                heroCanAttack = true;
+                distanceIsCloserOrEqualToRequired = true;
             }
         }
-        return heroCanAttack;
+
+        return distanceIsCloserOrEqualToRequired;
     }
 
     @Override
