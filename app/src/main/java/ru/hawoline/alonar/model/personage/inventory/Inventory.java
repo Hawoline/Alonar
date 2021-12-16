@@ -12,15 +12,18 @@ public class Inventory implements Serializable {
 
     public Inventory() {
         mBags = new ArrayList<>();
-        mBags.add(new Bag(new ArrayList<>(), 4));
-        mBags.add(new Bag(new ArrayList<>(), 4));
-        mBags.add(new Bag(new ArrayList<>(), 4));
+        mBags.add(new Bag(new ArrayList<>(), 10));
+        mBags.add(new Bag(new ArrayList<>(), 10));
+        mBags.add(new Bag(new ArrayList<>(), 10));
+        mBags.add(new Bag(new ArrayList<>(), 10));
+        mBags.add(new Bag(new ArrayList<>(), 10));
+        mBags.add(new Bag(new ArrayList<>(), 10));
+        mBags.add(new Bag(new ArrayList<>(), 10));
     }
 
     public void addItem(Item item) {
         for (Bag bag: getBags()) {
-            if (bag.getItemCount() < bag.getCapacity()) {
-                bag.addItem(item);
+            if (bag.addItem(item)) {
                 return;
             }
         }

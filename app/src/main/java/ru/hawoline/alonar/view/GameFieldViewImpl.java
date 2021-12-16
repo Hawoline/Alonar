@@ -45,10 +45,14 @@ public class GameFieldViewImpl implements GameFieldView {
     private final int VISIBLE_CELLS = 5;
 
     public GameFieldViewImpl(Context context, LayoutInflater layoutInflater, FrameLayout root) {
-        mContext = context;
-        mLayout = layoutInflater.inflate(R.layout.layout_gamefield, root).findViewById(R.id.gamefield_layout);
         mGameFieldPresenter = new GameFieldPresenterImpl();
         mGameFieldPresenter.attachView(this);
+        inflateLayout(context, layoutInflater, root);
+    }
+
+    public void inflateLayout(Context context, LayoutInflater layoutInflater, FrameLayout root) {
+        mContext = context;
+        mLayout = layoutInflater.inflate(R.layout.layout_gamefield, root).findViewById(R.id.gamefield_layout);
         initViews();
         setOnClickListeners();
         render();

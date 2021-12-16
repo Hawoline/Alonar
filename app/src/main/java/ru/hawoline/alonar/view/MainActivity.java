@@ -19,6 +19,9 @@ public class MainActivity extends Activity implements MainView {
     private LinearLayout mGameLogLayout;
     private FrameLayout mContainerLayout;
     private GameFieldView mGameFieldView;
+    private InventoryView mInventoryView;
+
+    private TextView mInventoryTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,24 +76,24 @@ public class MainActivity extends Activity implements MainView {
         mContainerLayout = findViewById(R.id.main_container_layout);
         mGameFieldView = new GameFieldViewImpl(this, getLayoutInflater(), mContainerLayout);
         mGameFieldView.setParentGameLogLayout(mGameLogLayout);
+
+        mInventoryTextView = findViewById(R.id.main_inventory_textview);
     }
 
     @Override
     public void setOnClickListeners() {
-
-    }
-
-    protected void createLogTextViews() {
-        mGameLogLayout.removeAllViews();
-        String[] log = GameLog.getInstance().showLog();
-        for (String s : log) {
-            TextView logTextView = new TextView(getContext());
-            logTextView.setText(s);
-            setTextColor(logTextView, R.color.text_color);
-            logTextView.setId(View.generateViewId());
-            mGameLogLayout.addView(logTextView);
-        }
-        mGameLogLayout.setVisibility(View.VISIBLE);
+        mInventoryTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContainerLayout.removeAllViews();
+                if (mInventoryView == null) {
+                    mInventoryView = new InventoryView(getContext(), getLayoutInflater(), mContainerLayout, mGameFieldView.getGameFieldPresenter().getPersonage());
+                    mInventoryView.setGameFieldView(mGameFieldView);
+                } else {
+                    mInventoryView.inflateView(getContext(), getLayoutInflater(), mContainerLayout);
+                }
+            }
+        });
     }
 
     private void setTextColor(TextView textView, int color) {

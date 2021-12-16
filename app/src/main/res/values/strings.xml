@@ -5,7 +5,7 @@
     <string name="knife">knife</string>
     <string name="choose_target_enemy">Choose target</string>
     <string name="game_log">Game Log</string>
-    <string name="bag">bag</string>
+    <string name="inventory">inventory</string>
     <string name="person">person</string>
     <string name="quest">quest</string>
     <string name="map">map</string>

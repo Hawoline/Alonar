@@ -11,27 +11,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_alignParentTop="true">
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/khaki"/>
-        <LinearLayout
-                android:id="@+id/main_gamelogs_linearlayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:orientation="vertical"
-                android:visibility="gone"
+            >
+
+
+    </LinearLayout>
+    <View
+        android:id="@+id/main_separator1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/khaki"/>
+    <LinearLayout
+        android:id="@+id/main_gamelogs_linearlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_below="@id/main_separator1"
         >
-        </LinearLayout>
     </LinearLayout>
     <FrameLayout
             android:id="@+id/main_container_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_below="@id/main_gamelogs_linearlayout"
+        android:layout_above="@id/main_bottommenu_layout"
     />
     <LinearLayout
             android:id="@+id/main_bottommenu_layout"
@@ -42,11 +48,12 @@
             android:gravity="center"
     >
         <TextView
+            android:id="@+id/main_inventory_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"
                 android:layout_marginEnd="2dp"
-                android:text="@string/bag"/>
+                android:text="@string/inventory"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
