@@ -82,18 +82,20 @@ public class MainActivity extends Activity implements MainView {
 
     @Override
     public void setOnClickListeners() {
-        mInventoryTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContainerLayout.removeAllViews();
-                if (mInventoryView == null) {
-                    mInventoryView = new InventoryView(getContext(), getLayoutInflater(), mContainerLayout, mGameFieldView.getGameFieldPresenter().getPersonage());
-                    mInventoryView.setGameFieldView(mGameFieldView);
-                } else {
-                    mInventoryView.inflateView(getContext(), getLayoutInflater(), mContainerLayout);
+        if (mInventoryTextView != null) {
+            mInventoryTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContainerLayout.removeAllViews();
+                    if (mInventoryView == null) {
+                        mInventoryView = new InventoryView(getContext(), getLayoutInflater(), mContainerLayout, mGameFieldView.getGameFieldPresenter().getPersonage());
+                        mInventoryView.setGameFieldView(mGameFieldView);
+                    } else {
+                        mInventoryView.inflateView(getContext(), getLayoutInflater(), mContainerLayout);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     private void setTextColor(TextView textView, int color) {

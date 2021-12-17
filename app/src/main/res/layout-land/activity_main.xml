@@ -1,88 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.MainActivity"
-        android:background="@color/background"
->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.MainActivity"
+    android:background="@color/background">
+
     <LinearLayout
-            android:id="@+id/main_gamelogs_linearlayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:orientation="vertical"
-            android:visibility="gone"
-    >
-    </LinearLayout>
+        android:id="@+id/main_gamelogs_linearlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
     <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_toStartOf="@id/main_container_layout"
-            android:background="@color/khaki"/>
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@id/main_container_layout"
+        android:background="@color/khaki" />
 
     <FrameLayout
-            android:id="@+id/main_container_layout"
-            android:layout_width="224dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-    />
+        android:id="@+id/main_container_layout"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/main_bottommenu_layout"
+        />
+
     <LinearLayout
-            android:id="@+id/main_bottommenu_layout"
-            android:layout_width="224dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-    >
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
-                android:layout_marginEnd="2dp"
-                android:text="@string/inventory"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:layout_marginEnd="2dp"
-                android:textColor="@color/text_color"
-                android:text="." />
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:textColor="@color/text_color"
-                android:text="@string/person"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:textColor="@color/text_color"
-                android:text="." />
+        android:id="@+id/main_bottommenu_layout"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:textColor="@color/text_color"
-                android:text="@string/quest"/>
+            android:id="@+id/main_inventory_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:layout_marginEnd="2dp"
+            android:text="@string/inventory" />
+
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:textColor="@color/text_color"
-                android:text="." />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/text_color"
+            android:text="." />
+
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
-                android:text="@string/map"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/text_color"
+            android:text="@string/person" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/text_color"
+            android:text="." />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/text_color"
+            android:text="@string/quest" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/text_color"
+            android:text="." />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:text="@string/map" />
     </LinearLayout>
 </RelativeLayout>
