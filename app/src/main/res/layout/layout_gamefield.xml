@@ -130,7 +130,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/border_color"
     >
-
+<!--    Нужно для отрисовки карты из кода    -->
         <ImageView
                 android:id="@+id/hero_imageview"
                 android:layout_width="wrap_content"

@@ -38,14 +38,13 @@ public class GameFieldViewImpl implements GameFieldView {
     private LinearLayout mParentGameLogLayout;
 
     private Context mContext;
-    private GameFieldPresenter mGameFieldPresenter;
+    private GameFieldPresenter mGameFieldPresenter = new GameFieldPresenterImpl();
 
     private int mRemovableViewId;
 
     private final int VISIBLE_CELLS = 5;
 
     public GameFieldViewImpl(Context context, LayoutInflater layoutInflater, FrameLayout root) {
-        mGameFieldPresenter = new GameFieldPresenterImpl();
         mGameFieldPresenter.attachView(this);
         inflateLayout(context, layoutInflater, root);
     }
@@ -88,7 +87,7 @@ public class GameFieldViewImpl implements GameFieldView {
         Resources resources = mContext.getResources();
         for (int slot = 0; slot < 10; slot++) {
             mSlots[slot] = mLayout.findViewById(
-                    resources.getIdentifier("main_slot_" + slot, "id", "ru.hawoline.alonar"));
+                    resources.getIdentifier("main_slot_" + slot, "id", getContext().getPackageName()));
         }
     }
 
