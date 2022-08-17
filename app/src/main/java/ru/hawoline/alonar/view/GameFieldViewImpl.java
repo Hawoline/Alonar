@@ -270,10 +270,10 @@ public class GameFieldViewImpl implements GameFieldView {
 
     private void createLogTextViews() {
         mParentGameLogLayout.removeAllViews();
-        String[] log = GameLog.getInstance().showLog();
-        for (String s : log) {
+        String[] logs = GameLog.getInstance().showLog();
+        for (String logText : logs) {
             TextView logTextView = new TextView(getContext());
-            logTextView.setText(s);
+            logTextView.setText(logText);
             setTextColor(logTextView, R.color.text_color);
             logTextView.setId(View.generateViewId());
             mParentGameLogLayout.addView(logTextView);
