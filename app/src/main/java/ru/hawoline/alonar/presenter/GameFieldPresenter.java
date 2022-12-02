@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public interface GameFieldPresenter extends Presenter<GameFieldView> {
     int[][] getGameMap();
 
-    Personage getPersonage();
+    Personage getHero();
 
     Location getPersonageLocation();
 

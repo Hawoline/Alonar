@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import ru.hawoline.alonar.R;
-import ru.hawoline.alonar.model.gamelog.GameLog;
 import ru.hawoline.alonar.presenter.MainPresenter;
 import ru.hawoline.alonar.presenter.MainPresenterImpl;
 
@@ -88,7 +87,7 @@ public class MainActivity extends Activity implements MainView {
                 public void onClick(View v) {
                     mContainerLayout.removeAllViews();
                     if (mInventoryView == null) {
-                        mInventoryView = new InventoryView(getContext(), getLayoutInflater(), mContainerLayout, mGameFieldView.getGameFieldPresenter().getPersonage());
+                        mInventoryView = new InventoryView(getContext(), getLayoutInflater(), mContainerLayout, mGameFieldView.getGameFieldPresenter().getHero());
                         mInventoryView.setGameFieldView(mGameFieldView);
                     } else {
                         mInventoryView.inflateView(getContext(), getLayoutInflater(), mContainerLayout);

@@ -22,14 +22,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameFieldPresenterImpl implements GameFieldPresenter {
     private GameFieldView mView;
     private Map mGameMap;
     private ArrayList<Enemy> mEnemiesAroundHero;
     private ArrayList<Enemy> mNearbyEnemies;
-    private Personage mPersonage;
+    private Personage mHero;
     private Location mPersonageLocation;
     private HashMap<Personage, Location> mPersonages;
     private ConcurrentHashMap<Enemy, Location> mEnemies;
@@ -42,12 +41,12 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         mNearbyEnemies = new ArrayList<>();
 
         mPersonages = new HashMap<>();
-        mPersonage = PersonageFactory.createPersonage(HeroClass.MAGE);
+        mHero = PersonageFactory.createPersonage(HeroClass.MAGE);
         mPersonageLocation = new Location(1, 1);
-        mPersonages.put(mPersonage, mPersonageLocation);
-        mPersonage.setInventory(new Inventory());
+        mPersonages.put(mHero, mPersonageLocation);
+        mHero.setInventory(new Inventory());
         for (int item = 0; item < 80; item++) {
-            mPersonage.getInventory().addItem(new Clothing("Helmet", 1, Quality.EXPENSIVE, new Pair<>(100, 100), Body.HEAD));
+            mHero.getInventory().addItem(new Clothing("Helmet", 1, Quality.EXPENSIVE, new Pair<>(100, 100), Body.HEAD));
         }
 
         mEnemies = new ConcurrentHashMap<>();
@@ -59,7 +58,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
             );
         }
         mEnemyAttackComputationUseCase =
-                new EnemyAttackComputationUseCase(mEnemies, new Pair<>(mPersonage, mPersonageLocation));
+                new EnemyAttackComputationUseCase(mEnemies, new Pair<>(mHero, mPersonageLocation));
     }
 
     @Override
@@ -75,7 +74,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
     @Override
     public void saveInstance(Bundle state) {
         try {
-            saveObject(mPersonage, "Hero.out");
+            saveObject(mHero, "Hero.out");
             saveObject(mPersonageLocation, "HeroLocation.out");
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,7 +86,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         try {
             FileInputStream heroFileInputStream = mView.getContext().openFileInput("Hero.out");
             ObjectInputStream objectInputStream = new ObjectInputStream(heroFileInputStream);
-            mPersonage = (Personage) objectInputStream.readObject();
+            mHero = (Personage) objectInputStream.readObject();
             objectInputStream.close();
             FileInputStream heroLocationFileInputStream = mView.getContext().openFileInput("HeroLocation.out");
             ObjectInputStream heroLocationInputStream = new ObjectInputStream(heroLocationFileInputStream);
@@ -97,7 +96,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
             e.printStackTrace();
         }
         mEnemyAttackComputationUseCase.setEnemies(mEnemies);
-        mEnemyAttackComputationUseCase.setHero(new Pair<>(mPersonage, mPersonageLocation));
+        mEnemyAttackComputationUseCase.setHero(new Pair<>(mHero, mPersonageLocation));
     }
 
 
@@ -108,25 +107,28 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         objectOutputStream.close();
     }
 
-
     @Override
     public int[][] getGameMap() {
         return mGameMap.getMap();
     }
 
     @Override
-    public Personage getPersonage() {
-        return mPersonage;
+    public Personage getHero() {
+        return mHero;
     }
 
     @Override
     public Location getPersonageLocation() {
-        if (mPersonage.getHealth() < 1) {
-            mPersonage.setHealth(100);
-            mPersonageLocation.setX(1);
-            mPersonageLocation.setY(1);
+        if (mHero.getHealth() < 1) {
+            reBirthHero();
         }
         return mPersonageLocation;
+    }
+    private void reBirthHero() {
+        mHero.setHealth(100);
+        mHero.setMp(1600);
+        mPersonageLocation.setX(1);
+        mPersonageLocation.setY(1);
     }
 
     @Override
@@ -157,7 +159,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
     @Override
     public ArrayList<Enemy> findEnemiesAroundHero(int slotIndex) {
         mEnemiesAroundHero.clear();
-        Slot slot = mPersonage.getSlots().get(slotIndex);
+        Slot slot = mHero.getSlots().get(slotIndex);
 
         if (!(slot instanceof DamageSlot)) {
             return mEnemiesAroundHero;
@@ -201,7 +203,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
             mView.removeEnemyTextView();
             return;
         }
-        DamageComputationUseCase.compute(getPersonage(), enemy, slotIndex);
+        DamageComputationUseCase.compute(getHero(), enemy, slotIndex);
         if (enemy.getHealth() < 1) {
             mEnemies.remove(enemy);
             mView.removeEnemyTextView();
@@ -210,7 +212,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
 
     @Override
     public boolean checkAttackDistanceFromHeroToEnemy(Enemy enemy, int slotIndex) {
-        Slot slot = mPersonage.getSlots().get(slotIndex);
+        Slot slot = mHero.getSlots().get(slotIndex);
         if (!(slot instanceof DamageSlot)) {
             return false;
         }

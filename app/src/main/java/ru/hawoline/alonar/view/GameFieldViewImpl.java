@@ -166,7 +166,7 @@ public class GameFieldViewImpl implements GameFieldView {
     }
 
     private void showVitalityValues() {
-        Personage personage = mGameFieldPresenter.getPersonage();
+        Personage personage = mGameFieldPresenter.getHero();
         mHealthTextView.setText(String.valueOf(personage.getHealth()));
         mMpTextView.setText(String.valueOf(personage.getMp()));
     }

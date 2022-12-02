@@ -1,6 +1,5 @@
 package ru.hawoline.alonar;
 
-import android.util.Log;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
@@ -33,9 +32,9 @@ public class MainPresenterUnitTest {
         mGameFieldPresenter.getPersonageLocation().setX(enemyLocation.getX());
         mGameFieldPresenter.getPersonageLocation().setY(enemyLocation.getY());
 
-        TestCase.assertEquals(100, mGameFieldPresenter.getPersonage().getHealth());
-        while (mGameFieldPresenter.getPersonage().getHealth() > 0) {
-            System.out.println(mGameFieldPresenter.getPersonage().getHealth());
+        TestCase.assertEquals(100, mGameFieldPresenter.getHero().getHealth());
+        while (mGameFieldPresenter.getHero().getHealth() > 0) {
+            System.out.println(mGameFieldPresenter.getHero().getHealth());
             try {
                 Thread.sleep(4000);
             } catch (InterruptedException e) {
@@ -45,7 +44,8 @@ public class MainPresenterUnitTest {
 
         TestCase.assertEquals(1, mGameFieldPresenter.getPersonageLocation().getX());
         TestCase.assertEquals(1, mGameFieldPresenter.getPersonageLocation().getY());
-        TestCase.assertEquals(100, mGameFieldPresenter.getPersonage().getHealth());
+        TestCase.assertEquals(100, mGameFieldPresenter.getHero().getHealth());
+        TestCase.assertEquals(1600, mGameFieldPresenter.getHero().getMp());
     }
 
     @Test
@@ -66,7 +66,7 @@ public class MainPresenterUnitTest {
 
             if (!isEnemyCloseToHero) {
                 mGameFieldPresenter.onPersonageMove(randomPersonageMovementX, randomPersonageMovementY);
-                TestCase.assertEquals(100, mGameFieldPresenter.getPersonage().getHealth());
+                TestCase.assertEquals(100, mGameFieldPresenter.getHero().getHealth());
                 counter++;
             }
         }
