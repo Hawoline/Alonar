@@ -3,8 +3,8 @@ package ru.hawoline.alonar;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import ru.hawoline.alonar.model.gamelog.Log;
-import ru.hawoline.alonar.model.gamelog.GameLog;
+import ru.hawoline.alonar.domain.gamelog.Log;
+import ru.hawoline.alonar.domain.gamelog.GameLog;
 
 public class LogUnitTest {
     private Log mLog;

@@ -1,0 +1,33 @@
+package ru.hawoline.alonar.domain.personage.item.state;
+
+import ru.hawoline.alonar.domain.personage.inventory.Inventory;
+import ru.hawoline.alonar.domain.personage.item.Item;
+
+public class InInventoryItemState extends ItemState {
+    private Inventory mInventory;
+
+    private static final long serialVersionUID = -876673251697517353L;
+
+    public InInventoryItemState(Item item, Inventory inventory) {
+        super(item);
+        mInventory = inventory;
+        mInventory.addItem(item);
+    }
+
+    @Override
+    public ItemStateName onAddToInventory(Inventory inventory) {
+        return ItemStateName.IN_INVENTORY;
+    }
+
+    @Override
+    public ItemStateName onThrowAway(Inventory inventory) {
+        inventory.removeItem(getItem());
+        getItem().setState(new OnMapItemState(getItem()));
+        return ItemStateName.ON_MAP;
+    }
+
+    @Override
+    public ItemStateName getItemStateName() {
+        return ItemStateName.IN_INVENTORY;
+    }
+}

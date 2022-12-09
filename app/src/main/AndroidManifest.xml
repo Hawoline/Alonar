@@ -9,7 +9,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Alonar">
         <activity
-            android:name=".view.MainActivity"
+            android:name=".presentation.view.MainActivity"
             android:exported="true"
             >
             <intent-filter>
