@@ -1,11 +1,12 @@
 package ru.hawoline.alonar.domain.personage.item;
 
+import ru.hawoline.alonar.domain.personage.Slot;
 import ru.hawoline.alonar.domain.personage.item.state.ItemState;
 import ru.hawoline.alonar.domain.personage.item.state.OnMapItemState;
 
 import java.io.Serializable;
 
-public abstract class Item implements Serializable {
+public abstract class Item implements Serializable, Slot {
     protected String mName;
     protected int mRequiredLevel;
     protected Quality mQuality;

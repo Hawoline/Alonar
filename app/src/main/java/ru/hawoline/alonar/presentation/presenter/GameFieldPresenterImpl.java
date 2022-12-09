@@ -236,22 +236,27 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
 
         boolean distanceIsCloserOrEqualToRequired = false;
 
-        if (requiredDistance == 0) {
-            if (xDistanceBetweenPersonages == 0 && yDistanceBetweenPersonages == 0) {
-                distanceIsCloserOrEqualToRequired = true;
-            }
-        } else if (requiredDistance == 3) {
-            if (sum < 2) {
-                distanceIsCloserOrEqualToRequired = true;
-            }
-        } else if (requiredDistance == 4) {
-            if (diagonalSquaredDistance == 2) {
-                distanceIsCloserOrEqualToRequired = true;
-            }
-        } else if (requiredDistance == 6) {
-            if (sum < 3) {
-                distanceIsCloserOrEqualToRequired = true;
-            }
+        switch (requiredDistance) {
+            case 0:
+                if (xDistanceBetweenPersonages == 0 && yDistanceBetweenPersonages == 0) {
+                    distanceIsCloserOrEqualToRequired = true;
+                }
+                break;
+            case 3:
+                if (sum < 2) {
+                    distanceIsCloserOrEqualToRequired = true;
+                }
+                break;
+            case 4:
+                if (diagonalSquaredDistance == 2) {
+                    distanceIsCloserOrEqualToRequired = true;
+                }
+                break;
+            case 6:
+                if (sum < 3) {
+                    distanceIsCloserOrEqualToRequired = true;
+                }
+                break;
         }
 
         return distanceIsCloserOrEqualToRequired;
