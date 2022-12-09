@@ -41,7 +41,7 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         mNearbyEnemies = new ArrayList<>();
 
         mPersonages = new HashMap<>();
-        mHero = PersonageFactory.createPersonage(HeroClass.MAGE);
+        mHero = Personage.createPersonage(HeroClass.MAGE);
         mPersonageLocation = new Location(1, 1);
         mPersonages.put(mHero, mPersonageLocation);
         mHero.setInventory(new Inventory());

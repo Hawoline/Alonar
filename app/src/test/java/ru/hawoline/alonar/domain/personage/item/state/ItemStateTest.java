@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.hawoline.alonar.domain.Range;
 import ru.hawoline.alonar.domain.personage.Personage;
-import ru.hawoline.alonar.domain.personage.PersonageFactory;
 import ru.hawoline.alonar.domain.personage.heroclass.HeroClass;
 import ru.hawoline.alonar.domain.personage.item.Quality;
 import ru.hawoline.alonar.domain.personage.item.equipment.Body;
@@ -24,7 +23,7 @@ public class ItemStateTest {
 
     @Test
     public void testItemStates() {
-        Personage mage = PersonageFactory.createPersonage(HeroClass.MAGE);
+        Personage mage = Personage.createPersonage(HeroClass.MAGE);
 
         mKnife.setState(new OnMapItemState(mKnife));
         TestCase.assertEquals(ItemStateName.ON_MAP, mKnife.getState().getItemStateName());
@@ -49,7 +48,7 @@ public class ItemStateTest {
 
     @Test
     public void testEquipmentStates() {
-        Personage mage = PersonageFactory.createPersonage(HeroClass.MAGE);
+        Personage mage = Personage.createPersonage(HeroClass.MAGE);
 
         mKnife.setState(new OnMapEquipmentState(mKnife));
         TestCase.assertEquals(ItemStateName.ON_MAP, mKnife.getState().getItemStateName());

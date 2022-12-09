@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.hawoline.alonar.domain.personage.DamageSlot;
 import ru.hawoline.alonar.domain.personage.Personage;
-import ru.hawoline.alonar.domain.personage.PersonageFactory;
 import ru.hawoline.alonar.domain.personage.effect.Effect;
 import ru.hawoline.alonar.domain.personage.enemy.Enemy;
 import ru.hawoline.alonar.domain.personage.heroclass.HeroClass;
@@ -25,7 +24,7 @@ public class PersonageUnitTest {
 
     @Before
     public void initTestVariables() {
-        mHero = PersonageFactory.createPersonage(HeroClass.MAGE);
+        mHero = Personage.createPersonage(HeroClass.MAGE);
     }
 
     @Test
@@ -67,7 +66,6 @@ public class PersonageUnitTest {
         for (int i = 0; i < personageAttributes.length; i++) {
             tempAttributesMaxes[i] = personageAttributes[i].getMax();
         }
-
 
         Clothing cap = new Clothing("Cap", 1, Quality.NORMAL, new Pair<>(100, 100), Body.HEAD);
         Clothing vest = new Clothing("Vest", 1, Quality.NORMAL, new Pair<>(100, 100), Body.BODY);
