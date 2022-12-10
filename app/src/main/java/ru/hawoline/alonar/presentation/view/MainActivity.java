@@ -61,6 +61,7 @@ public class MainActivity extends Activity implements MainView {
 
     @Override
     protected void onStop() {
+        mMainPresenter.detachView();
         super.onStop();
     }
 
