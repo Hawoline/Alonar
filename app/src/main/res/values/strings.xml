@@ -12,4 +12,5 @@
     <string name="personage">Personage</string>
     <string name="to_game">To game</string>
     <string name="vertical_separator">|</string>
+    <string name="nearby_enemies">Nearby enemies:</string>
 </resources>

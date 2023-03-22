@@ -222,6 +222,7 @@ public class GameFieldViewImpl implements GameFieldView {
             if (enemies.size() == 1) {
                 mGameFieldPresenter.attackEnemy(enemies.get(0), slotIndex);
                 render();
+                showNearbyEnemies();
             }
         } else {
             mEnemiesListLayout.setVisibility(View.VISIBLE);
@@ -242,6 +243,7 @@ public class GameFieldViewImpl implements GameFieldView {
             mRemovableViewId = v.getId();
             mGameFieldPresenter.attackEnemy(enemy, slotIndex);
             render();
+            showNearbyEnemies();
         });
         mEnemiesListLayout.addView(enemyNameTextView);
     }
@@ -284,9 +286,21 @@ public class GameFieldViewImpl implements GameFieldView {
     private void showNearbyEnemies() {
         mNearbyEnemiesLayout.removeAllViews();
         ArrayList<Enemy> nearbyEnemies = mGameFieldPresenter.getNearbyEnemies();
+        if (nearbyEnemies.isEmpty()) {
+            return;
+        }
+        showNearbyEnemiesTextView();
         for (Enemy enemy: nearbyEnemies) {
             showNearbyEnemy(enemy);
         }
+    }
+
+    private void showNearbyEnemiesTextView() {
+        TextView textView = new TextView(getContext());
+        textView.setText(getContext().getString(R.string.nearby_enemies));
+        setTextColor(textView, R.color.text_color);
+        textView.setId(View.generateViewId());
+        mNearbyEnemiesLayout.addView(textView);
     }
 
     private void showNearbyEnemy(Enemy enemy) {
