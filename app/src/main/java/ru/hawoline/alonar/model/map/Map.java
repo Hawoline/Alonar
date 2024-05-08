@@ -1,19 +1,19 @@
 package ru.hawoline.alonar.model.map;
 
 public abstract class Map {
-    protected int[][] mMap;
-    protected int mSize;
+    protected int[][] map;
+    protected int size;
 
     public Map(int size) {
-        mSize = size;
-        mMap = new int[size][size];
+        this.size = size;
+        map = new int[size][size];
     }
 
     public int[][] getMap() {
-        return mMap;
+        return map;
     }
 
     public int getSize() {
-        return mSize;
+        return size;
     }
 }

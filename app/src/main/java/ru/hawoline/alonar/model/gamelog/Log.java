@@ -1,35 +1,35 @@
 package ru.hawoline.alonar.model.gamelog;
 
 public abstract class Log {
-    protected String[] mLog;
-    protected int mSize;
+    protected String[] actions;
+    protected int size;
 
-    private int mCurrentAction;
+    private int currentAction;
 
     protected Log(int size) {
-        mSize = size;
-        mLog = new String[mSize];
-        mCurrentAction = 0;
+        this.size = size;
+        actions = new String[this.size];
+        currentAction = 0;
     }
 
-    public void putToLog(String action) {
-        mLog[mCurrentAction++ % mSize] = action;
+    public void putAction(String action) {
+        actions[currentAction++ % size] = action;
     }
 
-    public String[] showLog() {
-        String[] showedLog = new String[mSize];
-        for (int i = 0; i < mSize; i++) {
-            showedLog[i] = mLog[(mCurrentAction + i) % mSize];
+    public String[] show() {
+        String[] actions = new String[size];
+        for (int i = 0; i < size; i++) {
+            actions[i] = this.actions[(currentAction + i) % size];
         }
-        return showedLog;
+        return actions;
     }
 
     public String getCurrent() {
-        return mLog[(mCurrentAction - 1) % mSize];
+        return actions[(currentAction - 1) % size];
     }
 
-    public void clearLog() {
-        mLog = new String[mSize];
-        mCurrentAction = 0;
+    public void clear() {
+        actions = new String[size];
+        currentAction = 0;
     }
 }

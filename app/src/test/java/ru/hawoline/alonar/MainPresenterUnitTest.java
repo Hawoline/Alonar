@@ -12,29 +12,29 @@ import ru.hawoline.alonar.presenter.GameFieldPresenterImpl;
 import java.util.ArrayList;
 
 public class MainPresenterUnitTest {
-    private GameFieldPresenter mGameFieldPresenter;
+    private GameFieldPresenter gameFieldPresenter;
     private long counter;
 
     @Before
     public void initPresenter() {
-        mGameFieldPresenter = new GameFieldPresenterImpl();
+        gameFieldPresenter = new GameFieldPresenterImpl();
         counter = 0;
     }
 
     @Test
     public void testEnemyAttacks() {
         do {
-            mGameFieldPresenter.onPersonageMove(1, 1);
-        } while (mGameFieldPresenter.findEnemiesAroundHero().isEmpty());
+            gameFieldPresenter.onPersonageMove(1, 1);
+        } while (gameFieldPresenter.findEnemiesAroundHero().isEmpty());
 
-        ArrayList<Enemy> enemies = mGameFieldPresenter.findEnemiesAroundHero();
-        Location enemyLocation = mGameFieldPresenter.getEnemyLocation(enemies.get(0));
-        mGameFieldPresenter.getPersonageLocation().setX(enemyLocation.getX());
-        mGameFieldPresenter.getPersonageLocation().setY(enemyLocation.getY());
+        ArrayList<Enemy> enemies = gameFieldPresenter.findEnemiesAroundHero();
+        Location enemyLocation = gameFieldPresenter.getEnemyLocation(enemies.get(0));
+        gameFieldPresenter.getPersonageLocation().setX(enemyLocation.getX());
+        gameFieldPresenter.getPersonageLocation().setY(enemyLocation.getY());
 
-        TestCase.assertEquals(100, mGameFieldPresenter.getHero().getHealth());
-        while (mGameFieldPresenter.getHero().getHealth() > 0) {
-            System.out.println(mGameFieldPresenter.getHero().getHealth());
+        TestCase.assertEquals(100, gameFieldPresenter.getHero().getHealth());
+        while (gameFieldPresenter.getHero().getHealth() > 0) {
+            System.out.println(gameFieldPresenter.getHero().getHealth());
             try {
                 Thread.sleep(4000);
             } catch (InterruptedException e) {
@@ -42,10 +42,10 @@ public class MainPresenterUnitTest {
             }
         }
 
-        TestCase.assertEquals(1, mGameFieldPresenter.getPersonageLocation().getX());
-        TestCase.assertEquals(1, mGameFieldPresenter.getPersonageLocation().getY());
-        TestCase.assertEquals(100, mGameFieldPresenter.getHero().getHealth());
-        TestCase.assertEquals(1600, mGameFieldPresenter.getHero().getMp());
+        TestCase.assertEquals(1, gameFieldPresenter.getPersonageLocation().getX());
+        TestCase.assertEquals(1, gameFieldPresenter.getPersonageLocation().getY());
+        TestCase.assertEquals(100, gameFieldPresenter.getHero().getHealth());
+        TestCase.assertEquals(1600, gameFieldPresenter.getHero().getMp());
     }
 
     @Test
@@ -55,9 +55,9 @@ public class MainPresenterUnitTest {
             int randomPersonageMovementX = (int) (Math.random() * 5) - 2;
             int randomPersonageMovementY = (int) (Math.random() * 5) - 2;
             boolean isEnemyCloseToHero = false;
-            for (Enemy enemy: mGameFieldPresenter.findEnemiesAroundHero()) {
-                Location enemyLocation = mGameFieldPresenter.getEnemyLocation(enemy);
-                Location heroLocation = mGameFieldPresenter.getPersonageLocation();
+            for (Enemy enemy: gameFieldPresenter.findEnemiesAroundHero()) {
+                Location enemyLocation = gameFieldPresenter.getEnemyLocation(enemy);
+                Location heroLocation = gameFieldPresenter.getPersonageLocation();
                 if (heroLocation.getX() + randomPersonageMovementX == enemyLocation.getX() && heroLocation.getY() + randomPersonageMovementY == enemyLocation.getY()) {
                     isEnemyCloseToHero = true;
                     break;
@@ -65,8 +65,8 @@ public class MainPresenterUnitTest {
             }
 
             if (!isEnemyCloseToHero) {
-                mGameFieldPresenter.onPersonageMove(randomPersonageMovementX, randomPersonageMovementY);
-                TestCase.assertEquals(100, mGameFieldPresenter.getHero().getHealth());
+                gameFieldPresenter.onPersonageMove(randomPersonageMovementX, randomPersonageMovementY);
+                TestCase.assertEquals(100, gameFieldPresenter.getHero().getHealth());
                 counter++;
             }
         }
@@ -74,12 +74,12 @@ public class MainPresenterUnitTest {
 
     @After
     public void showHeroAndEnemyLocations() {
-        for (Enemy enemy: mGameFieldPresenter.findEnemiesAroundHero()) {
-            Location enemyLocation = mGameFieldPresenter.getEnemyLocation(enemy);
+        for (Enemy enemy: gameFieldPresenter.findEnemiesAroundHero()) {
+            Location enemyLocation = gameFieldPresenter.getEnemyLocation(enemy);
             System.out.println("Enemy location: " + enemyLocation.getX() + " " + enemyLocation.getY());
         }
 
-        Location heroLocation = mGameFieldPresenter.getPersonageLocation();
+        Location heroLocation = gameFieldPresenter.getPersonageLocation();
         System.out.println("\nHero location: " + heroLocation.getX() + " " + heroLocation.getY());
 
         System.out.println("Iterations: " + counter);

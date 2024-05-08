@@ -1,76 +1,76 @@
 package ru.hawoline.alonar.model.personage.spell;
 
-import ru.hawoline.alonar.model.personage.Slot;
+import java.io.Serializable;
 
-public abstract class Spell implements Slot {
+public abstract class Spell implements Serializable {
     /**
      * 0 - close distance
      * 3 - one cell distance
      * 4 - one diagonal cell distance
      * 6 - two cell distance
      */
-    private int mDistance;
-    private int mRequiredMana;
-    private String mName;
-    private String mDescription;
-    private int mRestoreTime;
-    private int mCurrentRestoreTime;
+    private int distance;
+    private int requiredMana;
+    private String name;
+    private String description;
+    private int restoreTime;
+    private int currentRestoreTime;
 
     private static final long serialVersionUID = 3070102216000128252L;
 
     public Spell(String name, int distance, int requiredMana, int restoreTime) {
-        mName = name;
-        mDistance = distance;
-        mRequiredMana = requiredMana;
-        mRestoreTime = restoreTime;
-        mCurrentRestoreTime = restoreTime;
+        this.name = name;
+        this.distance = distance;
+        this.requiredMana = requiredMana;
+        this.restoreTime = restoreTime;
+        currentRestoreTime = restoreTime;
     }
 
     public int getDistance() {
-        return mDistance;
+        return distance;
     }
 
     public void setDistance(int distance) {
-        this.mDistance = distance;
+        this.distance = distance;
     }
 
     public int getRequiredMana() {
-        return mRequiredMana;
+        return requiredMana;
     }
 
     public void setRequiredMana(int requiredMana) {
-        this.mRequiredMana = requiredMana;
+        this.requiredMana = requiredMana;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String name) {
-        mName = name;
+        this.name = name;
     }
 
     public String getDescription() {
-        return mDescription;
+        return description;
     }
 
     public void setDescription(String description) {
-        mDescription = description;
+        this.description = description;
     }
 
     public int getRestoreTime() {
-        return mRestoreTime;
+        return restoreTime;
     }
 
     public void setRestoreTime(int restoreTime) {
-        mRestoreTime = restoreTime;
+        this.restoreTime = restoreTime;
     }
 
     public int getCurrentRestoreTime() {
-        return mCurrentRestoreTime;
+        return currentRestoreTime;
     }
 
     public void setCurrentRestoreTime(int currentRestoreTime) {
-        mCurrentRestoreTime = currentRestoreTime;
+        this.currentRestoreTime = currentRestoreTime;
     }
 }

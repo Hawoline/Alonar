@@ -3,50 +3,50 @@ package ru.hawoline.alonar.model.personage.specification.attribute;
 import java.io.Serializable;
 
 public class PersonageAttribute implements Serializable {
-    private int mValue;
-    private int mMax;
+    private int value;
+    private int max;
 
     private static final long serialVersionUID = 5405874440905936295L;
 
     public PersonageAttribute(int max) {
-        mValue = max;
-        mMax = max;
+        value = max;
+        this.max = max;
     }
 
     public int getValue() {
-        return mValue;
+        return value;
     }
 
     public void setValue(int value) {
-        if (value < mMax) {
-            mValue = value;
+        if (value < max) {
+            this.value = value;
         }
     }
 
     public void increase(int value) {
-        mMax += value;
-        mValue += value;
+        max += value;
+        this.value += value;
     }
 
     public void decrease(int value) {
-        mValue -= value;
-        if (mValue < 0) {
-            mValue = 0;
+        this.value -= value;
+        if (this.value < 0) {
+            this.value = 0;
         }
-        mMax -= value;
-        if (mMax < 0) {
-            mMax = 0;
+        max -= value;
+        if (max < 0) {
+            max = 0;
         }
     }
 
     public int getMax() {
-        return mMax;
+        return max;
     }
 
     public void setMax(int max) {
-        mMax = max;
-        if (mMax < mValue) {
-            mValue = mMax;
+        this.max = max;
+        if (this.max < value) {
+            value = this.max;
         }
     }
 }

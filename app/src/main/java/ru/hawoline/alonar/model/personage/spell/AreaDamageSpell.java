@@ -3,18 +3,18 @@ package ru.hawoline.alonar.model.personage.spell;
 import ru.hawoline.alonar.model.Range;
 
 public class AreaDamageSpell extends DamageSpell {
-    private int mRadius;
+    private int radius;
 
     public AreaDamageSpell(String name, int distance, int requiredMana, int restoreTime, Range damage, int radius) {
         super(name, distance, requiredMana, restoreTime, damage);
-        this.mRadius = radius;
+        this.radius = radius;
     }
 
     public int getRadius() {
-        return mRadius;
+        return radius;
     }
 
     public void setRadius(int radius) {
-        mRadius = radius;
+        this.radius = radius;
     }
 }

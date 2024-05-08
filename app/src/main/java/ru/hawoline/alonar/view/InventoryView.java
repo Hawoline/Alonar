@@ -14,63 +14,63 @@ import ru.hawoline.alonar.presenter.InventoryPresenter;
 import ru.hawoline.alonar.presenter.InventoryPresenterImpl;
 
 public class InventoryView implements BaseView {
-    private LinearLayout mLayout;
-    private Context mContext;
-    private TextView mToGameTextView;
-    private TextView mItemCountTextView;
-    private RecyclerView mItemsRecyclerView;
+    private LinearLayout layout;
+    private Context context;
+    private TextView toGameTextView;
+    private TextView itemCountTextView;
+    private RecyclerView itemsRecyclerView;
 
-    private LayoutInflater mLayoutInflater;
-    private FrameLayout mRootLayout;
+    private LayoutInflater layoutInflater;
+    private FrameLayout rootLayout;
 
-    private GameFieldView mGameFieldView;
+    private GameFieldView gameFieldView;
 
-    private InventoryPresenter mInventoryPresenter;
+    private InventoryPresenter inventoryPresenter;
 
     public InventoryView(Context context, LayoutInflater layoutInflater, FrameLayout root, Personage personage) {
-        mContext = context;
-        mRootLayout = root;
-        mInventoryPresenter = new InventoryPresenterImpl(personage);
-        mInventoryPresenter.attachView(this);
+        this.context = context;
+        rootLayout = root;
+        inventoryPresenter = new InventoryPresenterImpl(personage);
+        inventoryPresenter.attachView(this);
         inflateView(context, layoutInflater, root);
     }
 
     @Override
     public Context getContext() {
-        return mContext;
+        return context;
     }
 
     @Override
     public void initViews() {
-        mToGameTextView = mLayout.findViewById(R.id.inventory_togame_textview);
-        mItemCountTextView = mLayout.findViewById(R.id.inventory_itemcount_textview);
-        mItemsRecyclerView = mLayout.findViewById(R.id.inventory_items_recyclerview);
-        mItemsRecyclerView.setAdapter(mInventoryPresenter.getInventoryAdapter());
+        toGameTextView = layout.findViewById(R.id.inventory_togame_textview);
+        itemCountTextView = layout.findViewById(R.id.inventory_itemcount_textview);
+        itemsRecyclerView = layout.findViewById(R.id.inventory_items_recyclerview);
+        itemsRecyclerView.setAdapter(inventoryPresenter.getInventoryAdapter());
     }
 
     @Override
     public void setOnClickListeners() {
-        mToGameTextView.setOnClickListener(new OnClickListener() {
+        toGameTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mRootLayout.removeAllViews();
-                mGameFieldView.inflateLayout(getContext(), mLayoutInflater, mRootLayout);
+                rootLayout.removeAllViews();
+                gameFieldView.inflateLayout(getContext(), layoutInflater, rootLayout);
             }
         });
     }
 
     public void inflateView(Context context, LayoutInflater layoutInflater, FrameLayout containerLayout) {
-        mLayout = layoutInflater.inflate(R.layout.layout_inventory, containerLayout).findViewById(R.id.inventory_layout);
-        mLayoutInflater = layoutInflater;
+        layout = layoutInflater.inflate(R.layout.layout_inventory, containerLayout).findViewById(R.id.inventory_layout);
+        this.layoutInflater = layoutInflater;
         initViews();
         setOnClickListeners();
     }
 
     public void setGameFieldView(GameFieldView gameFieldView) {
-        mGameFieldView = gameFieldView;
+        this.gameFieldView = gameFieldView;
     }
 
     public InventoryPresenter getInventoryPresenter() {
-        return mInventoryPresenter;
+        return inventoryPresenter;
     }
 }

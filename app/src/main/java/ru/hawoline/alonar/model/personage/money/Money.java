@@ -3,47 +3,47 @@ package ru.hawoline.alonar.model.personage.money;
 import java.io.Serializable;
 
 public class Money implements Serializable {
-    private int mMoney;
-    private int mCopper;
-    private int mSilver;
-    private int mGold;
-    private int mDoubloon;
+    private int money;
+    private int copper;
+    private int silver;
+    private int gold;
+    private int doubloon;
 
     private static final long serialVersionUID = -3731504861208603753L;
 
     public Money(int money, int doubloon) {
-        mMoney = money;
-        mDoubloon = doubloon;
+        this.money = money;
+        this.doubloon = doubloon;
     }
 
     public int getMoney() {
-        return mMoney;
+        return money;
     }
 
     public void setMoney(int money) {
-        mMoney = money;
-        mCopper = mMoney % 100;
-        mSilver = mMoney / 100 % 100;
-        mGold = mMoney / 10000;
+        this.money = money;
+        copper = this.money % 100;
+        silver = this.money / 100 % 100;
+        gold = this.money / 10000;
     }
 
     public int getDoubloon() {
-        return mDoubloon;
+        return doubloon;
     }
 
     public void setDoubloon(int doubloon) {
-        mDoubloon = doubloon;
+        this.doubloon = doubloon;
     }
 
     public int getCopper() {
-        return mCopper;
+        return copper;
     }
 
     public int getSilver() {
-        return mSilver;
+        return silver;
     }
 
     public int getGold() {
-        return mGold;
+        return gold;
     }
 }

@@ -8,18 +8,18 @@ import ru.hawoline.alonar.util.Pair;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class EnemyAttackComputationUseCase implements Runnable {
-    private ConcurrentHashMap<Enemy, Location> mEnemies;
-    private Pair<Personage, Location> mHero;
-    private Thread mThread;
+    private ConcurrentHashMap<Enemy, Location> enemies;
+    private Pair<Personage, Location> hero;
+    private Thread thread;
     private long lastUpdate;
 
     private final int UPDATE_TIME = 60;
 
     public EnemyAttackComputationUseCase(ConcurrentHashMap<Enemy, Location> enemies, Pair<Personage, Location> hero) {
-        mEnemies = enemies;
-        mHero = hero;
-        mThread = new Thread(this);
-        mThread.start();
+        this.enemies = enemies;
+        this.hero = hero;
+        thread = new Thread(this);
+        thread.start();
         lastUpdate = System.currentTimeMillis();
     }
 
@@ -36,7 +36,7 @@ public final class EnemyAttackComputationUseCase implements Runnable {
     }
 
     private void computeEnemyAttacks() {
-        while (mHero.getFirst().getHealth() >= 1 && !mEnemies.isEmpty()) {
+        while (hero.getFirst().getHealth() >= 1 && !enemies.isEmpty()) {
             if (!checkUpdateTime()) {
                 continue;
             }
@@ -46,18 +46,18 @@ public final class EnemyAttackComputationUseCase implements Runnable {
     }
 
     private void waitHeroHealthRestoration() throws InterruptedException {
-        while (mHero.getFirst().getHealth() < 1) {
+        while (hero.getFirst().getHealth() < 1) {
             Thread.sleep(1000 / UPDATE_TIME);
         }
     }
 
     private void performEnemyAttacks() {
-        for (Enemy enemy : mEnemies.keySet()) {
+        for (Enemy enemy : enemies.keySet()) {
             if (enemy.getHealth() < 1) {
-                mEnemies.remove(enemy);
+                enemies.remove(enemy);
                 continue;
             }
-            performAttack(enemy, mHero.getSecond(), mEnemies.get(enemy));
+            performAttack(enemy, hero.getSecond(), enemies.get(enemy));
         }
     }
 
@@ -75,16 +75,16 @@ public final class EnemyAttackComputationUseCase implements Runnable {
             if (enemyLocation.getX() != personageLocation.getX() || enemyLocation.getY() != personageLocation.getY()) {
                 return;
             }
-            DamageComputationUseCase.compute(enemy, mHero.getFirst(), 0);
+            DamageComputationUseCase.compute(enemy, hero.getFirst(), 0);
             enemy.attack();
         }
     }
 
     public void setEnemies(ConcurrentHashMap<Enemy, Location> enemies) {
-        mEnemies = enemies;
+        this.enemies = enemies;
     }
 
     public void setHero(Pair<Personage, Location> hero) {
-        mHero = hero;
+        this.hero = hero;
     }
 }

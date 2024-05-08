@@ -6,19 +6,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Bag implements Serializable {
-    private ArrayList<Item> mItems;
-    private int mCapacity;
+    private ArrayList<Item> items;
+    private int capacity;
 
     private static final long serialVersionUID = -3153572391865397165L;
 
     public Bag(ArrayList<Item> items, int capacity) {
-        mCapacity = capacity;
-        mItems = items;
+        this.capacity = capacity;
+        this.items = items;
     }
 
     public boolean addItem(Item item) {
-        if (mItems.size() < getCapacity()) {
-            mItems.add(item);
+        if (items.size() < getCapacity()) {
+            items.add(item);
             return true;
         }
 
@@ -26,17 +26,17 @@ public class Bag implements Serializable {
     }
 
     public boolean removeItem(Item item) {
-        return mItems.remove(item);
+        return items.remove(item);
     }
 
     public Item getItem(int position) {
-        return mItems.get(position);
+        return items.get(position);
     }
     public int getCapacity() {
-        return mCapacity;
+        return capacity;
     }
 
     public int getItemCount() {
-        return mItems.size();
+        return items.size();
     }
 }

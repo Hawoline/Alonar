@@ -9,21 +9,21 @@ public class LandscapeMap extends Map {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                mMap[i][j] = GRASS;
+                map[i][j] = GRASS;
             }
         }
 
-        for (int i = 0; i < mMap.length; i++) {
-            mMap[i][0] = MOUNTAIN;
+        for (int i = 0; i < map.length; i++) {
+            map[i][0] = MOUNTAIN;
         }
-        for (int i = 0; i < mMap.length; i++) {
-            mMap[0][i] = MOUNTAIN;
+        for (int i = 0; i < map.length; i++) {
+            map[0][i] = MOUNTAIN;
         }
-        for (int i = 0; i < mMap.length; i++) {
-            mMap[mMap.length - 1][i] = MOUNTAIN;
+        for (int i = 0; i < map.length; i++) {
+            map[map.length - 1][i] = MOUNTAIN;
         }
-        for (int i = 0; i < mMap.length; i++) {
-            mMap[i][mMap.length - 1] = MOUNTAIN;
+        for (int i = 0; i < map.length; i++) {
+            map[i][map.length - 1] = MOUNTAIN;
         }
     }
 }

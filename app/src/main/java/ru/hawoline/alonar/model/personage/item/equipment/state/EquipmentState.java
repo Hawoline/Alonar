@@ -1,19 +1,18 @@
 package ru.hawoline.alonar.model.personage.item.equipment.state;
 
 import ru.hawoline.alonar.model.personage.Personage;
-import ru.hawoline.alonar.model.personage.inventory.Inventory;
 import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.item.state.ItemState;
 import ru.hawoline.alonar.model.personage.item.state.ItemStateName;
 
 public abstract class EquipmentState extends ItemState {
-    private Equipment mEquipment;
+    private Equipment equipment;
 
     private static final long serialVersionUID = -4548388089537561490L;
 
     public EquipmentState(Equipment equipment) {
         super(equipment);
-        mEquipment =  equipment;
+        this.equipment =  equipment;
     }
 
     @Override
@@ -24,6 +23,6 @@ public abstract class EquipmentState extends ItemState {
 
     @Override
     public Equipment getItem() {
-        return mEquipment;
+        return equipment;
     }
 }

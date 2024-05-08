@@ -5,8 +5,8 @@ import ru.hawoline.alonar.util.Pair;
 import java.io.Serializable;
 
 public class Vitality implements Serializable {
-    private VitalityType mType;
-    private Pair<Integer, Integer> mResidualMax;
+    private VitalityType type;
+    private Pair<Integer, Integer> residualMax;
 
     private static final long serialVersionUID = -990341370978716524L;
 
@@ -18,28 +18,28 @@ public class Vitality implements Serializable {
     }
 
     public VitalityType getType() {
-        return mType;
+        return type;
     }
 
     public Pair<Integer, Integer> getResidualMax() {
-        return mResidualMax;
+        return residualMax;
     }
 
     public void setVitality(VitalityType type, Pair<Integer, Integer> residualMax) {
-        mType = type;
-        mResidualMax = residualMax;
+        this.type = type;
+        this.residualMax = residualMax;
     }
 
     public void setMaxValue(int maxValue) {
-        mResidualMax.setFirst(maxValue);
-        mResidualMax.setSecond(maxValue);
+        residualMax.setFirst(maxValue);
+        residualMax.setSecond(maxValue);
     }
 
     public void setValue(int value) {
         if (value > getResidualMax().getFirst()) {
             setMaxValue(value);
         } else {
-            mResidualMax.setSecond(value);
+            residualMax.setSecond(value);
         }
     }
 }

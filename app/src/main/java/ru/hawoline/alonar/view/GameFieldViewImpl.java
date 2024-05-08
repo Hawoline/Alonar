@@ -22,36 +22,36 @@ import ru.hawoline.alonar.presenter.GameFieldPresenterImpl;
 import java.util.ArrayList;
 
 public class GameFieldViewImpl implements GameFieldView {
-    private LinearLayout mLayout;
+    private LinearLayout layout;
 
-    private LinearLayout mSlotsLayout;
-    private LinearLayout mEnemiesListLayout;
-    private GridLayout mMapGridLayout;
-    private TextView mChooseEnemyTextView;
-    private ImageView[][] mMapImageViews;
-    private ImageView mHeroImageView;
-    private ImageView[] mSlots;
-    private TextView mHealthTextView;
-    private TextView mMpTextView;
-    private LinearLayout mNearbyEnemiesLayout;
+    private LinearLayout slotsLayout;
+    private LinearLayout enemiesListLayout;
+    private GridLayout mapGridLayout;
+    private TextView chooseEnemyTextView;
+    private ImageView[][] mapImageViews;
+    private ImageView heroImageView;
+    private ImageView[] slots;
+    private TextView healthTextView;
+    private TextView mpTextView;
+    private LinearLayout nearbyEnemiesLayout;
 
-    private LinearLayout mParentGameLogLayout;
+    private LinearLayout parentGameLogLayout;
 
-    private Context mContext;
-    private GameFieldPresenter mGameFieldPresenter = new GameFieldPresenterImpl();
+    private Context context;
+    private GameFieldPresenter gameFieldPresenter = new GameFieldPresenterImpl();
 
-    private int mRemovableViewId;
+    private int removableViewId;
 
     private final int VISIBLE_CELLS = 5;
 
     public GameFieldViewImpl(Context context, LayoutInflater layoutInflater, FrameLayout root) {
-        mGameFieldPresenter.attachView(this);
+        gameFieldPresenter.attachView(this);
         inflateLayout(context, layoutInflater, root);
     }
 
     public void inflateLayout(Context context, LayoutInflater layoutInflater, FrameLayout root) {
-        mContext = context;
-        mLayout = layoutInflater.inflate(R.layout.layout_gamefield, root).findViewById(R.id.gamefield_layout);
+        this.context = context;
+        layout = layoutInflater.inflate(R.layout.layout_gamefield, root).findViewById(R.id.gamefield_layout);
         initViews();
         setOnClickListeners();
         render();
@@ -59,34 +59,34 @@ public class GameFieldViewImpl implements GameFieldView {
 
     @Override
     public Context getContext() {
-        return mContext;
+        return context;
     }
 
     @Override
     public void initViews() {
-        mMapGridLayout = mLayout.findViewById(R.id.main_map_gridlayout);
-        mMapGridLayout.setRowCount(VISIBLE_CELLS);
-        mMapGridLayout.setColumnCount(VISIBLE_CELLS);
-        mChooseEnemyTextView = mLayout.findViewById(R.id.main_chooseenemy_textview);
-        mHealthTextView = mLayout.findViewById(R.id.main_hp_textview);
-        mMpTextView = mLayout.findViewById(R.id.main_mp_textview);
-        mNearbyEnemiesLayout = mLayout.findViewById(R.id.gamefield_nearbyenemies_layout);
+        mapGridLayout = layout.findViewById(R.id.main_map_gridlayout);
+        mapGridLayout.setRowCount(VISIBLE_CELLS);
+        mapGridLayout.setColumnCount(VISIBLE_CELLS);
+        chooseEnemyTextView = layout.findViewById(R.id.main_chooseenemy_textview);
+        healthTextView = layout.findViewById(R.id.main_hp_textview);
+        mpTextView = layout.findViewById(R.id.main_mp_textview);
+        nearbyEnemiesLayout = layout.findViewById(R.id.gamefield_nearbyenemies_layout);
 
-        mMapImageViews = new ImageView[VISIBLE_CELLS][VISIBLE_CELLS];
+        mapImageViews = new ImageView[VISIBLE_CELLS][VISIBLE_CELLS];
         for (int row = 0; row < VISIBLE_CELLS; row++) {
             for (int column = 0; column < VISIBLE_CELLS; column++) {
                 createMapImageViews(row, column);
             }
         }
-        mHeroImageView = mLayout.findViewById(R.id.hero_imageview);
+        heroImageView = layout.findViewById(R.id.hero_imageview);
 
-        mEnemiesListLayout = mLayout.findViewById(R.id.main_enemies_linearlayout);
+        enemiesListLayout = layout.findViewById(R.id.main_enemies_linearlayout);
 
-        mSlotsLayout = mLayout.findViewById(R.id.main_slots_linearlayout);
-        mSlots = new ImageView[10];
-        Resources resources = mContext.getResources();
+        slotsLayout = layout.findViewById(R.id.main_slots_linearlayout);
+        slots = new ImageView[10];
+        Resources resources = context.getResources();
         for (int slot = 0; slot < 10; slot++) {
-            mSlots[slot] = mLayout.findViewById(
+            slots[slot] = layout.findViewById(
                     resources.getIdentifier("main_slot_" + slot, "id", getContext().getPackageName()));
         }
     }
@@ -97,28 +97,28 @@ public class GameFieldViewImpl implements GameFieldView {
             final int y = i - 2;
             for (int j = 0; j < VISIBLE_CELLS; j++) {
                 final int x = j - 2;
-                mMapImageViews[i][j].setOnClickListener(v -> {
-                    mGameFieldPresenter.onPersonageMove(x, y);
+                mapImageViews[i][j].setOnClickListener(v -> {
+                    gameFieldPresenter.onPersonageMove(x, y);
                     showNearbyEnemies();
                     render();
                 });
             }
         }
-        mSlots[0].setOnClickListener(view -> showEnemiesList(0));
-        mSlots[1].setOnClickListener(view -> showEnemiesList(1));
+        slots[0].setOnClickListener(view -> showEnemiesList(0));
+        slots[1].setOnClickListener(view -> showEnemiesList(1));
     }
 
     @Override
     public void render() {
         drawMap();
         showVitalityValues();
-        if (mParentGameLogLayout != null) {
+        if (parentGameLogLayout != null) {
             createLogTextViews();
         }
     }
 
     private void createMapImageViews(int row, int column) {
-        mMapImageViews[row][column] = new ImageView(getContext());
+        mapImageViews[row][column] = new ImageView(getContext());
         int borderSizeOfMapGridLayout = getContext().getResources().getDimensionPixelSize(R.dimen.border_size);
         int firstTopPadding = 0;
         int firstLeftPadding = 0;
@@ -134,16 +134,16 @@ public class GameFieldViewImpl implements GameFieldView {
         } else if (column == VISIBLE_CELLS - 1) {
             lastRightPadding = borderSizeOfMapGridLayout;
         }
-        mMapImageViews[row][column].setPadding(firstLeftPadding, firstTopPadding, lastRightPadding, lastBottomPadding);
-        mMapImageViews[row][column].setId(android.view.View.generateViewId());
-        mMapGridLayout.addView(mMapImageViews[row][column], row * 5 + column);
+        mapImageViews[row][column].setPadding(firstLeftPadding, firstTopPadding, lastRightPadding, lastBottomPadding);
+        mapImageViews[row][column].setId(android.view.View.generateViewId());
+        mapGridLayout.addView(mapImageViews[row][column], row * 5 + column);
     }
 
     @Override
     public void drawMap() {
-        int[][] map = mGameFieldPresenter.getGameMap();
+        int[][] map = gameFieldPresenter.getGameMap();
         int mapSize = map.length;
-        Location personageLocation = mGameFieldPresenter.getPersonageLocation();
+        Location personageLocation = gameFieldPresenter.getPersonageLocation();
 
         int xLocation = personageLocation.getX();
         int yLocation = personageLocation.getY();
@@ -155,7 +155,7 @@ public class GameFieldViewImpl implements GameFieldView {
                 if (x > -1 && y > -1 && x < mapSize && y < mapSize) {
                     landscapeResourceId = getLandscapeDrawableId(map[y][x]);
                 }
-                mMapImageViews[j][i].setImageResource(landscapeResourceId);
+                mapImageViews[j][i].setImageResource(landscapeResourceId);
                 j++;
             }
             i++;
@@ -166,9 +166,9 @@ public class GameFieldViewImpl implements GameFieldView {
     }
 
     private void showVitalityValues() {
-        Personage personage = mGameFieldPresenter.getHero();
-        mHealthTextView.setText(String.valueOf(personage.getHealth()));
-        mMpTextView.setText(String.valueOf(personage.getMp()));
+        Personage personage = gameFieldPresenter.getHero();
+        healthTextView.setText(String.valueOf(personage.getHealth()));
+        mpTextView.setText(String.valueOf(personage.getMp()));
     }
 
     private int getLandscapeDrawableId(int landscapeType) {
@@ -182,30 +182,30 @@ public class GameFieldViewImpl implements GameFieldView {
     private void drawPersonage(Location personageLocation) {
         int direction = personageLocation.getDirection();
         if (direction == Location.DIRECTION_BACK) {
-            mHeroImageView.setImageResource(R.drawable.hero_back);
+            heroImageView.setImageResource(R.drawable.hero_back);
         } else if (direction == Location.DIRECTION_FORWARD) {
-            mHeroImageView.setImageResource(R.drawable.hero_forward);
+            heroImageView.setImageResource(R.drawable.hero_forward);
         } else if (direction == Location.DIRECTION_LEFT) {
-            mHeroImageView.setImageResource(R.drawable.hero_left);
+            heroImageView.setImageResource(R.drawable.hero_left);
         } else if (direction == Location.DIRECTION_RIGHT) {
-            mHeroImageView.setImageResource(R.drawable.hero_right);
+            heroImageView.setImageResource(R.drawable.hero_right);
         }
     }
 
     private void drawEnemies(int[][] map, Location personageLocation) {
-        ArrayList<Enemy> enemiesAroundHero = mGameFieldPresenter.findEnemiesAroundHero();
+        ArrayList<Enemy> enemiesAroundHero = gameFieldPresenter.findEnemiesAroundHero();
 
         Resources resources = getContext().getResources();
         for (Enemy enemy : enemiesAroundHero) {
             Drawable[] layers = new Drawable[4];
-            Location enemyLocation = mGameFieldPresenter.getEnemyLocation(enemy);
+            Location enemyLocation = gameFieldPresenter.getEnemyLocation(enemy);
             layers[0] = ResourcesCompat.getDrawable(resources,
                     getLandscapeDrawableId(map[enemyLocation.getY()][enemyLocation.getX()]), null);
             layers[1] = ResourcesCompat.getDrawable(resources, R.drawable.point_1, null);
             layers[2] = ResourcesCompat.getDrawable(resources, R.drawable.point_2_quest, null);
             layers[3] = ResourcesCompat.getDrawable(resources, R.drawable.point_3_e, null);
             LayerDrawable layerDrawable = new LayerDrawable(layers);
-            mMapImageViews[enemyLocation.getY() - personageLocation.getY() + 2]
+            mapImageViews[enemyLocation.getY() - personageLocation.getY() + 2]
                     [enemyLocation.getX() - personageLocation.getX() + 2].setImageDrawable(layerDrawable);
         }
     }
@@ -214,18 +214,18 @@ public class GameFieldViewImpl implements GameFieldView {
     public void showEnemiesList(int slotIndex) {
         removeEnemyTextViews();
 
-        ArrayList<Enemy> enemies = mGameFieldPresenter.findEnemiesAroundHero(slotIndex);
+        ArrayList<Enemy> enemies = gameFieldPresenter.findEnemiesAroundHero(slotIndex);
 
         if (enemies.size() < 2) {
-            mEnemiesListLayout.setVisibility(View.GONE);
-            mChooseEnemyTextView.setVisibility(View.GONE);
+            enemiesListLayout.setVisibility(View.GONE);
+            chooseEnemyTextView.setVisibility(View.GONE);
             if (enemies.size() == 1) {
-                mGameFieldPresenter.attackEnemy(enemies.get(0), slotIndex);
+                gameFieldPresenter.attackEnemy(enemies.get(0), slotIndex);
                 render();
             }
         } else {
-            mEnemiesListLayout.setVisibility(View.VISIBLE);
-            mChooseEnemyTextView.setVisibility(View.VISIBLE);
+            enemiesListLayout.setVisibility(View.VISIBLE);
+            chooseEnemyTextView.setVisibility(View.VISIBLE);
             for (Enemy enemy : enemies) {
                 createEnemyTextView(enemy, slotIndex);
             }
@@ -239,19 +239,19 @@ public class GameFieldViewImpl implements GameFieldView {
         enemyNameTextView.setId(View.generateViewId());
         enemyNameTextView.setGravity(Gravity.CENTER_HORIZONTAL);
         enemyNameTextView.setOnClickListener(v -> {
-            mRemovableViewId = v.getId();
-            mGameFieldPresenter.attackEnemy(enemy, slotIndex);
+            removableViewId = v.getId();
+            gameFieldPresenter.attackEnemy(enemy, slotIndex);
             render();
         });
-        mEnemiesListLayout.addView(enemyNameTextView);
+        enemiesListLayout.addView(enemyNameTextView);
     }
 
     public void removeEnemyTextView() {
-        mEnemiesListLayout.removeView(mEnemiesListLayout.findViewById(mRemovableViewId));
+        enemiesListLayout.removeView(enemiesListLayout.findViewById(removableViewId));
     }
 
     private void removeEnemyTextViews() {
-        mEnemiesListLayout.removeAllViews();
+        enemiesListLayout.removeAllViews();
     }
 
     private void setTextColor(TextView textView, int color) {
@@ -265,25 +265,25 @@ public class GameFieldViewImpl implements GameFieldView {
 
     @Override
     public void setParentGameLogLayout(LinearLayout parentGameLogLayout) {
-        mParentGameLogLayout = parentGameLogLayout;
+        this.parentGameLogLayout = parentGameLogLayout;
     }
 
     private void createLogTextViews() {
-        mParentGameLogLayout.removeAllViews();
-        String[] logs = GameLog.getInstance().showLog();
+        parentGameLogLayout.removeAllViews();
+        String[] logs = GameLog.getInstance().show();
         for (String logText : logs) {
             TextView logTextView = new TextView(getContext());
             logTextView.setText(logText);
             setTextColor(logTextView, R.color.text_color);
             logTextView.setId(View.generateViewId());
-            mParentGameLogLayout.addView(logTextView);
+            parentGameLogLayout.addView(logTextView);
         }
-        mParentGameLogLayout.setVisibility(View.VISIBLE);
+        parentGameLogLayout.setVisibility(View.VISIBLE);
     }
 
     private void showNearbyEnemies() {
-        mNearbyEnemiesLayout.removeAllViews();
-        ArrayList<Enemy> nearbyEnemies = mGameFieldPresenter.getNearbyEnemies();
+        nearbyEnemiesLayout.removeAllViews();
+        ArrayList<Enemy> nearbyEnemies = gameFieldPresenter.getNearbyEnemies();
         for (Enemy enemy: nearbyEnemies) {
             showNearbyEnemy(enemy);
         }
@@ -294,11 +294,11 @@ public class GameFieldViewImpl implements GameFieldView {
         textView.setText(enemy.getName());
         setTextColor(textView, R.color.text_color);
         textView.setId(View.generateViewId());
-        mNearbyEnemiesLayout.addView(textView);
+        nearbyEnemiesLayout.addView(textView);
     }
 
     @Override
     public GameFieldPresenter getGameFieldPresenter() {
-        return mGameFieldPresenter;
+        return gameFieldPresenter;
     }
 }

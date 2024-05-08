@@ -29,12 +29,12 @@ import java.io.Serializable;
  * 5. Использовать(для зелий и других расходников);
  */
 public abstract class ItemState implements Serializable {
-    private Item mItem;
+    private Item item;
 
     private static final long serialVersionUID = -8517844277677356396L;
 
     public ItemState(Item item) {
-        mItem = item;
+        this.item = item;
     }
 
     public abstract ItemStateName onAddToInventory(Inventory inventory);
@@ -47,6 +47,6 @@ public abstract class ItemState implements Serializable {
     }
     public abstract ItemStateName getItemStateName();
     public Item getItem() {
-        return mItem;
+        return item;
     }
 }

@@ -5,18 +5,17 @@ import ru.hawoline.alonar.model.personage.effect.Effect;
 import java.util.ArrayList;
 
 public class Gem {
-    private boolean mUnlocked;
-    private ArrayList<Effect> mEffects;
+    private boolean unlocked;
 
     public Gem() {
-        mUnlocked = false;
+        unlocked = false;
     }
 
     public boolean isUnlocked() {
-        return mUnlocked;
+        return unlocked;
     }
 
     public void setUnlocked(boolean unlocked) {
-        mUnlocked = unlocked;
+        this.unlocked = unlocked;
     }
 }

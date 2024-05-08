@@ -8,27 +8,27 @@ import ru.hawoline.alonar.model.personage.item.Quality;
 import ru.hawoline.alonar.util.Pair;
 
 public class Weapon extends Equipment implements DamageSlot {
-    private int mDistance;
-    private Range mDamageRange;
-    private int mRestoreTime;
-    private int mCurrentRestoreTime;
-    private boolean mRequiredTwoArms;
+    private int distance;
+    private Range damageRange;
+    private int restoreTime;
+    private int currentRestoreTime;
+    private boolean requiredTwoArms;
 
     private static final long serialVersionUID = 4335037328663998423L;
 
     public Weapon(String name, int requiredLevel, Quality quality, Pair<Integer, Integer> strength, Body requiredBody,
                   int distance, Range damageRange, int restoreTime, boolean requiredTwoArms) {
         super(name, requiredLevel, quality, strength, requiredBody);
-        mDistance = distance;
-        mDamageRange = damageRange;
-        mRestoreTime = restoreTime;
-        mCurrentRestoreTime = restoreTime;
-        mRequiredTwoArms = requiredTwoArms;
+        this.distance = distance;
+        this.damageRange = damageRange;
+        this.restoreTime = restoreTime;
+        currentRestoreTime = restoreTime;
+        this.requiredTwoArms = requiredTwoArms;
     }
 
     @Override
     public int getDistance() {
-        return mDistance;
+        return distance;
     }
 
     @Override
@@ -37,39 +37,39 @@ public class Weapon extends Equipment implements DamageSlot {
     }
 
     public void setDistance(int distance) {
-        mDistance = distance;
+        this.distance = distance;
     }
 
     public Range getDamageRange() {
-        return mDamageRange;
+        return damageRange;
     }
 
     public void setDamageRange(Range damageRange) {
-        mDamageRange = damageRange;
+        this.damageRange = damageRange;
     }
 
     @Override
     public int getDamage() {
-        return (int) (Math.random() * (mDamageRange.getHigh() - mDamageRange.getLow()) + mDamageRange.getLow());
+        return (int) (Math.random() * (damageRange.getHigh() - damageRange.getLow()) + damageRange.getLow());
     }
 
     public int getRestoreTime() {
-        return mRestoreTime;
+        return restoreTime;
     }
 
     public void setRestoreTime(int restoreTime) {
-        mRestoreTime = restoreTime;
+        this.restoreTime = restoreTime;
     }
 
     public int getCurrentRestoreTime() {
-        return mCurrentRestoreTime;
+        return currentRestoreTime;
     }
 
     public void setCurrentRestoreTime(int currentRestoreTime) {
-        mCurrentRestoreTime = currentRestoreTime;
+        this.currentRestoreTime = currentRestoreTime;
     }
 
     public boolean isRequiredTwoArms() {
-        return mRequiredTwoArms;
+        return requiredTwoArms;
     }
 }

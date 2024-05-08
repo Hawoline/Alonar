@@ -1,6 +1,5 @@
 package ru.hawoline.alonar.presenter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,10 @@ import ru.hawoline.alonar.model.personage.inventory.Bag;
 import ru.hawoline.alonar.model.personage.inventory.Inventory;
 
 public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.InventoryViewHolder> {
-    private Inventory mInventory;
+    private Inventory inventory;
 
     public InventoryAdapter(Inventory inventory) {
-        mInventory = inventory;
+        this.inventory = inventory;
     }
 
     @NonNull
@@ -27,8 +26,8 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
 
     @Override
     public void onBindViewHolder(@NonNull InventoryViewHolder holder, int position) {
-        for (int i = 0; i < mInventory.getBags().size(); i++) {
-            Bag bag = mInventory.getBags().get(i);
+        for (int i = 0; i < inventory.getBags().size(); i++) {
+            Bag bag = inventory.getBags().get(i);
             if (position >= bag.getCapacity()) {
                 position -= bag.getCapacity();
             } else {
@@ -40,7 +39,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
 
     @Override
     public int getItemCount() {
-        return mInventory.getItemCount();
+        return inventory.getItemCount();
     }
 
     protected static class InventoryViewHolder extends RecyclerView.ViewHolder {

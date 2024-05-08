@@ -24,58 +24,58 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GameFieldPresenterImpl implements GameFieldPresenter {
-    private GameFieldView mView;
-    private Map mGameMap;
-    private ArrayList<Enemy> mEnemiesAroundHero;
-    private ArrayList<Enemy> mNearbyEnemies;
-    private Personage mHero;
-    private Location mPersonageLocation;
-    private HashMap<Personage, Location> mPersonages;
-    private ConcurrentHashMap<Enemy, Location> mEnemies;
-    private EnemyAttackComputationUseCase mEnemyAttackComputationUseCase;
+    private GameFieldView view;
+    private Map gameMap;
+    private ArrayList<Enemy> enemiesAroundHero;
+    private ArrayList<Enemy> nearbyEnemies;
+    private Personage hero;
+    private Location personageLocation;
+    private HashMap<Personage, Location> personages;
+    private ConcurrentHashMap<Enemy, Location> enemies;
+    private EnemyAttackComputationUseCase enemyAttackComputationUseCase;
 
     public GameFieldPresenterImpl() {
-        mGameMap = new LandscapeMap(30);
+        gameMap = new LandscapeMap(30);
 
-        mEnemiesAroundHero = new ArrayList<>();
-        mNearbyEnemies = new ArrayList<>();
+        enemiesAroundHero = new ArrayList<>();
+        nearbyEnemies = new ArrayList<>();
 
-        mPersonages = new HashMap<>();
-        mHero = PersonageFactory.createPersonage(HeroClass.MAGE);
-        mPersonageLocation = new Location(1, 1);
-        mPersonages.put(mHero, mPersonageLocation);
-        mHero.setInventory(new Inventory());
+        personages = new HashMap<>();
+        hero = PersonageFactory.createPersonage(HeroClass.MAGE);
+        personageLocation = new Location(1, 1);
+        personages.put(hero, personageLocation);
+        hero.setInventory(new Inventory());
         for (int item = 0; item < 80; item++) {
-            mHero.getInventory().addItem(new Clothing("Helmet", 1, Quality.EXPENSIVE, new Pair<>(100, 100), Body.HEAD));
+            hero.getInventory().addItem(new Clothing("Helmet", 1, Quality.EXPENSIVE, new Pair<>(100, 100), Body.HEAD));
         }
 
-        mEnemies = new ConcurrentHashMap<>();
+        enemies = new ConcurrentHashMap<>();
         for (int enemyIndex = 0; enemyIndex < 80; enemyIndex++) {
             Enemy enemy = Enemy.createEnemy("Rat");
-            mEnemies.put(enemy, new Location(
-                    (int) Math.floor(Math.random() * (mGameMap.getSize() - 2) + 1),
-                    (int) Math.floor(Math.random() * (mGameMap.getSize() - 2) + 1))
+            enemies.put(enemy, new Location(
+                    (int) Math.floor(Math.random() * (gameMap.getSize() - 2) + 1),
+                    (int) Math.floor(Math.random() * (gameMap.getSize() - 2) + 1))
             );
         }
-        mEnemyAttackComputationUseCase =
-                new EnemyAttackComputationUseCase(mEnemies, new Pair<>(mHero, mPersonageLocation));
+        enemyAttackComputationUseCase =
+                new EnemyAttackComputationUseCase(enemies, new Pair<>(hero, personageLocation));
     }
 
     @Override
     public void attachView(GameFieldView view) {
-        mView = view;
+        this.view = view;
     }
 
     @Override
     public void detachView() {
-        mView = null;
+        view = null;
     }
 
     @Override
     public void saveInstance(Bundle state) {
         try {
-            saveObject(mHero, "Hero.out");
-            saveObject(mPersonageLocation, "HeroLocation.out");
+            saveObject(hero, "Hero.out");
+            saveObject(personageLocation, "HeroLocation.out");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,24 +84,24 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
     @Override
     public void restoreInstance(Bundle state) {
         try {
-            FileInputStream heroFileInputStream = mView.getContext().openFileInput("Hero.out");
+            FileInputStream heroFileInputStream = view.getContext().openFileInput("Hero.out");
             ObjectInputStream objectInputStream = new ObjectInputStream(heroFileInputStream);
-            mHero = (Personage) objectInputStream.readObject();
+            hero = (Personage) objectInputStream.readObject();
             objectInputStream.close();
-            FileInputStream heroLocationFileInputStream = mView.getContext().openFileInput("HeroLocation.out");
+            FileInputStream heroLocationFileInputStream = view.getContext().openFileInput("HeroLocation.out");
             ObjectInputStream heroLocationInputStream = new ObjectInputStream(heroLocationFileInputStream);
-            mPersonageLocation = (Location) heroLocationInputStream.readObject();
+            personageLocation = (Location) heroLocationInputStream.readObject();
             heroLocationInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        mEnemyAttackComputationUseCase.setEnemies(mEnemies);
-        mEnemyAttackComputationUseCase.setHero(new Pair<>(mHero, mPersonageLocation));
+        enemyAttackComputationUseCase.setEnemies(enemies);
+        enemyAttackComputationUseCase.setHero(new Pair<>(hero, personageLocation));
     }
 
 
     private void saveObject(Object object, String filename) throws IOException {
-        FileOutputStream heroFileOutputStream = mView.getContext().openFileOutput(filename, Context.MODE_PRIVATE);
+        FileOutputStream heroFileOutputStream = view.getContext().openFileOutput(filename, Context.MODE_PRIVATE);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(heroFileOutputStream);
         objectOutputStream.writeObject(object);
         objectOutputStream.close();
@@ -109,26 +109,26 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
 
     @Override
     public int[][] getGameMap() {
-        return mGameMap.getMap();
+        return gameMap.getMap();
     }
 
     @Override
     public Personage getHero() {
-        return mHero;
+        return hero;
     }
 
     @Override
     public Location getPersonageLocation() {
-        if (mHero.getHealth() < 1) {
+        if (hero.getHealth() < 1) {
             reBirthHero();
         }
-        return mPersonageLocation;
+        return personageLocation;
     }
     private void reBirthHero() {
-        mHero.setHealth(100);
-        mHero.setMp(1600);
-        mPersonageLocation.setX(1);
-        mPersonageLocation.setY(1);
+        hero.setHealth(100);
+        hero.setMp(1600);
+        personageLocation.setX(1);
+        personageLocation.setY(1);
     }
 
     @Override
@@ -136,95 +136,92 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         Location personageLocation = getPersonageLocation();
         int newXCoordinate = personageLocation.getX() + x;
         int newYCoordinate = personageLocation.getY() + y;
-        if (mGameMap.getSize() - 1 > newXCoordinate && mGameMap.getSize() - 1 > newYCoordinate && newXCoordinate > 0 && newYCoordinate > 0) {
+        if (gameMap.getSize() - 1 > newXCoordinate && gameMap.getSize() - 1 > newYCoordinate && newXCoordinate > 0 && newYCoordinate > 0) {
             personageLocation.move(x, y);
         }
     }
 
     @Override
     public ArrayList<Enemy> findEnemiesAroundHero() {
-        mEnemiesAroundHero.clear();
-        ConcurrentHashMap<Enemy, Location> enemies = mEnemies;
+        enemiesAroundHero.clear();
+        ConcurrentHashMap<Enemy, Location> enemies = this.enemies;
         Location personageLocation = getPersonageLocation();
         for (Enemy enemy: enemies.keySet()) {
             Location enemyLocation = enemies.get(enemy);
             if (Math.abs(Objects.requireNonNull(enemyLocation).getX() - personageLocation.getX()) < 3
                     && Math.abs(Objects.requireNonNull(enemyLocation).getY() - personageLocation.getY()) < 3) {
-                mEnemiesAroundHero.add(enemy);
+                enemiesAroundHero.add(enemy);
             }
         }
-        return mEnemiesAroundHero;
+        return enemiesAroundHero;
     }
 
     @Override
     public ArrayList<Enemy> findEnemiesAroundHero(int slotIndex) {
-        mEnemiesAroundHero.clear();
-        Slot slot = mHero.getSlots().get(slotIndex);
+        enemiesAroundHero.clear();
+        DamageSlot slot = hero.getDamageSlots().get(slotIndex);
 
         if (!(slot instanceof DamageSlot)) {
-            return mEnemiesAroundHero;
+            return enemiesAroundHero;
         }
         DamageSlot damageSlot = (DamageSlot) slot;
         Location personageLocation = getPersonageLocation();
         int distance = damageSlot.getDistance();
-        for (Enemy enemy: mEnemies.keySet()) {
+        for (Enemy enemy: enemies.keySet()) {
             @NonNull
-            Location enemyLocation = Objects.requireNonNull(mEnemies.get(enemy));
+            Location enemyLocation = Objects.requireNonNull(enemies.get(enemy));
             if (checkDistance(personageLocation, enemyLocation, distance)) {
-                mEnemiesAroundHero.add(enemy);
+                enemiesAroundHero.add(enemy);
             }
         }
 
-        return mEnemiesAroundHero;
+        return enemiesAroundHero;
     }
 
     @Override
     public ArrayList<Enemy> getNearbyEnemies() {
-        mNearbyEnemies.clear();
-        for (Enemy enemy: mEnemies.keySet()) {
-            Location enemyLocation = mEnemies.get(enemy);
+        nearbyEnemies.clear();
+        for (Enemy enemy: enemies.keySet()) {
+            Location enemyLocation = enemies.get(enemy);
             if (enemyLocation == null) {
                 continue;
             }
-            Location heroLocation = mPersonageLocation;
+            Location heroLocation = personageLocation;
 
             if (enemyLocation.getX() == heroLocation.getX() && enemyLocation.getY() == heroLocation.getY()) {
-                mNearbyEnemies.add(enemy);
+                nearbyEnemies.add(enemy);
             }
         }
 
-        return mNearbyEnemies;
+        return nearbyEnemies;
     }
 
     @Override
     public void attackEnemy(Enemy enemy, int slotIndex) {
         if (!checkAttackDistanceFromHeroToEnemy(enemy, slotIndex)) {
-            mEnemiesAroundHero.remove(enemy);
-            mView.removeEnemyTextView();
+            enemiesAroundHero.remove(enemy);
+            view.removeEnemyTextView();
             return;
         }
         DamageComputationUseCase.compute(getHero(), enemy, slotIndex);
         if (enemy.getHealth() < 1) {
-            mEnemies.remove(enemy);
-            mView.removeEnemyTextView();
+            enemies.remove(enemy);
+            view.removeEnemyTextView();
         }
     }
 
     @Override
     public boolean checkAttackDistanceFromHeroToEnemy(Enemy enemy, int slotIndex) {
-        Slot slot = mHero.getSlots().get(slotIndex);
-        if (!(slot instanceof DamageSlot)) {
-            return false;
-        }
+        DamageSlot slot = hero.getDamageSlots().get(slotIndex);
         DamageSlot damageSlot = (DamageSlot) slot;
         int damageSlotDistance = damageSlot.getDistance();
 
-        Location enemyLocation = mEnemies.get(enemy);
+        Location enemyLocation = enemies.get(enemy);
         if (enemyLocation == null) {
             return false;
         }
 
-        return checkDistance(mPersonageLocation, enemyLocation, damageSlotDistance);
+        return checkDistance(personageLocation, enemyLocation, damageSlotDistance);
     }
 
     public boolean checkDistance(Location firstPersonageLocation, Location secondPersonageLocation, int requiredDistance) {
@@ -259,6 +256,6 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
 
     @Override
     public Location getEnemyLocation(Enemy enemy) {
-        return mEnemies.get(enemy);
+        return enemies.get(enemy);
     }
 }

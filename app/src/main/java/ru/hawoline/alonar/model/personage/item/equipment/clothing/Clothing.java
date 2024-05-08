@@ -6,8 +6,8 @@ import ru.hawoline.alonar.model.personage.item.Quality;
 import ru.hawoline.alonar.util.Pair;
 
 public class Clothing extends Equipment {
-    private int mArmor;
-    private ClothingType mClothingType;
+    private int armor;
+    private ClothingType clothingType;
 
     private static final long serialVersionUID = -6994483391440650649L;
 
@@ -17,18 +17,18 @@ public class Clothing extends Equipment {
     }
 
     public int getArmor() {
-        return mArmor;
+        return armor;
     }
 
     public void setArmor(int armor) {
-        mArmor = armor;
+        this.armor = armor;
     }
 
     public ClothingType getClothingType() {
-        return mClothingType;
+        return clothingType;
     }
 
     public void setClothingType(ClothingType clothingType) {
-        mClothingType = clothingType;
+        this.clothingType = clothingType;
     }
 }

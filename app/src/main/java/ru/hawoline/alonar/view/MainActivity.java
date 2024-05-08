@@ -14,21 +14,21 @@ import ru.hawoline.alonar.presenter.MainPresenter;
 import ru.hawoline.alonar.presenter.MainPresenterImpl;
 
 public class MainActivity extends Activity implements MainView {
-    private MainPresenter mMainPresenter;
-    private LinearLayout mGameLogLayout;
-    private FrameLayout mContainerLayout;
-    private GameFieldView mGameFieldView;
-    private InventoryView mInventoryView;
+    private MainPresenter mainPresenter;
+    private LinearLayout gameLogLayout;
+    private FrameLayout containerLayout;
+    private GameFieldView gameFieldView;
+    private InventoryView inventoryView;
 
-    private TextView mInventoryTextView;
+    private TextView inventoryTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mMainPresenter = new MainPresenterImpl();
-        mMainPresenter.attachView(this);
+        mainPresenter = new MainPresenterImpl();
+        mainPresenter.attachView(this);
 
         initViews();
         setOnClickListeners();
@@ -42,20 +42,20 @@ public class MainActivity extends Activity implements MainView {
     @Override
     protected void onResume() {
         super.onResume();
-        mGameFieldView.render();
+        gameFieldView.render();
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        mMainPresenter.saveInstance(outState);
-        mGameFieldView.getGameFieldPresenter().saveInstance(outState);
+        mainPresenter.saveInstance(outState);
+        gameFieldView.getGameFieldPresenter().saveInstance(outState);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        mMainPresenter.restoreInstance(savedInstanceState);
-        mGameFieldView.getGameFieldPresenter().restoreInstance(savedInstanceState);
+        mainPresenter.restoreInstance(savedInstanceState);
+        gameFieldView.getGameFieldPresenter().restoreInstance(savedInstanceState);
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -71,26 +71,27 @@ public class MainActivity extends Activity implements MainView {
 
     @Override
     public void initViews() {
-        mGameLogLayout = findViewById(R.id.main_gamelogs_linearlayout);
-        mContainerLayout = findViewById(R.id.main_container_layout);
-        mGameFieldView = new GameFieldViewImpl(this, getLayoutInflater(), mContainerLayout);
-        mGameFieldView.setParentGameLogLayout(mGameLogLayout);
-
-        mInventoryTextView = findViewById(R.id.main_inventory_textview);
+        gameLogLayout = findViewById(R.id.main_gamelogs_linearlayout);
+        containerLayout = findViewById(R.id.main_container_layout);
+        gameFieldView = new GameFieldViewImpl(this, getLayoutInflater(), containerLayout);
+        gameFieldView.setParentGameLogLayout(gameLogLayout);
+        inventoryTextView = findViewById(R.id.main_inventory_textview);
     }
 
     @Override
     public void setOnClickListeners() {
-        if (mInventoryTextView != null) {
-            mInventoryTextView.setOnClickListener(new View.OnClickListener() {
+        if (inventoryTextView != null) {
+            inventoryTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContainerLayout.removeAllViews();
-                    if (mInventoryView == null) {
-                        mInventoryView = new InventoryView(getContext(), getLayoutInflater(), mContainerLayout, mGameFieldView.getGameFieldPresenter().getHero());
-                        mInventoryView.setGameFieldView(mGameFieldView);
+                    containerLayout.removeAllViews();
+                    if (inventoryView == null) {
+                        inventoryView = new InventoryView(getContext(), getLayoutInflater(),
+                            containerLayout, gameFieldView.getGameFieldPresenter().getHero());
+                        inventoryView.setGameFieldView(gameFieldView);
                     } else {
-                        mInventoryView.inflateView(getContext(), getLayoutInflater(), mContainerLayout);
+                        inventoryView.inflateView(getContext(), getLayoutInflater(),
+                            containerLayout);
                     }
                 }
             });

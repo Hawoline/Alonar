@@ -13,38 +13,38 @@ import ru.hawoline.alonar.model.personage.item.equipment.clothing.Clothing;
 import ru.hawoline.alonar.util.Pair;
 
 public class InventoryTest {
-    private Personage mHero;
-    private Item mItem;
+    private Personage hero;
+    private Item item;
 
     @Before
     public void initTestVariables() {
-        mHero = PersonageFactory.createPersonage(HeroClass.MAGE);
-        mItem = new Clothing("Hat", 1, Quality.LEGENDARY, new Pair<>(100, 100), Body.HEAD);
+        hero = PersonageFactory.createPersonage(HeroClass.MAGE);
+        item = new Clothing("Hat", 1, Quality.LEGENDARY, new Pair<>(100, 100), Body.HEAD);
     }
 
     @Test
     public void testTakingItems() {
-        mItem.getState().onAddToInventory(mHero.getInventory());
-        mItem.getState().onAddToInventory(mHero.getInventory());
-        TestCase.assertEquals(1, mHero.getInventory().getItemCount());
+        item.getState().onAddToInventory(hero.getInventory());
+        item.getState().onAddToInventory(hero.getInventory());
+        TestCase.assertEquals(1, hero.getInventory().getItemCount());
 
         for (int i = 0; i < 20; i++) {
             Item hat = new Clothing("Hat", 1, Quality.LEGENDARY, new Pair<>(100, 100), Body.HEAD);
-            hat.getState().onAddToInventory(mHero.getInventory());
+            hat.getState().onAddToInventory(hero.getInventory());
         }
-        TestCase.assertEquals(12, mHero.getInventory().getItemCount());
+        TestCase.assertEquals(12, hero.getInventory().getItemCount());
     }
 
     @Test
     public void testRemovingItems() {
-        mItem.getState().onAddToInventory(mHero.getInventory());
-        mItem.getState().onThrowAway(mHero.getInventory());
-        TestCase.assertEquals(0, mHero.getInventory().getItemCount());
+        item.getState().onAddToInventory(hero.getInventory());
+        item.getState().onThrowAway(hero.getInventory());
+        TestCase.assertEquals(0, hero.getInventory().getItemCount());
 
-        mItem.getState().onThrowAway(mHero.getInventory());
-        TestCase.assertEquals(0, mHero.getInventory().getItemCount());
+        item.getState().onThrowAway(hero.getInventory());
+        TestCase.assertEquals(0, hero.getInventory().getItemCount());
 
-        mItem.getState().onAddToInventory(mHero.getInventory());
-        TestCase.assertEquals(1, mHero.getInventory().getItemCount());
+        item.getState().onAddToInventory(hero.getInventory());
+        TestCase.assertEquals(1, hero.getInventory().getItemCount());
     }
 }

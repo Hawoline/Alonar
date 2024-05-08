@@ -5,24 +5,24 @@ import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.view.InventoryView;
 
 public class InventoryPresenterImpl implements InventoryPresenter {
-    private InventoryView mInventoryView;
-    private InventoryAdapter mInventoryAdapter;
+    private InventoryView inventoryView;
+    private InventoryAdapter inventoryAdapter;
 
-    private Personage mPersonage;
+    private Personage personage;
 
     public InventoryPresenterImpl(Personage personage) {
-        mPersonage = personage;
-        mInventoryAdapter = new InventoryAdapter(personage.getInventory());
+        this.personage = personage;
+        inventoryAdapter = new InventoryAdapter(personage.getInventory());
     }
 
     @Override
     public void attachView(InventoryView view) {
-        mInventoryView = view;
+        inventoryView = view;
     }
 
     @Override
     public void detachView() {
-        mInventoryView = null;
+        inventoryView = null;
     }
 
     @Override
@@ -37,6 +37,6 @@ public class InventoryPresenterImpl implements InventoryPresenter {
 
     @Override
     public InventoryAdapter getInventoryAdapter() {
-        return mInventoryAdapter;
+        return inventoryAdapter;
     }
 }

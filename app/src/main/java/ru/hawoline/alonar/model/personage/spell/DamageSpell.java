@@ -4,28 +4,26 @@ import ru.hawoline.alonar.model.Range;
 import ru.hawoline.alonar.model.personage.DamageSlot;
 
 public class DamageSpell extends Spell implements DamageSlot {
-    private int mDamage;
-    private Range mDamageRange;
+    private Range range;
 
     private static final long serialVersionUID = -7669810234865246632L;
 
-    public DamageSpell(String name, int distance, int requiredMana, int restoreTime, Range damageRange) {
+    public DamageSpell(String name, int distance, int requiredMana, int restoreTime, Range range) {
         super(name, distance, requiredMana, restoreTime);
-        this.mDamageRange = damageRange;
+        this.range = range;
         calculateDamage();
     }
 
-    public Range getDamageRange() {
-        return mDamageRange;
+    public Range getRange() {
+        return range;
     }
 
-    public void setDamageRange(Range damageRange) {
-        mDamageRange = damageRange;
+    public void setRange(Range range) {
+        this.range = range;
     }
 
     public int calculateDamage() {
-        mDamage = (int) (Math.random() * (mDamageRange.getDistance()) + mDamageRange.getLow());
-        return mDamage;
+        return (int) (Math.random() * (range.getDistance()) + range.getLow());
     }
 
     @Override

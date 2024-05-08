@@ -1,8 +1,8 @@
 package ru.hawoline.alonar.model.personage.enemy;
 
 import ru.hawoline.alonar.model.Range;
+import ru.hawoline.alonar.model.personage.DamageSlot;
 import ru.hawoline.alonar.model.personage.Personage;
-import ru.hawoline.alonar.model.personage.Slot;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.Quality;
 import ru.hawoline.alonar.model.personage.specification.attribute.PersonageAttribute;
@@ -13,17 +13,17 @@ import ru.hawoline.alonar.util.Pair;
 import java.util.ArrayList;
 
 public class Enemy extends Personage {
-    private String mName;
-    private int mCooldown; // in seconds
-    private long mTimeFromLastAttack;
+    private String name;
+    private int cooldown; // in seconds
+    private long timeFromLastAttack;
 
     private static final long serialVersionUID = -7276415188406948963L;
 
     private Enemy(String name) {
-        mName = name;
-        mCooldown = 4;
+        this.name = name;
+        cooldown = 4;
         setAttribute(AttributeName.ENDURANCE, new PersonageAttribute(100));
-        ArrayList<Slot> slots = new ArrayList<>();
+        ArrayList<DamageSlot> slots = new ArrayList<>();
         slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 1,
                 new Range(3, 4), 4, false));
         setSlots(slots);
@@ -34,24 +34,24 @@ public class Enemy extends Personage {
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String name) {
-        mName = name;
+        this.name = name;
     }
 
     public int getCooldown() {
-        return mCooldown;
+        return cooldown;
     }
 
     public void setCooldown(int cooldown) {
-        mCooldown = cooldown;
+        this.cooldown = cooldown;
     }
 
     public boolean canAttack() {
         long currentTime = System.currentTimeMillis();
-        boolean result = ((currentTime - mTimeFromLastAttack) / 1000) > mCooldown;
+        boolean result = ((currentTime - timeFromLastAttack) / 1000) > cooldown;
         return result;
     }
 
@@ -60,7 +60,7 @@ public class Enemy extends Personage {
 
         boolean result = canAttack();
         if (result) {
-            mTimeFromLastAttack = currentTime;
+            timeFromLastAttack = currentTime;
         }
 
         return result;

@@ -38,7 +38,7 @@ public class PersonageFactory {
         Knife knife = new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 0, new Range(6, 8), 4,false);
         personage.equip(Body.ARMS, knife);
         personage.setArmor(10);
-        ArrayList<Slot> slots = new ArrayList<>();
+        ArrayList<DamageSlot> slots = new ArrayList<>();
         slots.add(knife);
         slots.add(new DamageSpell("Fireball", 6, 50, 6, new Range(201, 239)));
         slots.add(new Knife("Knife", 1, Quality.NORMAL, new Pair<>(12, 12), Body.ARMS, 0, new Range(6, 8), 4,false));

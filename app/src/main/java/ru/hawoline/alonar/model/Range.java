@@ -3,41 +3,41 @@ package ru.hawoline.alonar.model;
 import java.io.Serializable;
 
 public class Range implements Serializable {
-    private int mLow;
-    private int mHigh;
-    private int mDistance;
+    private int low;
+    private int high;
+    private int distance;
 
     private static final long serialVersionUID = -3928741113671976358L;
 
     public Range(int low, int high) {
-        mLow = low;
-        mHigh = high;
+        this.low = low;
+        this.high = high;
         setDistance();
     }
 
     public int getLow() {
-        return mLow;
+        return low;
     }
 
     public void setLow(int low) {
-        mLow = low;
+        this.low = low;
         setDistance();
     }
 
     public int getHigh() {
-        return mHigh;
+        return high;
     }
 
     public void setHigh(int high) {
-        mHigh = high;
+        this.high = high;
         setDistance();
     }
 
     public int getDistance() {
-        return mDistance;
+        return distance;
     }
 
     private void setDistance() {
-        mDistance = Math.abs(mHigh - mLow);
+        distance = Math.abs(high - low);
     }
 }

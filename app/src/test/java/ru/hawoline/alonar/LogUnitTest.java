@@ -7,29 +7,29 @@ import ru.hawoline.alonar.model.gamelog.Log;
 import ru.hawoline.alonar.model.gamelog.GameLog;
 
 public class LogUnitTest {
-    private Log mLog;
+    private Log log;
 
     @Before
     public void init() {
-        mLog = GameLog.getInstance();
+        log = GameLog.getInstance();
     }
 
     @Test
     public void testLog() {
-        mLog.putToLog("hahahaha");
-        TestCase.assertEquals("hahahaha", mLog.getCurrent());
+        log.putAction("hahahaha");
+        TestCase.assertEquals("hahahaha", log.getCurrent());
         for (int i = 0; i < 9; i++) {
-            mLog.putToLog("Test");
+            log.putAction("Test");
         }
-        TestCase.assertEquals("Test", mLog.getCurrent());
+        TestCase.assertEquals("Test", log.getCurrent());
     }
 
     @Test
     public void testGettingLog() {
         for (int i = 0; i < 15; i++) {
-            mLog.putToLog(String.valueOf(i));
+            log.putAction(String.valueOf(i));
         }
-        String[] log = mLog.showLog();
+        String[] log = this.log.show();
 
         TestCase.assertEquals("5", log[0]);
         TestCase.assertEquals("6", log[1]);

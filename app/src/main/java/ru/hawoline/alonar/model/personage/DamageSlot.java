@@ -1,6 +1,6 @@
 package ru.hawoline.alonar.model.personage;
 
-public interface DamageSlot extends Slot {
+public interface DamageSlot {
     int getDamage();
     /**
      * 0 - close distance

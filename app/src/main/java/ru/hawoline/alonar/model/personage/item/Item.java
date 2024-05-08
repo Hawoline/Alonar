@@ -6,49 +6,49 @@ import ru.hawoline.alonar.model.personage.item.state.OnMapItemState;
 import java.io.Serializable;
 
 public abstract class Item implements Serializable {
-    protected String mName;
-    protected int mRequiredLevel;
-    protected Quality mQuality;
-    private ItemState mState;
+    protected String name;
+    protected int requiredLevel;
+    protected Quality quality;
+    private ItemState state;
 
     private static final long serialVersionUID = 8340162005259757628L;
 
     public Item(String name, int requiredLevel, Quality quality) {
-        mName = name;
-        mRequiredLevel = requiredLevel;
-        mQuality = quality;
+        this.name = name;
+        this.requiredLevel = requiredLevel;
+        this.quality = quality;
         setState(new OnMapItemState(this));
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String name) {
-        mName = name;
+        this.name = name;
     }
 
     public int getRequiredLevel() {
-        return mRequiredLevel;
+        return requiredLevel;
     }
 
     public void setRequiredLevel(int requiredLevel) {
-        mRequiredLevel = requiredLevel;
+        this.requiredLevel = requiredLevel;
     }
 
     public Quality getQuality() {
-        return mQuality;
+        return quality;
     }
 
     public void setQuality(Quality quality) {
-        mQuality = quality;
+        this.quality = quality;
     }
 
     public ItemState getState() {
-        return mState;
+        return state;
     }
 
     public void setState(ItemState state) {
-        mState = state;
+        this.state = state;
     }
 }

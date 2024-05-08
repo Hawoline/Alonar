@@ -3,29 +3,29 @@ package ru.hawoline.alonar.util;
 import java.io.Serializable;
 
 public class Pair<T, V> implements Serializable {
-    private T mFirst;
-    private V mSecond;
+    private T first;
+    private V second;
 
     private static final long serialVersionUID = 7005557444853977271L;
 
     public Pair(T first, V second) {
-        mFirst = first;
-        mSecond = second;
+        this.first = first;
+        this.second = second;
     }
 
     public T getFirst() {
-        return mFirst;
+        return first;
     }
 
     public void setFirst(T first) {
-        mFirst = first;
+        this.first = first;
     }
 
     public V getSecond() {
-        return mSecond;
+        return second;
     }
 
     public void setSecond(V second) {
-        mSecond = second;
+        this.second = second;
     }
 }
