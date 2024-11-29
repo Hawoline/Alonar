@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "161473058683",
+    "project_id": "alonar-d8061",
+    "storage_bucket": "alonar-d8061.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161473058683:android:e88fb0989c1155b51acfde",
+        "android_client_info": {
+          "package_name": "ru.hawoline.alonar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBysXA_hYOxb73Xk-2Js5W1c7qzTqjDveA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
