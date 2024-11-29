@@ -1,0 +1,14 @@
+package ru.hawoline.alonar.domain.personage;
+
+public interface DamageSlot {
+    int getDamage();
+    /**
+     * 0 - close distance
+     * 3 - one cell distance
+     * 4 - one diagonal cell distance
+     * 6 - two cell distance
+     */
+    int getDistance();
+
+    int getRequiredMana();
+}
