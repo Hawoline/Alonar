@@ -3,16 +3,14 @@ package ru.hawoline.alonar.model.personage.item.state;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import ru.hawoline.alonar.domain.model.Range;
-import ru.hawoline.alonar.domain.model.personage.Personage;
-import ru.hawoline.alonar.domain.model.personage.PersonageFactory;
-import ru.hawoline.alonar.domain.model.personage.heroclass.HeroClass;
-import ru.hawoline.alonar.domain.model.personage.item.Quality;
-import ru.hawoline.alonar.domain.model.personage.item.equipment.Body;
-import ru.hawoline.alonar.domain.model.personage.item.equipment.state.OnMapEquipmentState;
-import ru.hawoline.alonar.domain.model.personage.item.equipment.weapon.Knife;
-import ru.hawoline.alonar.domain.model.personage.item.state.ItemStateName;
-import ru.hawoline.alonar.domain.model.personage.item.state.OnMapItemState;
+import ru.hawoline.alonar.model.Range;
+import ru.hawoline.alonar.model.personage.Personage;
+import ru.hawoline.alonar.model.personage.PersonageFactory;
+import ru.hawoline.alonar.model.personage.heroclass.HeroClass;
+import ru.hawoline.alonar.model.personage.item.Quality;
+import ru.hawoline.alonar.model.personage.item.equipment.Body;
+import ru.hawoline.alonar.model.personage.item.equipment.state.OnMapEquipmentState;
+import ru.hawoline.alonar.model.personage.item.equipment.weapon.Knife;
 import ru.hawoline.alonar.util.Pair;
 
 public class ItemStateTest {

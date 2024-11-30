@@ -4,10 +4,10 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.hawoline.alonar.domain.model.personage.Location;
-import ru.hawoline.alonar.domain.model.personage.enemy.Enemy;
-import ru.hawoline.alonar.presentation.presenter.GameFieldPresenter;
-import ru.hawoline.alonar.presentation.presenter.GameFieldPresenterImpl;
+import ru.hawoline.alonar.model.personage.Location;
+import ru.hawoline.alonar.model.personage.enemy.Enemy;
+import ru.hawoline.alonar.presenter.GameFieldPresenter;
+import ru.hawoline.alonar.presenter.GameFieldPresenterImpl;
 
 import java.util.ArrayList;
 
