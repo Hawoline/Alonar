@@ -6,8 +6,6 @@ import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.item.state.ItemStateName;
 
 public class InInventoryEquipmentState extends EquipmentState {
-    private static final long serialVersionUID = 6364178126197537879L;
-
     public InInventoryEquipmentState(Equipment equipment, Inventory inventory) {
         super(equipment);
         inventory.addItem(equipment);

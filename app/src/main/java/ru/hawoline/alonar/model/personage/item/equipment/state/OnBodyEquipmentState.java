@@ -6,8 +6,6 @@ import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.item.state.ItemStateName;
 
 public class OnBodyEquipmentState extends EquipmentState {
-    private static final long serialVersionUID = -6456743503099049589L;
-
     public OnBodyEquipmentState(Equipment equipment, Personage personage) {
         super(equipment);
         personage.equip(equipment.getRequiredBody(), equipment);

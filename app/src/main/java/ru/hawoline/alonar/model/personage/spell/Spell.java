@@ -2,7 +2,7 @@ package ru.hawoline.alonar.model.personage.spell;
 
 import java.io.Serializable;
 
-public abstract class Spell implements Serializable {
+public abstract class Spell {
     /**
      * 0 - close distance
      * 3 - one cell distance

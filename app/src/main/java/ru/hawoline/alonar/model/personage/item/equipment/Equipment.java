@@ -15,8 +15,6 @@ public abstract class Equipment extends Item {
     protected ArrayList<Effect> effects;
     protected Body requiredBody;
 
-    private static final long serialVersionUID = -1066374173398793188L;
-
     public Equipment(String name, int requiredLevel, Quality quality, Pair<Integer, Integer> strength, Body requiredBody) {
         super(name, requiredLevel, quality);
         this.strength = strength;

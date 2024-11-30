@@ -4,7 +4,7 @@ import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
 
 import java.io.Serializable;
 
-public class Effect implements Serializable {
+public class Effect {
     private AttributeName attributeName;
     private int value;
 

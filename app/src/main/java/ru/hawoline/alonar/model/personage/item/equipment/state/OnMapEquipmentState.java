@@ -6,8 +6,6 @@ import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.item.state.ItemStateName;
 
 public class OnMapEquipmentState extends EquipmentState {
-    private static final long serialVersionUID = 8291921646890135095L;
-
     public OnMapEquipmentState(Equipment equipment) {
         super(equipment);
     }

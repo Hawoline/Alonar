@@ -6,8 +6,6 @@ import ru.hawoline.alonar.model.personage.DamageSlot;
 public class DamageSpell extends Spell implements DamageSlot {
     private Range range;
 
-    private static final long serialVersionUID = -7669810234865246632L;
-
     public DamageSpell(String name, int distance, int requiredMana, int restoreTime, Range range) {
         super(name, distance, requiredMana, restoreTime);
         this.range = range;

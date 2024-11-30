@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Personage implements Serializable {
+public abstract class Personage {
     private ArrayList<Vitality> vitalities;
     private HashMap<AttributeName, PersonageAttribute> attributes;
     private HashMap<Body, Equipment> equipment;
@@ -23,8 +23,6 @@ public abstract class Personage implements Serializable {
     private ArrayList<DamageSlot> slots;
     private int experience;
     private int armor; // In percent. Max is 80%
-
-    private static final long serialVersionUID = -1613269264133657958L;
 
     protected Personage() {
         attributes = new HashMap<>();

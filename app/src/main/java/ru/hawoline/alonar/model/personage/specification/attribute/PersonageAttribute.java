@@ -2,11 +2,9 @@ package ru.hawoline.alonar.model.personage.specification.attribute;
 
 import java.io.Serializable;
 
-public class PersonageAttribute implements Serializable {
+public class PersonageAttribute {
     private int value;
     private int max;
-
-    private static final long serialVersionUID = 5405874440905936295L;
 
     public PersonageAttribute(int max) {
         value = max;

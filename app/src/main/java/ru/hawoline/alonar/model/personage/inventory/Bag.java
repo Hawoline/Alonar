@@ -5,11 +5,9 @@ import ru.hawoline.alonar.model.personage.item.Item;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Bag implements Serializable {
+public class Bag {
     private ArrayList<Item> items;
     private int capacity;
-
-    private static final long serialVersionUID = -3153572391865397165L;
 
     public Bag(ArrayList<Item> items, int capacity) {
         this.capacity = capacity;

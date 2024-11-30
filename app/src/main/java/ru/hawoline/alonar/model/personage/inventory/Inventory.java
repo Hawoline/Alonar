@@ -5,10 +5,8 @@ import ru.hawoline.alonar.model.personage.item.Item;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Inventory implements Serializable {
+public class Inventory {
     private ArrayList<Bag> bags;
-
-    private static final long serialVersionUID = 2291999000673748025L;
 
     public Inventory() {
         bags = new ArrayList<>();

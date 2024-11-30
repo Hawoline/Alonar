@@ -2,12 +2,10 @@ package ru.hawoline.alonar.model;
 
 import java.io.Serializable;
 
-public class Range implements Serializable {
+public class Range {
     private int low;
     private int high;
     private int distance;
-
-    private static final long serialVersionUID = -3928741113671976358L;
 
     public Range(int low, int high) {
         this.low = low;

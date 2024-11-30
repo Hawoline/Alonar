@@ -4,7 +4,6 @@ import ru.hawoline.alonar.model.personage.inventory.Inventory;
 import ru.hawoline.alonar.model.personage.item.Item;
 
 public class OnMapItemState extends ItemState {
-    private static final long serialVersionUID = 8150304151867134673L;
 
     public OnMapItemState(Item item) {
         super(item);

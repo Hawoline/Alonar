@@ -14,8 +14,6 @@ public class Weapon extends Equipment implements DamageSlot {
     private int currentRestoreTime;
     private boolean requiredTwoArms;
 
-    private static final long serialVersionUID = 4335037328663998423L;
-
     public Weapon(String name, int requiredLevel, Quality quality, Pair<Integer, Integer> strength, Body requiredBody,
                   int distance, Range damageRange, int restoreTime, boolean requiredTwoArms) {
         super(name, requiredLevel, quality, strength, requiredBody);

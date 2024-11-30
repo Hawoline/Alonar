@@ -28,10 +28,8 @@ import java.io.Serializable;
  * 4. Снять снаряжение в инвентарь(для снаряжения);
  * 5. Использовать(для зелий и других расходников);
  */
-public abstract class ItemState implements Serializable {
+public abstract class ItemState {
     private Item item;
-
-    private static final long serialVersionUID = -8517844277677356396L;
 
     public ItemState(Item item) {
         this.item = item;

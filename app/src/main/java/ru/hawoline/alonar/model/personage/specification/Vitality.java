@@ -4,7 +4,7 @@ import ru.hawoline.alonar.util.Pair;
 
 import java.io.Serializable;
 
-public class Vitality implements Serializable {
+public class Vitality {
     private VitalityType type;
     private Pair<Integer, Integer> residualMax;
 

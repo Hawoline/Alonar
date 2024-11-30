@@ -5,13 +5,11 @@ import ru.hawoline.alonar.model.personage.item.state.OnMapItemState;
 
 import java.io.Serializable;
 
-public abstract class Item implements Serializable {
+public abstract class Item {
     protected String name;
     protected int requiredLevel;
     protected Quality quality;
     private ItemState state;
-
-    private static final long serialVersionUID = 8340162005259757628L;
 
     public Item(String name, int requiredLevel, Quality quality) {
         this.name = name;
