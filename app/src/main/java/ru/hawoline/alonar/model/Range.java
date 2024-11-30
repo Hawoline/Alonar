@@ -1,7 +1,5 @@
 package ru.hawoline.alonar.model;
 
-import java.io.Serializable;
-
 public class Range {
     private int low;
     private int high;
@@ -10,7 +8,7 @@ public class Range {
     public Range(int low, int high) {
         this.low = low;
         this.high = high;
-        setDistance();
+        calculateDistance();
     }
 
     public int getLow() {
@@ -19,7 +17,6 @@ public class Range {
 
     public void setLow(int low) {
         this.low = low;
-        setDistance();
     }
 
     public int getHigh() {
@@ -28,14 +25,13 @@ public class Range {
 
     public void setHigh(int high) {
         this.high = high;
-        setDistance();
     }
 
     public int getDistance() {
         return distance;
     }
 
-    private void setDistance() {
+    private void calculateDistance() {
         distance = Math.abs(high - low);
     }
 }
