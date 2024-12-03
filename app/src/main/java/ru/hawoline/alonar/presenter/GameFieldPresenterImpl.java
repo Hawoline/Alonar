@@ -2,16 +2,20 @@ package ru.hawoline.alonar.presenter;
 
 import android.os.Bundle;
 import java.util.HashMap;
-import ru.hawoline.alonar.model.map.LandscapeMap;
-import ru.hawoline.alonar.model.map.Map;
-import ru.hawoline.alonar.model.personage.Location;
-import ru.hawoline.alonar.model.personage.Personage;
-import ru.hawoline.alonar.model.personage.PersonageFactory;
-import ru.hawoline.alonar.model.personage.heroclass.HeroClass;
-import ru.hawoline.alonar.model.personage.inventory.Inventory;
-import ru.hawoline.alonar.model.personage.item.Quality;
-import ru.hawoline.alonar.model.personage.item.equipment.Body;
-import ru.hawoline.alonar.model.personage.item.equipment.clothing.Clothing;
+import java.util.Random;
+import ru.hawoline.alonar.data.entity.PlayerPositionEntity;
+import ru.hawoline.alonar.data.repository.PlayerPositionDataStore;
+import ru.hawoline.alonar.data.repository.PlayerPositionRepository;
+import ru.hawoline.alonar.domain.model.map.LandscapeMap;
+import ru.hawoline.alonar.domain.model.map.Map;
+import ru.hawoline.alonar.domain.model.personage.Location;
+import ru.hawoline.alonar.domain.model.personage.Personage;
+import ru.hawoline.alonar.domain.model.personage.PersonageFactory;
+import ru.hawoline.alonar.domain.model.personage.heroclass.HeroClass;
+import ru.hawoline.alonar.domain.model.personage.inventory.Inventory;
+import ru.hawoline.alonar.domain.model.personage.item.Quality;
+import ru.hawoline.alonar.domain.model.personage.item.equipment.Body;
+import ru.hawoline.alonar.domain.model.personage.item.equipment.clothing.Clothing;
 import ru.hawoline.alonar.util.Pair;
 import ru.hawoline.alonar.view.GameFieldView;
 
@@ -21,6 +25,8 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
     private Personage hero;
     private Location personageLocation;
     private HashMap<Personage, Location> personages;
+    private PlayerPositionRepository playerPositionRepository;
+    private int playerId;
 
     public GameFieldPresenterImpl() {
         gameMap = new LandscapeMap(30);
@@ -33,6 +39,9 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         for (int item = 0; item < 80; item++) {
             hero.getInventory().addItem(new Clothing("Helmet", 1, Quality.EXPENSIVE, new Pair<>(100, 100), Body.HEAD));
         }
+        playerId = new Random().nextInt(20);
+        playerPositionRepository = new PlayerPositionRepository(new PlayerPositionDataStore());
+        playerPositionRepository.save(playerId, new PlayerPositionEntity(personageLocation.getX(), personageLocation.getY()));
     }
 
     @Override
@@ -87,5 +96,6 @@ public class GameFieldPresenterImpl implements GameFieldPresenter {
         if (gameMap.getSize() - 1 > newXCoordinate && gameMap.getSize() - 1 > newYCoordinate && newXCoordinate > 0 && newYCoordinate > 0) {
             personageLocation.move(x, y);
         }
+        playerPositionRepository.save(playerId, new PlayerPositionEntity(personageLocation.getX(), personageLocation.getY()));
     }
 }

@@ -52,25 +52,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-            <TextView
-                    android:id="@+id/main_chooseenemy_textview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/choose_target_enemy"
-                    android:textColor="@color/text_color"
-                    android:gravity="center_horizontal"
-                    android:visibility="gone"
-            />
-            <LinearLayout
-                    android:id="@+id/main_enemies_linearlayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-            >
-
-            </LinearLayout>
 
             <GridLayout
                     android:id="@+id/main_map_gridlayout"
@@ -95,14 +76,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="10dp"
             />
-
-            <LinearLayout
-                    android:id="@+id/gamefield_nearbyenemies_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-            >
-            </LinearLayout>
         </LinearLayout>
         <LinearLayout
                 android:id="@+id/main_slots_linearlayout"

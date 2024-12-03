@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.hawoline.alonar.R;
-import ru.hawoline.alonar.model.personage.Personage;
+import ru.hawoline.alonar.domain.model.personage.Personage;
 import ru.hawoline.alonar.presenter.InventoryPresenter;
 import ru.hawoline.alonar.presenter.InventoryPresenterImpl;
 

@@ -28,7 +28,6 @@ public class MainActivity extends Activity implements MainView {
         setContentView(R.layout.activity_main);
 
         mainPresenter = new MainPresenterImpl();
-        mainPresenter.saveId();
         mainPresenter.attachView(this);
         initViews();
         setOnClickListeners();

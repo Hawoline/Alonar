@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import ru.hawoline.alonar.model.personage.Personage;
-import ru.hawoline.alonar.model.personage.PersonageFactory;
-import ru.hawoline.alonar.model.personage.effect.Effect;
-import ru.hawoline.alonar.model.personage.heroclass.HeroClass;
-import ru.hawoline.alonar.model.personage.item.Quality;
-import ru.hawoline.alonar.model.personage.item.equipment.Body;
-import ru.hawoline.alonar.model.personage.item.equipment.clothing.Clothing;
-import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
-import ru.hawoline.alonar.model.personage.specification.attribute.PersonageAttribute;
+import ru.hawoline.alonar.domain.model.personage.Personage;
+import ru.hawoline.alonar.domain.model.personage.PersonageFactory;
+import ru.hawoline.alonar.domain.model.personage.effect.Effect;
+import ru.hawoline.alonar.domain.model.personage.heroclass.HeroClass;
+import ru.hawoline.alonar.domain.model.personage.item.Quality;
+import ru.hawoline.alonar.domain.model.personage.item.equipment.Body;
+import ru.hawoline.alonar.domain.model.personage.item.equipment.clothing.Clothing;
+import ru.hawoline.alonar.domain.model.personage.specification.attribute.AttributeName;
+import ru.hawoline.alonar.domain.model.personage.specification.attribute.PersonageAttribute;
 import ru.hawoline.alonar.util.Pair;
 
 public class PersonageUnitTest {

@@ -11,10 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import ru.hawoline.alonar.R;
-import ru.hawoline.alonar.model.gamelog.GameLog;
-import ru.hawoline.alonar.model.map.LandscapeMap;
-import ru.hawoline.alonar.model.personage.Location;
-import ru.hawoline.alonar.model.personage.Personage;
+import ru.hawoline.alonar.domain.model.gamelog.GameLog;
+import ru.hawoline.alonar.domain.model.map.LandscapeMap;
+import ru.hawoline.alonar.domain.model.personage.Location;
+import ru.hawoline.alonar.domain.model.personage.Personage;
 import ru.hawoline.alonar.presenter.GameFieldPresenter;
 import ru.hawoline.alonar.presenter.GameFieldPresenterImpl;
 
@@ -22,22 +22,17 @@ public class GameFieldViewImpl implements GameFieldView {
     private LinearLayout layout;
 
     private LinearLayout slotsLayout;
-    private LinearLayout enemiesListLayout;
     private GridLayout mapGridLayout;
-    private TextView chooseEnemyTextView;
     private ImageView[][] mapImageViews;
     private ImageView heroImageView;
     private ImageView[] slots;
     private TextView healthTextView;
     private TextView mpTextView;
-    private LinearLayout nearbyEnemiesLayout;
 
     private LinearLayout parentGameLogLayout;
 
     private Context context;
     private GameFieldPresenter gameFieldPresenter = new GameFieldPresenterImpl();
-
-    private int removableViewId;
 
     private final int VISIBLE_CELLS = 5;
 
@@ -64,10 +59,8 @@ public class GameFieldViewImpl implements GameFieldView {
         mapGridLayout = layout.findViewById(R.id.main_map_gridlayout);
         mapGridLayout.setRowCount(VISIBLE_CELLS);
         mapGridLayout.setColumnCount(VISIBLE_CELLS);
-        chooseEnemyTextView = layout.findViewById(R.id.main_chooseenemy_textview);
         healthTextView = layout.findViewById(R.id.main_hp_textview);
         mpTextView = layout.findViewById(R.id.main_mp_textview);
-        nearbyEnemiesLayout = layout.findViewById(R.id.gamefield_nearbyenemies_layout);
 
         mapImageViews = new ImageView[VISIBLE_CELLS][VISIBLE_CELLS];
         for (int row = 0; row < VISIBLE_CELLS; row++) {
@@ -76,8 +69,6 @@ public class GameFieldViewImpl implements GameFieldView {
             }
         }
         heroImageView = layout.findViewById(R.id.hero_imageview);
-
-        enemiesListLayout = layout.findViewById(R.id.main_enemies_linearlayout);
 
         slotsLayout = layout.findViewById(R.id.main_slots_linearlayout);
         slots = new ImageView[10];
@@ -185,9 +176,6 @@ public class GameFieldViewImpl implements GameFieldView {
         }
     }
 
-    public void removeEnemyTextView() {
-        enemiesListLayout.removeView(enemiesListLayout.findViewById(removableViewId));
-    }
     private void setTextColor(TextView textView, int color) {
         Resources resources = getContext().getResources();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -213,13 +201,6 @@ public class GameFieldViewImpl implements GameFieldView {
             parentGameLogLayout.addView(logTextView);
         }
         parentGameLogLayout.setVisibility(View.VISIBLE);
-    }
-    private void showNearbyEnemiesTextView() {
-        TextView textView = new TextView(getContext());
-        textView.setText(getContext().getString(R.string.nearby_enemies));
-        setTextColor(textView, R.color.text_color);
-        textView.setId(View.generateViewId());
-        nearbyEnemiesLayout.addView(textView);
     }
 
     @Override

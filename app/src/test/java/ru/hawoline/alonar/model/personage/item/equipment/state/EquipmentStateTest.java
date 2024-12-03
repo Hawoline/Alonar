@@ -2,10 +2,11 @@ package ru.hawoline.alonar.model.personage.item.equipment.state;
 
 import org.junit.Before;
 import org.junit.Test;
-import ru.hawoline.alonar.model.personage.item.Quality;
-import ru.hawoline.alonar.model.personage.item.equipment.Body;
-import ru.hawoline.alonar.model.personage.item.equipment.clothing.Clothing;
-import ru.hawoline.alonar.model.personage.item.state.ItemState;
+import ru.hawoline.alonar.domain.model.personage.item.Quality;
+import ru.hawoline.alonar.domain.model.personage.item.equipment.Body;
+import ru.hawoline.alonar.domain.model.personage.item.equipment.clothing.Clothing;
+import ru.hawoline.alonar.domain.model.personage.item.equipment.state.OnMapEquipmentState;
+import ru.hawoline.alonar.domain.model.personage.item.state.ItemState;
 import ru.hawoline.alonar.util.Pair;
 
 public class EquipmentStateTest {

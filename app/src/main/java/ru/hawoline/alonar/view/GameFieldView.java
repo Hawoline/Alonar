@@ -8,8 +8,6 @@ import android.widget.LinearLayout;
 import ru.hawoline.alonar.presenter.GameFieldPresenter;
 
 public interface GameFieldView extends BaseView {
-    void removeEnemyTextView();
-
     void render();
 
     void drawMap();

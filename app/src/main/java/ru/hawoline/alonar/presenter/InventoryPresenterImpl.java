@@ -1,7 +1,7 @@
 package ru.hawoline.alonar.presenter;
 
 import android.os.Bundle;
-import ru.hawoline.alonar.model.personage.Personage;
+import ru.hawoline.alonar.domain.model.personage.Personage;
 import ru.hawoline.alonar.view.InventoryView;
 
 public class InventoryPresenterImpl implements InventoryPresenter {

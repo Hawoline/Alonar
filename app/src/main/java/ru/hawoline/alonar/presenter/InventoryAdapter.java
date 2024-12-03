@@ -7,8 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.hawoline.alonar.R;
-import ru.hawoline.alonar.model.personage.inventory.Bag;
-import ru.hawoline.alonar.model.personage.inventory.Inventory;
+import ru.hawoline.alonar.domain.model.personage.inventory.Bag;
+import ru.hawoline.alonar.domain.model.personage.inventory.Inventory;
 
 public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.InventoryViewHolder> {
     private Inventory inventory;
