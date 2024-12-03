@@ -1,9 +1,8 @@
 package ru.hawoline.alonar.model.personage.spell;
 
 import ru.hawoline.alonar.model.Range;
-import ru.hawoline.alonar.model.personage.DamageSlot;
 
-public class DamageSpell extends Spell implements DamageSlot {
+public class DamageSpell extends Spell {
     private Range range;
 
     public DamageSpell(String name, int distance, int requiredMana, int restoreTime, Range range) {
@@ -22,10 +21,5 @@ public class DamageSpell extends Spell implements DamageSlot {
 
     public int calculateDamage() {
         return (int) (Math.random() * (range.getDistance()) + range.getLow());
-    }
-
-    @Override
-    public int getDamage() {
-        return calculateDamage();
     }
 }

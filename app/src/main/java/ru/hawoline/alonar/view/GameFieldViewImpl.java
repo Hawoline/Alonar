@@ -2,24 +2,21 @@ package ru.hawoline.alonar.view;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.*;
-import androidx.core.content.res.ResourcesCompat;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import ru.hawoline.alonar.R;
 import ru.hawoline.alonar.model.gamelog.GameLog;
 import ru.hawoline.alonar.model.map.LandscapeMap;
 import ru.hawoline.alonar.model.personage.Location;
 import ru.hawoline.alonar.model.personage.Personage;
-import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.presenter.GameFieldPresenter;
 import ru.hawoline.alonar.presenter.GameFieldPresenterImpl;
-
-import java.util.ArrayList;
 
 public class GameFieldViewImpl implements GameFieldView {
     private LinearLayout layout;
@@ -99,13 +96,10 @@ public class GameFieldViewImpl implements GameFieldView {
                 final int x = j - 2;
                 mapImageViews[i][j].setOnClickListener(v -> {
                     gameFieldPresenter.onPersonageMove(x, y);
-                    showNearbyEnemies();
                     render();
                 });
             }
         }
-        slots[0].setOnClickListener(view -> showEnemiesList(0));
-        slots[1].setOnClickListener(view -> showEnemiesList(1));
     }
 
     @Override
@@ -161,7 +155,6 @@ public class GameFieldViewImpl implements GameFieldView {
             i++;
         }
 
-        drawEnemies(map, personageLocation);
         drawPersonage(personageLocation);
     }
 
@@ -192,70 +185,9 @@ public class GameFieldViewImpl implements GameFieldView {
         }
     }
 
-    private void drawEnemies(int[][] map, Location personageLocation) {
-        ArrayList<Enemy> enemiesAroundHero = gameFieldPresenter.findEnemiesAroundHero();
-
-        Resources resources = getContext().getResources();
-        for (Enemy enemy : enemiesAroundHero) {
-            Drawable[] layers = new Drawable[4];
-            Location enemyLocation = gameFieldPresenter.getEnemyLocation(enemy);
-            layers[0] = ResourcesCompat.getDrawable(resources,
-                    getLandscapeDrawableId(map[enemyLocation.getY()][enemyLocation.getX()]), null);
-            layers[1] = ResourcesCompat.getDrawable(resources, R.drawable.point_1, null);
-            layers[2] = ResourcesCompat.getDrawable(resources, R.drawable.point_2_quest, null);
-            layers[3] = ResourcesCompat.getDrawable(resources, R.drawable.point_3_e, null);
-            LayerDrawable layerDrawable = new LayerDrawable(layers);
-            mapImageViews[enemyLocation.getY() - personageLocation.getY() + 2]
-                    [enemyLocation.getX() - personageLocation.getX() + 2].setImageDrawable(layerDrawable);
-        }
-    }
-
-    @Override
-    public void showEnemiesList(int slotIndex) {
-        removeEnemyTextViews();
-
-        ArrayList<Enemy> enemies = gameFieldPresenter.findEnemiesAroundHero(slotIndex);
-
-        if (enemies.size() < 2) {
-            enemiesListLayout.setVisibility(View.GONE);
-            chooseEnemyTextView.setVisibility(View.GONE);
-            if (enemies.size() == 1) {
-                gameFieldPresenter.attackEnemy(enemies.get(0), slotIndex);
-                render();
-                showNearbyEnemies();
-            }
-        } else {
-            enemiesListLayout.setVisibility(View.VISIBLE);
-            chooseEnemyTextView.setVisibility(View.VISIBLE);
-            for (Enemy enemy : enemies) {
-                createEnemyTextView(enemy, slotIndex);
-            }
-        }
-    }
-
-    private void createEnemyTextView(Enemy enemy, int slotIndex) {
-        TextView enemyNameTextView = new TextView(getContext());
-        enemyNameTextView.setText(enemy.getName());
-        setTextColor(enemyNameTextView, R.color.text_color);
-        enemyNameTextView.setId(View.generateViewId());
-        enemyNameTextView.setGravity(Gravity.CENTER_HORIZONTAL);
-        enemyNameTextView.setOnClickListener(v -> {
-            removableViewId = v.getId();
-            gameFieldPresenter.attackEnemy(enemy, slotIndex);
-            render();
-            showNearbyEnemies();
-        });
-        enemiesListLayout.addView(enemyNameTextView);
-    }
-
     public void removeEnemyTextView() {
         enemiesListLayout.removeView(enemiesListLayout.findViewById(removableViewId));
     }
-
-    private void removeEnemyTextViews() {
-        enemiesListLayout.removeAllViews();
-    }
-
     private void setTextColor(TextView textView, int color) {
         Resources resources = getContext().getResources();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -282,28 +214,9 @@ public class GameFieldViewImpl implements GameFieldView {
         }
         parentGameLogLayout.setVisibility(View.VISIBLE);
     }
-
-    private void showNearbyEnemies() {
-        nearbyEnemiesLayout.removeAllViews();
-        ArrayList<Enemy> nearbyEnemies = gameFieldPresenter.getNearbyEnemies();
-        if (nearbyEnemies.isEmpty()) {
-            return;
-        }
-        showNearbyEnemiesTextView();
-        for (Enemy enemy: nearbyEnemies) {
-            showNearbyEnemy(enemy);
-        }
-    }
     private void showNearbyEnemiesTextView() {
         TextView textView = new TextView(getContext());
         textView.setText(getContext().getString(R.string.nearby_enemies));
-        setTextColor(textView, R.color.text_color);
-        textView.setId(View.generateViewId());
-        nearbyEnemiesLayout.addView(textView);
-    }
-    private void showNearbyEnemy(Enemy enemy) {
-        TextView textView = new TextView(getContext());
-        textView.setText(enemy.getName());
         setTextColor(textView, R.color.text_color);
         textView.setId(View.generateViewId());
         nearbyEnemiesLayout.addView(textView);

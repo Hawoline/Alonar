@@ -1,24 +1,19 @@
 package ru.hawoline.alonar;
 
+import java.util.ArrayList;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import ru.hawoline.alonar.model.personage.DamageSlot;
 import ru.hawoline.alonar.model.personage.Personage;
 import ru.hawoline.alonar.model.personage.PersonageFactory;
 import ru.hawoline.alonar.model.personage.effect.Effect;
-import ru.hawoline.alonar.model.personage.enemy.Enemy;
 import ru.hawoline.alonar.model.personage.heroclass.HeroClass;
 import ru.hawoline.alonar.model.personage.item.Quality;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.equipment.clothing.Clothing;
 import ru.hawoline.alonar.model.personage.specification.attribute.AttributeName;
 import ru.hawoline.alonar.model.personage.specification.attribute.PersonageAttribute;
-import ru.hawoline.alonar.model.personage.spell.DamageSpell;
-import ru.hawoline.alonar.model.personage.usecase.DamageComputationUseCase;
 import ru.hawoline.alonar.util.Pair;
-
-import java.util.ArrayList;
 
 public class PersonageUnitTest {
     private Personage hero;
@@ -26,31 +21,6 @@ public class PersonageUnitTest {
     @Before
     public void initTestVariables() {
         hero = PersonageFactory.createPersonage(HeroClass.MAGE);
-    }
-
-    @Test
-    public void testMagicAttackUseCase() {
-        Personage enemy = Enemy.createEnemy("Rat");
-
-        TestCase.assertEquals(1600, hero.getMp());
-        int damage = ((DamageSpell) hero.getDamageSlots().get(1)).calculateDamage();
-        TestCase.assertTrue(damage < 237 && damage > 196);
-
-        DamageComputationUseCase.compute(hero, enemy, 1);
-        TestCase.assertTrue(enemy.getHealth() < 1000 - 196 && enemy.getHealth() > 1000 - 237);
-        TestCase.assertEquals(1550, hero.getMp());
-    }
-
-    @Test
-    public void testWeaponAttackUseCase() {
-        Enemy enemy = Enemy.createEnemy("Rat");
-
-        TestCase.assertEquals(1000, enemy.getHealth());
-        DamageComputationUseCase.compute(hero, enemy, 0);
-        TestCase.assertEquals(997, enemy.getHealth());
-        TestCase.assertEquals(1600, hero.getMp());
-
-        TestCase.assertEquals(3, ((DamageSlot) hero.getDamageSlots().get(0)).getDamage());
     }
 
     @Test

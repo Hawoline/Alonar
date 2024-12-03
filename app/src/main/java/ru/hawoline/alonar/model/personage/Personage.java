@@ -20,7 +20,6 @@ public abstract class Personage {
     private HashMap<AttributeName, PersonageAttribute> attributes;
     private HashMap<Body, Equipment> equipment;
     private Inventory inventory;
-    private ArrayList<DamageSlot> slots;
     private int experience;
     private int armor; // In percent. Max is 80%
 
@@ -130,13 +129,5 @@ public abstract class Personage {
 
     public void throwAwayItem(Item item) {
         item.getState().onThrowAway(inventory);
-    }
-
-    public ArrayList<DamageSlot> getDamageSlots() {
-        return slots;
-    }
-
-    public void setSlots(ArrayList<DamageSlot> slots) {
-        this.slots = slots;
     }
 }

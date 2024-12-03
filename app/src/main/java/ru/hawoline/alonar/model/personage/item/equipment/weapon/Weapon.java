@@ -1,13 +1,12 @@
 package ru.hawoline.alonar.model.personage.item.equipment.weapon;
 
 import ru.hawoline.alonar.model.Range;
-import ru.hawoline.alonar.model.personage.DamageSlot;
 import ru.hawoline.alonar.model.personage.item.equipment.Body;
 import ru.hawoline.alonar.model.personage.item.equipment.Equipment;
 import ru.hawoline.alonar.model.personage.item.Quality;
 import ru.hawoline.alonar.util.Pair;
 
-public class Weapon extends Equipment implements DamageSlot {
+public class Weapon extends Equipment {
     private int distance;
     private Range damageRange;
     private int restoreTime;
@@ -24,16 +23,6 @@ public class Weapon extends Equipment implements DamageSlot {
         this.requiredTwoArms = requiredTwoArms;
     }
 
-    @Override
-    public int getDistance() {
-        return distance;
-    }
-
-    @Override
-    public int getRequiredMana() {
-        return 0;
-    }
-
     public void setDistance(int distance) {
         this.distance = distance;
     }
@@ -44,11 +33,6 @@ public class Weapon extends Equipment implements DamageSlot {
 
     public void setDamageRange(Range damageRange) {
         this.damageRange = damageRange;
-    }
-
-    @Override
-    public int getDamage() {
-        return (int) (Math.random() * (damageRange.getHigh() - damageRange.getLow()) + damageRange.getLow());
     }
 
     public int getRestoreTime() {
