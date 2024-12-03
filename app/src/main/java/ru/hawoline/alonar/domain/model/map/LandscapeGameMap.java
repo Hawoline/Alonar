@@ -1,10 +1,10 @@
 package ru.hawoline.alonar.domain.model.map;
 
-public class LandscapeMap extends Map {
+public class LandscapeGameMap extends GameMap {
     public static final int GRASS = 0;
     public static int MOUNTAIN = 1;
 
-    public LandscapeMap(int size) {
+    public LandscapeGameMap(int size) {
         super(size);
 
         for (int i = 0; i < size; i++) {

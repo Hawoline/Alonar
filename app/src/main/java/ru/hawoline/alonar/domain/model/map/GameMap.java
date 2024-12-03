@@ -1,10 +1,10 @@
 package ru.hawoline.alonar.domain.model.map;
 
-public abstract class Map {
+public abstract class GameMap {
     protected int[][] map;
     protected int size;
 
-    public Map(int size) {
+    public GameMap(int size) {
         this.size = size;
         map = new int[size][size];
     }

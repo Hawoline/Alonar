@@ -2,6 +2,8 @@ package ru.hawoline.alonar.view;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,10 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.core.content.res.ResourcesCompat;
 import ru.hawoline.alonar.R;
 import ru.hawoline.alonar.domain.model.gamelog.GameLog;
-import ru.hawoline.alonar.domain.model.map.LandscapeMap;
+import ru.hawoline.alonar.domain.model.map.LandscapeGameMap;
 import ru.hawoline.alonar.domain.model.personage.Location;
 import ru.hawoline.alonar.domain.model.personage.Personage;
 import ru.hawoline.alonar.presenter.GameFieldPresenter;
@@ -47,6 +50,18 @@ public class GameFieldViewImpl implements GameFieldView {
         initViews();
         setOnClickListeners();
         render();
+    }
+
+    @Override public void drawAnotherPersonage(int x, int y) {
+        int[][] map = gameFieldPresenter.getGameMap();
+        Resources resources = getContext().getResources();
+        Drawable[] layers = new Drawable[2];
+        layers[0] = ResourcesCompat.getDrawable(resources,
+            getLandscapeDrawableId(map[y + gameFieldPresenter.getPersonageLocation().getY() - 2][x + gameFieldPresenter.getPersonageLocation().getX() - 2]), null);
+        layers[1] = ResourcesCompat.getDrawable(resources, R.drawable.hero_back, null);
+        LayerDrawable layerDrawable = new LayerDrawable(layers);
+        mapImageViews[y]
+            [x].setImageDrawable(layerDrawable);
     }
 
     @Override
@@ -146,7 +161,7 @@ public class GameFieldViewImpl implements GameFieldView {
             i++;
         }
 
-        drawPersonage(personageLocation);
+        drawPersonage(personageLocation.getDirection());
     }
 
     private void showVitalityValues() {
@@ -157,14 +172,13 @@ public class GameFieldViewImpl implements GameFieldView {
 
     private int getLandscapeDrawableId(int landscapeType) {
         int drawableId = R.drawable.mountains;
-        if (landscapeType == LandscapeMap.GRASS) {
+        if (landscapeType == LandscapeGameMap.GRASS) {
             drawableId = R.drawable.green;
         }
         return drawableId;
     }
 
-    private void drawPersonage(Location personageLocation) {
-        int direction = personageLocation.getDirection();
+    private void drawPersonage(int direction) {
         if (direction == Location.DIRECTION_BACK) {
             heroImageView.setImageResource(R.drawable.hero_back);
         } else if (direction == Location.DIRECTION_FORWARD) {

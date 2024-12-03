@@ -4,6 +4,9 @@ public class PlayerPositionEntity {
   private int x;
   private int y;
 
+  public PlayerPositionEntity() {
+  }
+
   public PlayerPositionEntity(int x, int y) {
     this.x = x;
     this.y = y;

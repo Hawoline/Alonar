@@ -17,4 +17,6 @@ public interface GameFieldView extends BaseView {
     GameFieldPresenter getGameFieldPresenter();
 
     void inflateLayout(Context context, LayoutInflater layoutInflater, FrameLayout root);
+
+  void drawAnotherPersonage(int x, int y);
 }
